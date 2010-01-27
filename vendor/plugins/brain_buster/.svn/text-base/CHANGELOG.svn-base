@@ -1,0 +1,30 @@
+BrainBuster changelog
+=====================
+
+0.7.2
+* add a default salt to make setup easier
+* add info on the salt to readme
+* rename BrainBusterFilters to BrainBusterSystem, since it has more then just filters in it
+* more test cleanup
+
+0.7
+* move code to google code hosting, so that there is actual infrastructure in place besides a page on my blog
+* add the MIT license -- this was always the license, just forgot to include the file
+* add mocha and test/spec as requirements for the test suite
+* update old tests to use test/spec and stub out AR, so we don't need a database
+* major functionality overhaul, using fine grained filters (in BrainBustersSystem) instead of a method you need to call from w/i your controller
+* add a new salting of the cookie values, set via @controller.brain_buster_salt= or ApplicationController.brain_buster_salt=.
+* moved config options to be class level methods (using class variables) in ActionController
+* add a big warning that the next release will remove the "BrainBustersMixin" and "BrainBustersFilter" 
+    - you should convert to using the fine grained filters if you want keep up with the latest version
+    - see the readme for more details
+
+0.6 (not official released)
+* change naming to follow 1.2 -> ie "BrainBusterMixin" became "BrainBustersHelper"
+* seperate out the filter
+* seperate out the captcha credit into _captcha_footer partial
+* move partials to a views folder, it makes more sense
+* tweak css
+
+0.5
+* first public release

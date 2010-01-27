@@ -1,0 +1,16 @@
+<li><div class="comment_header">
+	 
+<%= link_to comment.user.full_name, :controller => 'users',  :action => 'dude', :id => comment.user.id %>
+<font color="gray">&nbsp;|&nbsp;<%= comment.created_at.rus_date %> </font>
+<span class="comment_link"><%= link_to "#"+(comment_counter + 1).to_s, {},:class => "without_comment_image", :name => "comment_#{comment.id}"%></span>
+<% if current_user.id == comment.user.id %>
+<div style="display: none;"><%= link_to_remote( "Править", :update => 'comments',:url => { :action => "edit_comment", :c_id=> comment.id, :id => @post.id })%>
+<%= link_to( "Удалить",{ :controller => "comments",:action => "destroy", :id => comment.id },
+					:confirm => "Вы уверены?") 	%></div>
+<% end %>
+<div class="comment_content"><%= h(comment.content) %></div>
+</li>
+
+
+	
+ 

@@ -1,0 +1,5 @@
+if params[:view] =='show'   
+ page.replace_html :add_file, :partial => "attachefile"
+elsif params[:view] =='hide' 
+ page.replace_html :add_file, ""
+end #end if

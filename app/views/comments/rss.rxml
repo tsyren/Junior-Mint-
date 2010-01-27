@@ -1,0 +1,19 @@
+xml.instruct! :xml, :version=>"1.0" 
+xml.rss(:version=>"2.0") do
+  xml.channel do
+    xml.title("My NSU | Комментарии к записи")
+    xml.link(RAILS_URL)
+    xml.description("Комментарии к записи")
+    xml.language("ru-ru")
+    for comment in @comments
+      xml.item do
+        xml.title(comment.content[1..30])
+        xml.description(comment.content)
+        # rfc822
+        xml.pubDate(comment.created_at.rfc2822)
+      xml.link(RAILS_URL + "/posts/show/52#comment_#{comment.id}")
+      xml.guid("http://www.yourDomain.com/linkToYourPost")
+      end
+    end
+  end
+end

@@ -1,0 +1,25 @@
+Регистрационные вопросы в сообщество:<br /><br />
+
+<%= error_messages_for 'answer' %>
+
+<%- form_for :answer, :url => {:action => "will_join",:id => @community.id} do |f|%>	
+<%- @community.questions.each_with_index do |question,index|-%>
+    <p>Вопрос №<%= (index.to_i + 1).to_s %> &nbsp; <%= question.question %><br/>
+	<div id="answer_<%= index %>">
+	<% fields_for "answer[#{index}]" do |form| %>
+		<p>
+		<%= form.text_area :answer,:size => '25x7' %><br/>
+		<%= form.hidden_field :question_id,:value => question.id %>
+		<%= form.hidden_field :user_id,:value => current_user.id %>
+		</p>
+	<% end %>
+	</div></p>
+	
+<% end %>
+<%= submit_tag "вступить"%><br />
+<small>жмите Вступить, если вы ответили на все вопросы</small>
+<%- end -%>
+
+
+
+ 

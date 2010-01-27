@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+  <title><%= @project_name ||= 'My NSU '%> <%= " | Главная" || ' | ' + @sub_title %></title>
+  <%= stylesheet_link_tag 'main' %>
+  <%# stylesheet_link_tag 'captcha' %>
+  <%= javascript_include_tag "all" -%>
+</head>
+<body>
+<div id="wrapper"> 
+
+				
+		<!-- Begin Left Column -->
+		<div style="width: 300px; margin: 50px auto">
+			
+			<% if flash[:notice] or  flash[:error] or flash[:alert] %>
+				<div class="notice"  <% if flash[:error] %>class="error"<% else %> id="notice" <% end %>>
+				<p align="center"><%=  flash[:notice] || flash[:error] || flash[:alert] %></p>
+				</div>
+				<script type="text/javascript">
+				setTimeout("new Effect.Fade('notice');", 10000)
+				</script>
+			<% end %>
+			
+			<%= yield :leftcolumn %>	
+			
+			
+			<%= @content_for_layout -%>
+			
+   			<div class="clear"></div>
+		   
+		</div>
+		<!-- End Left Column -->
+		 
+		<!-- Begin Right Column -->
+		<div id="rightcolumn">
+		   
+		   <%= yield :rightcolumn %>
+  		   	      
+		  <div class="clear"></div>
+		  
+		</div>
+		<!-- End Right Column -->
+			   
+		
+</div>
+</body>
+</html>

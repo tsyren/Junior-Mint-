@@ -1,0 +1,21 @@
+<% @link_title = [] 
+   newlink(@link_title,link_to("Сообщества",allcom_url),1)
+   newlink(@link_title,link_to("Новое Сообщество"),0) %>
+   
+<%= error_messages_for 'community', 'tags' %>
+
+<!--[form:community]-->
+<% form_for :community, :url => { :action => 'create', :id => current_user.id } do |f| %>
+
+<table class="form">
+  <%= render :partial => 'form', :locals => {:f => f} %>
+<tr>
+	<td></td>
+	<td><%= submit_tag " Создать Сообщество " %></td>
+</tr>
+</table>
+
+<% end %>
+<!--[eoform:community]-->
+
+

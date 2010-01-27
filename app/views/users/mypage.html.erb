@@ -1,0 +1,113 @@
+<% @link_title = [] 
+   @subtitle = "Главная"
+   newlink(@link_title,@subtitle,1)
+   
+ -%>
+<% content_for :left_column_style  do %>
+  
+  style ="width: 550px"
+
+<% end %>
+<% content_for :right_column_style  do %>
+  style="width: 300px"
+
+<% end %> 
+<% content_for :head do %>
+
+	<%= auto_discovery_link_tag %>
+	
+<% end %>
+
+<% content_for :title_right do %>
+
+   
+     <%= link_to 'Новая запись',{:controller => 'posts', :action => "new"},:class => "home new_post" %>
+	 	
+
+<% end %>
+
+<% content_for :leftcolumn do %>
+
+    <% content_for :title do %>
+	
+	
+	 <%= link_to ' Дневник |', mynotes_url %>
+	   
+	 <%# link_to_remote ' Лента новостей |', :url => mypage_url(:view => 'everything'),:loading => "$('ajax-loader-green').show(  );$('list_news').hide();",:complete => "$('ajax-loader-green').hide(  );$('list_news').show(  );" %>
+     <%= link_to ' Лента новостей |', mypage_url(:view => 'everything') %>
+	
+	 <%# link_to_remote ' Записи друзей |',:url => mypage_url(:view => 'friends'),:loading => "$('ajax-loader-green').show(  );$('list_news').hide();",:complete => "$('ajax-loader-green').hide(  );$('list_news').show(  );"  %>
+     <%= link_to ' Записи друзей |', mypage_url(:view => 'friends') %>
+
+	 <%# link_to_remote  ' Записи в сообществах |',:url => mypage_url(:view => 'communities'),:loading => "$('ajax-loader-green').show(  );$('list_news').hide();",:complete => "$('ajax-loader-green').hide(  );$('list_news').show(  );"  %>
+	 <%= link_to ' Записи в сообществах |',mypage_url(:view => 'communities') %>
+
+	 <%# link_to_remote  ' События', :url => mypage_url(:view => 'events'),:loading => "$('ajax-loader-green').show(  );$('list_news').hide();",:complete => "$('ajax-loader-green').hide();$('list_news').show(  );"  %>
+	 <%= link_to ' События', mypage_url(:view => 'events') %>
+	
+	 <% end %>
+	 <% unless @posts.nil? or @posts.empty? %>
+	 <ul class="list">
+	   <!--<div id="ajax-loader-green" style="display:none; margin-top: 50px;">	
+	   <p align="center"><%= image_tag "ajax-loader-green.gif" %>	</p>
+	   </div>-->
+	  <div  id="list_news">
+	  	<%= render  :partial => 'news', :collection => @posts %>
+	  </div>
+	  	
+	  <div id="pagination">	
+	 
+	 	 <%= will_paginate @posts, :page_links => false %>
+
+	  </div>
+	 
+	  </ul>
+	  <% else %>
+		Пусто, так как никто ничего не писал.		
+	  <% end %>	
+<% end %>
+
+<% content_for :rightcolumn do %>
+
+
+<div  class="block">
+
+	<div class="roundedcornr_box_901833">
+		<div class="roundedcornr_top_901833"><div></div></div>
+			<div class="roundedcornr_content_901833">
+        <p class="title">Самые обсуждаемые&nbsp;&darr;</p>
+	
+    <p>
+	<%- for post in @most_discuss[0...5] -%>
+    <p class="block item">
+    	<%  if post.community_id != 0  %>
+		
+		<% community = Community.find post.community_id%>
+		
+    	<%= link_to( community.title, {:controller => :communities,:action => 'show', :id => post.community_id}, :id => "from_link" ) %>
+		
+		<% else %>
+		
+		<%= link_to("Личный блог", {:controller => :users,:action => :blog, :id => post.user_id}, :id => "from_link") %>
+		
+		<% end %>
+		&nbsp;&raquo&nbsp;
+		
+		<%= link_to( post.title, {:controller=> "posts",:action => 'show', :id => post.id}, :id => "post_link" ) %>
+		
+	</p>
+	<%- end -%>
+	</p>
+		
+		
+        </div>
+     <div class="roundedcornr_bottom_901833"><div></div></div>
+	</div>
+	
+	
+	
+</div>
+
+
+<% end %>
+

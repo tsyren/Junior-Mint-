@@ -1,0 +1,18 @@
+<div class="post_title">
+<%= highlight(link_to(result.title, :controller => 'posts', 
+						:action => 'show',
+					    :id => result.id),params[:query]) %>
+</div>					    
+
+<div  class="post_about">
+  
+    <b><%= result.user.full_name %></b> в
+	<%= link_to "&quot;Дневник&quot;", :action => :blog, :id => result.user_id if result.community_id == 0 %>
+        <% @com = Community.find result.community_id  unless result.community_id == 0   %>
+	<%= link_to( "&quot;"+@com.title + "&quot;", :controller => :communities,
+		       :action => :show, :id => result.community_id  ) unless result.community_id == 0  %>
+        &nbsp;|&nbsp; <%= result.created_at.rus_date %>					
+</div>
+
+<div class="post_desc"><%= highlight(result.formatted_content,params[:query]) %></div>
+

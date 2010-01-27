@@ -1,0 +1,91 @@
+<%- @link_title = []
+    newlink(@link_title,"Поиск",1) %>
+	
+<% unless params[:query].blank?-%>
+  <% content_for :title do %>
+  	<%= findtype_rus(params[:findtype].to_s) %>
+  <% end %>
+
+<% content_for :title_right do %>  
+<% form_tag( {:action => :index}, :method => :get ) do %>
+
+<b>Поиск в найденом </b> <%= text_field_tag :query, params[:query]  %>
+    <%# check_box_tag :in_results %>
+    <%= hidden_field :findtype, params[:findtype] %>
+    <%# submit_tag "начать поиск", :disabled_with => "searching start ... " %>
+<% end %>
+<% end %>
+<% unless params[:findtype] == 'interes' %>  
+  <p>Мы нашли <%= @results.size.rus_items('результат','результата','результатов')%> по запросу <em>"<%=h params[:query] %>"</em></p><br/>
+
+  <ul class="list">
+<% for result in @results -%>	
+ 
+  <% if params[:findtype] == 'blog' %>
+     <li class="item">
+     	 <%= render :partial => "lists/list_posts", :locals => {:result => result} %>
+	 </li>
+  <% end %>
+   
+  <% if params[:findtype] == 'human' %>
+    <li class="item">
+		<%= render :partial => "lists/list_of_peoples", :locals => {:result => result} %>
+	</li>
+  <%- end -%>
+  
+  <% if params[:findtype] == 'community' %>
+     <li class="item">
+	 <%= render :partial => "lists/list_of_communities_with_options", :locals => {:result => result} %>	
+	 </li>
+  <%- end -%>
+  
+  <% if params[:findtype] == 'tag' %>
+    <li class="item">
+	<%= link_to result.title, 
+				:controller => 'posts',
+				:action => 'show',
+				:id => result.id, 
+				:com_id => result.community_id %>
+	</li>
+  <%- end -%>
+<%- end -%>
+<% else %>
+  
+  	 Сообщества с интерсом <em>"<%=h @search %>"</em><br/><br/>
+	 <% unless @results_communities.empty? %> 
+	 
+	  <ul class="list">
+	  <%- for result in @results_communities -%>
+	   <li class="item">
+	   <%= render :partial => "lists/list_of_communities_with_options", 
+				  :locals => {:result => result} %>		
+	   </li>
+	  <%- end -%>
+	  </ul>
+	 <% else %> 
+	   Пусто
+	 <% end %>
+     <br/>
+	 <br/>
+	  Пользователи с интерсом <em>"<%=h @search %>"</em><br/><br/>
+     <%- unless @results_users.empty? -%> 
+	 
+	  <ul class="list">
+	  <%- for result in @results_users -%>
+	  
+	  <li class="item">
+	  <%= render :partial => "lists/list_of_peoples", :locals => {:result => result} %>		
+	  </li>
+		
+	  <%- end -%>
+	  </ul>
+	 <% else %> 
+	   Пусто
+	 <%- end -%>
+  <% end %>
+  
+  </ul>
+<% else %>
+   Поле запроса пустое! 
+<% end -%>
+

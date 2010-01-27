@@ -1,0 +1,90 @@
+
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!--
+
+    Methods
+
+  -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Methods</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="rdoc-style.css" type="text/css" />
+  <base target="docwin" />
+</head>
+<body>
+<div id="index">
+  <h1 class="section-bar">Methods</h1>
+  <div id="index-entries">
+    <a href="classes/RestfulCaptcha/Captcha.html#M000048">== (RestfulCaptcha::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Captcha.html#M000056">== (RestfulCaptcha::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Captcha.html#M000046">[] (RestfulCaptcha::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Captcha.html#M000054">[] (RestfulCaptcha::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Captcha.html#M000055">[]= (RestfulCaptcha::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Captcha.html#M000047">[]= (RestfulCaptcha::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000021">answer= (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000033">answer= (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000023">answered_correctly? (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000035">answered_correctly? (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Image.html#M000059">build (RestfulCaptcha::Image)</a><br />
+    <a href="classes/RestfulCaptcha/Image.html#M000057">build (RestfulCaptcha::Image)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/ControllerPlugin.html#M000009">captcha (RestfulCaptcha::Rails::ControllerPlugin)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/ControllerPlugin.html#M000012">captcha (RestfulCaptcha::Rails::ControllerPlugin)</a><br />
+    <a href="classes/ControllerClass.html#M000003">captcha_params (ControllerClass)</a><br />
+    <a href="classes/ControllerClass.html#M000004">captcha_params (ControllerClass)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/ViewPlugin.html#M000008">captcha_tag (RestfulCaptcha::Rails::ViewPlugin)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/ViewPlugin.html#M000007">captcha_tag (RestfulCaptcha::Rails::ViewPlugin)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000036">captcha_url (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000024">captcha_url (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/Enumerable.html#M000063">collect_with_index (Enumerable)</a><br />
+    <a href="classes/Enumerable.html#M000061">collect_with_index (Enumerable)</a><br />
+    <a href="classes/RestfulCaptcha/Captcha.html#M000045">correct_answer? (RestfulCaptcha::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000034">correct_answer? (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000022">correct_answer? (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Captcha.html#M000053">correct_answer? (RestfulCaptcha::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Image.html#M000058">draw_angled_line (RestfulCaptcha::Image)</a><br />
+    <a href="classes/RestfulCaptcha/Image.html#M000060">draw_angled_line (RestfulCaptcha::Image)</a><br />
+    <a href="classes/RestfulCaptcha/Captcha.html#M000042">find (RestfulCaptcha::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Captcha.html#M000050">find (RestfulCaptcha::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000029">find_by_attributes (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000017">find_by_attributes (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000030">find_by_identifier (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000018">find_by_identifier (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000040">host (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000028">host (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000025">host (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000037">host (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000031">host= (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000019">host= (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Captcha.html#M000043">identifier (RestfulCaptcha::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Captcha.html#M000051">identifier (RestfulCaptcha::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Captcha.html#M000052">image (RestfulCaptcha::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Captcha.html#M000044">image (RestfulCaptcha::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000032">image_url (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000020">image_url (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/Enumerable.html#M000062">map_with_index (Enumerable)</a><br />
+    <a href="classes/Enumerable.html#M000064">map_with_index (Enumerable)</a><br />
+    <a href="classes/RestfulCaptcha/Captcha.html#M000049">new (RestfulCaptcha::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Captcha.html#M000041">new (RestfulCaptcha::Captcha)</a><br />
+    <a href="files/pkg/RestfulCaptcha-1_0_0/spec/bin/restful_captcha_spec_rb.html#M000002">reconstructed_captcha (pkg/RestfulCaptcha-1.0.0/spec/bin/restful_captcha_spec.rb)</a><br />
+    <a href="files/spec/bin/restful_captcha_spec_rb.html#M000001">reconstructed_captcha (spec/bin/restful_captcha_spec.rb)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/ControllerPlugin.html#M000013">reset_captcha (RestfulCaptcha::Rails::ControllerPlugin)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/ControllerPlugin.html#M000010">reset_captcha (RestfulCaptcha::Rails::ControllerPlugin)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000027">server_url (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000039">server_url (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000038">server_url (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html#M000026">server_url (RestfulCaptcha::Rails::Captcha)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/ControllerPlugin/ClassMethods.html#M000015">set_captcha_host (RestfulCaptcha::Rails::ControllerPlugin::ClassMethods)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/ControllerPlugin/ClassMethods.html#M000016">set_captcha_host (RestfulCaptcha::Rails::ControllerPlugin::ClassMethods)</a><br />
+    <a href="classes/ActionController/Base.html#M000006">set_captcha_style (ActionController::Base)</a><br />
+    <a href="classes/ActionController/Base.html#M000005">set_captcha_style (ActionController::Base)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/ControllerPlugin.html#M000011">unset_captcha (RestfulCaptcha::Rails::ControllerPlugin)</a><br />
+    <a href="classes/RestfulCaptcha/Rails/ControllerPlugin.html#M000014">unset_captcha (RestfulCaptcha::Rails::ControllerPlugin)</a><br />
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+﻿<h3> Пользователи </h3>
+<% for user in @users %>
+<%= user.full_name %><br/>
+<% end %>
+<hr/>
+<%= pagination_links(@userspages) %>
+<hr/>
+
+

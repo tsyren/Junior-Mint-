@@ -1,0 +1,17 @@
+	<% @up = @user.profile %>  	
+
+    <%= table_helper_profile_list("Образование",@up.education)%>		
+    <%= table_helper_profile_list("Колледж&nbsp;/&nbsp;Университет",@up.university)%>		
+    <%= table_helper_profile_list("Факультет&nbsp;/&nbsp;Направление",@up.department)%>
+	<%= table_helper_profile_list("Кафедра",@up.chair)%>	
+	<%= table_helper_profile_list("Группа",@up.group)%>			
+	<%= table_helper_profile_list("Тема дипломной",@up.subject)%>
+    <%= table_helper_profile_list("Научное руководство",@up.manager)%>		
+	<%= table_helper_profile_list("Участие в мероприятиях",@up.participates)%>
+	<%= table_helper_profile_list("Цели на год",@up.aim_year)%>
+	<%= table_helper_profile_list("Цели на 5 лет",@up.aim_five_year)%>
+	<%= table_helper_profile_list("Работа",@up.work)%>	
+	<%= table_helper_profile_list("Описание работы",@up.desc_work)%>	
+	<%= table_helper_profile_list("Должность",@up.position)%>	
+	<%= table_helper_profile_list("Компьютерные знания",@up.computer_skills)%>
+

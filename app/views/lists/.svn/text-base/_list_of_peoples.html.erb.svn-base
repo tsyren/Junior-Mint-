@@ -1,0 +1,21 @@
+<% userphoto = Datafile.find(:first,:conditions => [" user_id = ? AND model_id = 0 AND avatar=1",result.id]) %>
+<p class="image">
+	<%= view_photo(userphoto,"people")%>
+</p>
+
+<h4><%= link_to result.full_name, :controller => 'users', 
+								  :action => 'dude', 
+								  :id => result.id %></h4>
+<p class="actions">
+	<%= link_to( 'Отправить сообщение', {:controller => 'messages',
+											 :action => 'new', 
+										     :user_id => result.id},								 
+											 :method => :post)%>		
+	<% unless result == current_user || current_user.requested_friends.include?(result) || current_user.friends.include?(result) || current_user.pending_friends.include?(result) %>
+	
+	 &nbsp;|&nbsp;
+		<%= link_to("Добавить в друзья ", {:controller => "friends",
+										   :action => "create",
+										   :user_id => current_user.id,
+										   :friend_id => result.id}, :method => :post) %>	<% end %>
+</p>

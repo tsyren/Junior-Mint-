@@ -1,0 +1,17 @@
+ <% unless @answers.nil? %>
+	<div id="edit_com" class="hover_link">
+	<%= link_to "В мои сообщества", dude_url(:type => params[:type], :id => params[:id], :com => current_user.id )%>
+	</div>	
+ 	<h4>Ответы</h4>
+	
+	<% for answer in @answers %>
+	  <% com = Community.find answer.question.community_id %>
+  
+	   <p><b>Вопрос</b>: <%= answer.question.question %> <br />
+	   <b>Ответ</b>: <%= answer.answer %> <br />
+	   <b>Куда</b>: <%= link_to  com.title, {:controller => :communities,:action => :show,:id=> com.id},:class => 'com_title' %></p>
+	   
+	<% end %>
+ <% else %>	
+    <p align="center">Без ответов</p>
+ <% end %>

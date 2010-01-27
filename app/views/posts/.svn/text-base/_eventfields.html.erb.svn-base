@@ -1,0 +1,30 @@
+<div class="event">
+	<tr>
+	<td>Период</td>
+	<td id="event_time">
+		
+	<table>
+	  <tr>    
+		<td><label for="event_started_on">Начало </label></td>
+	        <td><%= datetime_select :event, :started_on %></td>
+	 </tr>	
+	  <tr>
+		<td><label for="event_finished_on">Завершение </label></td>
+		<td><%= datetime_select :event, :finished_on %></td> 
+	  </tr>	
+
+	</td>
+	</tr>
+	</table>
+	<tr>
+		
+    <td><label for="event_place">Место</label></td>
+	
+	<td><%= text_field :event, :place, :size => 65 %></td>		
+	
+	</tr>
+	
+   <input type="hidden" id="event_user_id" name="event[user_id]" value="<%= current_user.id %>" />
+</div>
+
+

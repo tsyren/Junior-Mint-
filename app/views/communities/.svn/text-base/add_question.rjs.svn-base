@@ -1,0 +1,2 @@
+page.insert_html :bottom, :questions, :partial => 'regis_questions', :locals => { :q => @question, :index=> params[:index] }
+page.replace :add_question_link, :partial => 'add_question_link', :locals => { :index => (params[:index].to_i + 1) }

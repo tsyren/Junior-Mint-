@@ -1,0 +1,24 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>Page not found</title>
+	</head>
+	<body>
+			
+		<p style="margin-bottom: 20px">The page you were looking for appears to
+			have been moved, deleted or does not exist.</p>
+		<ul>
+			<li>If you arrived here via an out-of-date bookmark/favourite; please update your bookmarks.</li>
+			<li>If you typed the address (URL) yourself; please check you have spelt it correctly.</li>
+			<li>If you followed a link here; please <%=  mail_to "nsu1team@gmail.com", "contact with us", :encode => "hex" %>and the link will be fixed.</li>
+			<li>Try returning to the home page and finding the page you were looking for.</li>
+		</ul>
+		<p>Sorry for your inconvenience</p>
+Go to <%= link_to 'main page', home_url%>		
+
+
+
+
+	</body>
+</html>

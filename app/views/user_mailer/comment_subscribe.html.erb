@@ -1,0 +1,15 @@
+Доброго время суток, <%= @user.full_name.capitalize %>!<br/><br/>
+
+Новый комментарий в теме <%= @comment.post.title%><br/><br/>
+
+<%= @comment.user.full_name %> пишет: <br/><br/>
+<p style="margin-left:50px;">
+
+<%= @comment.content %>
+
+_</p>
+Чтобы ответить на комметарий пройдите по ссылке <%= @url %>.<br/><br/>
+
+Это письмо пришло вам, так как вы подписанны на рассылку новых комментариев.<br/><br/>
+
+<%= @best_regards %>

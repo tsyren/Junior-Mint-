@@ -1,0 +1,90 @@
+<% @link_title = []
+ 
+  newlink(@link_title,link_to_unless_current(@user.full_name,:controller => 'users',:action =>'dude',:id => @user.id),1)
+
+ %>
+
+<% content_for :title do %>
+
+		<%= link_to_unless_current "О себе | ", :action =>'dude',:id => @user.id,:type => "social"%>
+			
+	 	
+		<%= link_to_unless_current "Контакты | ", :action =>'dude',:id => @user.id,:type => "contacts" %>
+		
+
+		<%= link_to_unless_current "Карьера | ", :action =>'dude',:id => @user.id,:type => "career" %>
+		
+		<%= link_to_unless_current "Друзья | ", :action =>'dude',:id => @user.id,:type => "friends" %>
+		
+		<%= link_to_unless_current "Сообщества |", :action =>'dude',:id => @user.id,:type => "communities" %>
+		
+		<%= link_to_unless_current "Ответы", :action =>'dude',:id => @user.id,:type => "answers" %>
+		
+			
+<% end %>
+
+ <% content_for :title_right do %>
+    
+	<%= link_to 'Читать дневник |', :controller => 'users', :action => 'blog', :id => @user.id %>
+    
+	<%= link_to( ' Отправить сообщение', :controller => 'messages',:action => 'new', :user_id => @user)%>
+	
+<% end %>
+
+<% content_for :rightcolumn do %>
+	
+	<% unless @user == current_user || current_user.requested_friends.include?(@user) || current_user.friends.include?(@user) || current_user.pending_friends.include?(@user) %>
+
+	
+		<%= link_to("Добавить в друзья ", {:controller => "friends",:action => "create",:user_id => current_user.id, :friend_id => @user.id}, :method => :post) %>
+	
+	
+	<% end %>
+
+<% end %>
+
+<% content_for :leftcolumn do %>
+<div class="options_com">
+	
+	 	<% if params[:type] == "social" or params[:type] == nil %>	
+			<div class="box_left">
+			<h4>Фото</h4>
+			<%= view_photo(@userphoto,"people")%>
+				
+		
+		    </div>
+				   
+			 <div class="box_right">  
+			 	<table cellspacing="10px" cellpadding="10px">
+			 	<%= render :partial => "profile_social" %>
+		 		<%= render :partial => "profile_interests"%>
+				</table>
+			 </div>
+		 <% else %>
+		 
+		 	
+		        <table cellspacing="10px" cellpadding="10px">
+		        	
+		 		<%= render :partial => "profile_personal" if params[:type] == "contacts" %>
+		 		<%= render :partial => "profile_profes" if params[:type] == "career" %>
+				<%= render :partial => "profile_options" if params[:type] == "options"%>
+				
+				</table>
+				<%= render :partial => "dude_friends" if params[:type] == "friends"%>
+				<%= render :partial => "dude_communities" if params[:type] == "communities"%>
+				<%= render :partial => "answers" if params[:type] == "answers"%>
+				
+				
+			
+		
+		 <% end %>
+	 
+ </div>
+
+<% end  %>
+
+
+
+
+
+

@@ -1,0 +1,17 @@
+<%-  @link_title = []
+    newlink(link_title, "События",1)
+-%>
+
+<%= render :partial => 'events/menu' %>
+<% content_for :leftcolumn do %>
+<ul class="list">
+   <%   unless @events.empty? %>	
+		<%= render :partial => 'events/event', :collection => @events %>
+   		<%= will_paginate @events %>
+   <% else %>
+  		<p align="center">Тут пусто. Создайте новое событие, пригласите друзей и знакомых.</p>
+   <% end %>
+</ul>
+ <% end %>
+
+

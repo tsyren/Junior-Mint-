@@ -1,0 +1,24 @@
+<%- @link_title = [] 
+   newlink(@link_title,link_to(@community.title,:controller => "communities",:action => 'show', :name => namegsub(@community.title),:id => params[:id]),1)
+   newlink(@link_title,"Канал новостей",0)
+ -%>
+ <div style="font-size: 12px; line-height: 20px;"> 
+<% for feed in @feeds %> 
+<%= link_to feed.name, :action => :reader, :id => params[:id],:rss => feed.id %> | <%= link_to "edit", :action => :edit, :id => feed.id %><br>
+<% end %>
+
+<div id="feed_div">
+<% if params[:rss] %>
+<% @lenta.each do |item| -%>  
+		<div style="border: 1px solid #387AB3; margin: 20px 0; padding: 10px; font-size: 12px"> 
+        <%= textilize( Iconv.iconv("utf-8",@feed.encoding, item.title ).join).to_s  %><br/>   
+        <%= textilize(Iconv.iconv("utf-8",@feed.encoding, item.description ).join).to_s %><br/>
+        <%= textilize(Iconv.iconv("utf-8",@feed.encoding, item.author  ).join).to_s%><br/>
+        <%= item.pubdate %><br/>
+        <%=link_to('Читать',item.link, :popup => true) %><br/>
+		</div>
+<% end -%>
+<% end %>
+</div>
+
+

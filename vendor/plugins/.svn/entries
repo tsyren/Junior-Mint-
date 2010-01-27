@@ -1,0 +1,118 @@
+10
+
+dir
+1200
+svn://i-lab.nsu.ru/social_network/trunk/vendor/plugins
+svn://i-lab.nsu.ru/social_network
+
+
+
+2009-03-27T12:55:37.219921Z
+1040
+ochirov
+has-props
+
+
+svn:externals
+
+
+
+
+
+
+
+
+
+
+c2d4e476-504d-8747-8502-89561820f03d
+
+will_paginate
+dir
+
+validates_email_format_of
+dir
+
+paperclip
+dir
+
+brain_buster
+dir
+
+attachment_fu
+dir
+
+feed-normalizer
+dir
+
+acts_as_bookmarkable
+dir
+
+acts_as_searchable
+dir
+
+spawn
+dir
+
+friendly_id
+dir
+
+action_mailer_tls
+dir
+
+active_record_extensions
+dir
+
+recaptcha
+dir
+
+acts_as_archivable
+dir
+
+ajax_validation
+dir
+
+hoptoad_notifier
+dir
+
+acts_as_voteable
+dir
+
+enum-column
+dir
+
+auto_complete
+dir
+
+сustom-err-msg
+dir
+
+calendar_date_select
+dir
+
+restful_captcha
+dir
+
+password_generator
+dir
+
+background_fu
+dir
+
+fckeditor
+dir
+
+acts_as_taggable_on_steroids
+dir
+
+open_id_authentication
+dir
+
+in_place_editing
+dir
+
+rails-widgets
+dir
+
+simple_search
+dir
+

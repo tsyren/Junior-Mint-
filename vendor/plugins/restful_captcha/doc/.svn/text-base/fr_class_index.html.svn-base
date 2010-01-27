@@ -1,0 +1,44 @@
+
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!--
+
+    Classes
+
+  -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Classes</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="rdoc-style.css" type="text/css" />
+  <base target="docwin" />
+</head>
+<body>
+<div id="index">
+  <h1 class="section-bar">Classes</h1>
+  <div id="index-entries">
+    <a href="classes/ActionController.html">ActionController</a><br />
+    <a href="classes/ActionController/Base.html">ActionController::Base</a><br />
+    <a href="classes/ActionView.html">ActionView</a><br />
+    <a href="classes/ActionView/Base.html">ActionView::Base</a><br />
+    <a href="classes/ControllerClass.html">ControllerClass</a><br />
+    <a href="classes/Enumerable.html">Enumerable</a><br />
+    <a href="classes/RestfulCaptcha.html">RestfulCaptcha</a><br />
+    <a href="classes/RestfulCaptcha/Captcha.html">RestfulCaptcha::Captcha</a><br />
+    <a href="classes/RestfulCaptcha/Image.html">RestfulCaptcha::Image</a><br />
+    <a href="classes/RestfulCaptcha/Rails.html">RestfulCaptcha::Rails</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha.html">RestfulCaptcha::Rails::Captcha</a><br />
+    <a href="classes/RestfulCaptcha/Rails/Captcha/ServerError.html">RestfulCaptcha::Rails::Captcha::ServerError</a><br />
+    <a href="classes/RestfulCaptcha/Rails/ControllerPlugin.html">RestfulCaptcha::Rails::ControllerPlugin</a><br />
+    <a href="classes/RestfulCaptcha/Rails/ControllerPlugin/ClassMethods.html">RestfulCaptcha::Rails::ControllerPlugin::ClassMethods</a><br />
+    <a href="classes/RestfulCaptcha/Rails/ViewPlugin.html">RestfulCaptcha::Rails::ViewPlugin</a><br />
+    <a href="classes/SomeClass.html">SomeClass</a><br />
+    <a href="classes/SubControllerClass.html">SubControllerClass</a><br />
+    <a href="classes/ViewClass.html">ViewClass</a><br />
+  </div>
+</div>
+</body>
+</html>

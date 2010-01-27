@@ -1,0 +1,9 @@
+<% @link_title = []
+   newlink(link_title, "Редиактирование RSS",0) %>
+<%= error_messages_for "feed" %>
+<% form_tag :action => 'update',:id=> params[:id] do -%>
+
+  <%= render :partial => "form"%>
+ 
+<%= submit_tag "Обновить", :disable_with => "Подождите..." %> | <%= link_to "Назад", {:controller => "communities",:action => :show, :name => @community.title.gsub(" ","_"),:id=>@community.id}%>
+<%- end -%>

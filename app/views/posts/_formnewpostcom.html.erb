@@ -1,0 +1,30 @@
+
+<%= error_messages_for 'post', 'tags' %>
+   <table  id="post_form"> 
+   	<tr><td align="right"><label for="post_title">Тема</td>
+	<td align="left"><%= text_field 'post', 'title',:size =>"70"  %></td></tr>
+
+	<tr><td align="right" valign="top"><label for="post_content">Текст</td>
+	<td align="left"><%= text_area 'post', 'content',:size =>"70x25"  %></td></tr>
+    <tr><td align="right">Файл</td>
+	<td align="left"><label for="attache">
+	<div id="add_file">
+        <%# link_to_remote( "Прикрепить файл", :url => { :action => "attafile", :view => 'show', :a => 'yes'} )%>
+        <%= file_field :postfile,:uploaded_data %>&nbsp;<%# link_to_remote 'Отмена', :url => { :action => 'attafile', :view => 'hide'} %><br/>
+         <div id="under">max file size: 5 Mb, possible content format: doc, pdf, txt, jpg, gif </div>
+
+        </div>
+		<tr><td align="right"><label for="tags">Тэги</label></td>
+	<td align="left"><%= text_field 'tags', params[:tags], :size => 100%><div id="under"><small>Через запятую и отделяя пробелом</small></div></td></tr>
+	
+    <tr><td align="right" valign="top">Тип записи: </td>
+	 <td align="left">
+	      <%= radio_button("post", "final", "event") %>&nbsp;Cобытие
+	      <%= radio_button("post", "final", "post") %>&nbsp; Обычная запись
+	 </td> 
+    </tr>
+	</table>
+	<input type="hidden" id="post_user_id" name="post[user_id]" value="<%= current_user.id %>" />
+	<input type="hidden" id="post_user_id" name="post[community_id]" value="<%= params[:id] %>" />
+	
+	

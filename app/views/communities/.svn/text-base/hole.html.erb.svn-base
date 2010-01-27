@@ -1,0 +1,22 @@
+<%- @link_title = [] 
+   newlink(@link_title,"Зал ожиданий и встреч",0)
+-%>
+ 
+<p>Это закрытое сообщество и вы не состоите в данном сообществе. <br />
+<% if @request.nil? %>
+	Чтобы вступить отправте запрос автору сообщества.</p>
+	<br/>
+	<% if @community.questions %>
+	<%= render :partial => 'questions',:object => @community %>
+	<% else %>
+	<%= render :partial => 'request' %>
+	<% end %>
+<% else %>
+	<% if @request.status.to_s == 'forbbiden'%>
+	К сожалению автор отказал вам во вступлении в это сообщество.
+	<% else %>
+	Вы уже отправили запрос на вступление. Ждите ответа от автора.
+	<% end %>
+<% end %>
+
+

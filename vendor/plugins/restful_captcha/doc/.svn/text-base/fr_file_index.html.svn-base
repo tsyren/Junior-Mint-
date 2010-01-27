@@ -1,0 +1,64 @@
+
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!--
+
+    Files
+
+  -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Files</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="rdoc-style.css" type="text/css" />
+  <base target="docwin" />
+</head>
+<body>
+<div id="index">
+  <h1 class="section-bar">Files</h1>
+  <div id="index-entries">
+    <a href="files/bin/restful_captcha_rb.html">bin/restful_captcha.rb</a><br />
+    <a href="files/lib/core_extensions_rb.html">lib/core_extensions.rb</a><br />
+    <a href="files/lib/restful_captcha_rb.html">lib/restful_captcha.rb</a><br />
+    <a href="files/lib/restful_captcha/captcha_rb.html">lib/restful_captcha/captcha.rb</a><br />
+    <a href="files/lib/restful_captcha/image_rb.html">lib/restful_captcha/image.rb</a><br />
+    <a href="files/lib/restful_captcha/rails_rb.html">lib/restful_captcha/rails.rb</a><br />
+    <a href="files/lib/restful_captcha/rails/captcha_rb.html">lib/restful_captcha/rails/captcha.rb</a><br />
+    <a href="files/lib/restful_captcha/rails/controller_plugin_rb.html">lib/restful_captcha/rails/controller_plugin.rb</a><br />
+    <a href="files/lib/restful_captcha/rails/view_plugin_rb.html">lib/restful_captcha/rails/view_plugin.rb</a><br />
+    <a href="files/pkg/RestfulCaptcha-1_0_0/bin/restful_captcha_rb.html">pkg/RestfulCaptcha-1.0.0/bin/restful_captcha.rb</a><br />
+    <a href="files/pkg/RestfulCaptcha-1_0_0/lib/core_extensions_rb.html">pkg/RestfulCaptcha-1.0.0/lib/core_extensions.rb</a><br />
+    <a href="files/pkg/RestfulCaptcha-1_0_0/lib/restful_captcha_rb.html">pkg/RestfulCaptcha-1.0.0/lib/restful_captcha.rb</a><br />
+    <a href="files/pkg/RestfulCaptcha-1_0_0/lib/restful_captcha/captcha_rb.html">pkg/RestfulCaptcha-1.0.0/lib/restful_captcha/captcha.rb</a><br />
+    <a href="files/pkg/RestfulCaptcha-1_0_0/lib/restful_captcha/image_rb.html">pkg/RestfulCaptcha-1.0.0/lib/restful_captcha/image.rb</a><br />
+    <a href="files/pkg/RestfulCaptcha-1_0_0/lib/restful_captcha/rails_rb.html">pkg/RestfulCaptcha-1.0.0/lib/restful_captcha/rails.rb</a><br />
+    <a href="files/pkg/RestfulCaptcha-1_0_0/lib/restful_captcha/rails/captcha_rb.html">pkg/RestfulCaptcha-1.0.0/lib/restful_captcha/rails/captcha.rb</a><br />
+    <a href="files/pkg/RestfulCaptcha-1_0_0/lib/restful_captcha/rails/controller_plugin_rb.html">pkg/RestfulCaptcha-1.0.0/lib/restful_captcha/rails/controller_plugin.rb</a><br />
+    <a href="files/pkg/RestfulCaptcha-1_0_0/lib/restful_captcha/rails/view_plugin_rb.html">pkg/RestfulCaptcha-1.0.0/lib/restful_captcha/rails/view_plugin.rb</a><br />
+    <a href="files/pkg/RestfulCaptcha-1_0_0/spec/bin/restful_captcha_spec_rb.html">pkg/RestfulCaptcha-1.0.0/spec/bin/restful_captcha_spec.rb</a><br />
+    <a href="files/pkg/RestfulCaptcha-1_0_0/spec/core_extensions_spec_rb.html">pkg/RestfulCaptcha-1.0.0/spec/core_extensions_spec.rb</a><br />
+    <a href="files/pkg/RestfulCaptcha-1_0_0/spec/restful_captcha/captcha_spec_rb.html">pkg/RestfulCaptcha-1.0.0/spec/restful_captcha/captcha_spec.rb</a><br />
+    <a href="files/pkg/RestfulCaptcha-1_0_0/spec/restful_captcha/image_spec_rb.html">pkg/RestfulCaptcha-1.0.0/spec/restful_captcha/image_spec.rb</a><br />
+    <a href="files/pkg/RestfulCaptcha-1_0_0/spec/restful_captcha/rails/captcha_spec_rb.html">pkg/RestfulCaptcha-1.0.0/spec/restful_captcha/rails/captcha_spec.rb</a><br />
+    <a href="files/pkg/RestfulCaptcha-1_0_0/spec/restful_captcha/rails/controller_plugin_spec_rb.html">pkg/RestfulCaptcha-1.0.0/spec/restful_captcha/rails/controller_plugin_spec.rb</a><br />
+    <a href="files/pkg/RestfulCaptcha-1_0_0/spec/restful_captcha/rails/view_plugin_spec_rb.html">pkg/RestfulCaptcha-1.0.0/spec/restful_captcha/rails/view_plugin_spec.rb</a><br />
+    <a href="files/pkg/RestfulCaptcha-1_0_0/spec/restful_captcha/rails_spec_rb.html">pkg/RestfulCaptcha-1.0.0/spec/restful_captcha/rails_spec.rb</a><br />
+    <a href="files/pkg/RestfulCaptcha-1_0_0/spec/restful_captcha/rails_spec_helper_rb.html">pkg/RestfulCaptcha-1.0.0/spec/restful_captcha/rails_spec_helper.rb</a><br />
+    <a href="files/pkg/RestfulCaptcha-1_0_0/spec/spec_helper_rb.html">pkg/RestfulCaptcha-1.0.0/spec/spec_helper.rb</a><br />
+    <a href="files/spec/bin/restful_captcha_spec_rb.html">spec/bin/restful_captcha_spec.rb</a><br />
+    <a href="files/spec/core_extensions_spec_rb.html">spec/core_extensions_spec.rb</a><br />
+    <a href="files/spec/restful_captcha/captcha_spec_rb.html">spec/restful_captcha/captcha_spec.rb</a><br />
+    <a href="files/spec/restful_captcha/image_spec_rb.html">spec/restful_captcha/image_spec.rb</a><br />
+    <a href="files/spec/restful_captcha/rails/captcha_spec_rb.html">spec/restful_captcha/rails/captcha_spec.rb</a><br />
+    <a href="files/spec/restful_captcha/rails/controller_plugin_spec_rb.html">spec/restful_captcha/rails/controller_plugin_spec.rb</a><br />
+    <a href="files/spec/restful_captcha/rails/view_plugin_spec_rb.html">spec/restful_captcha/rails/view_plugin_spec.rb</a><br />
+    <a href="files/spec/restful_captcha/rails_spec_rb.html">spec/restful_captcha/rails_spec.rb</a><br />
+    <a href="files/spec/restful_captcha/rails_spec_helper_rb.html">spec/restful_captcha/rails_spec_helper.rb</a><br />
+    <a href="files/spec/spec_helper_rb.html">spec/spec_helper.rb</a><br />
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+﻿<%-  @link_title = []
+	newlink(link_title,"Приглашения",1)
+ %>
+<% content_for :title do %>
+   <%= link_to_unless_current('Сообщества | ',:action => :index,:show => :com,:type => :in ) %>
+   <%= link_to_unless_current('События',:action => :index, :show=> :eve,:type => :in ) %>
+<% end %> 
+<% content_for :title_right do %>
+	<%= link_to('Запросы |',:action=> :requests ) %>
+	<%= link_to_unless_current(' Отказы',:action=> :deined ) %>
+<% end %>
+ 
+<% content_for :leftcolumn do %>
+
+
+
+<div class="clear"></div>
+
+<% unless @invites.empty? %>
+<ul class="list hover_effect">
+    <% for iterm in @invites %>
+	<li class="item">
+	
+	<% if @class == "community" %>
+		<% avatar = Datafile.find_avatar_by_community_id iterm.id %>
+		<p class="image">
+		<%= view_photo(avatar,"community")%>	
+		</p>
+		<p class="title">
+		<%= link_to iterm.title, :controller => 'communities', :action => "show", :id => iterm.id %>
+		</p>
+		
+		<p class="actions">
+			<%= link_to('Вступить', :controller => 'communities',:action => 'jointo', :id => iterm.id)  %>
+			&nbsp;|&nbsp; 
+			<%= link_to 'Отказаться', :controller => :invites,:action => :destroy,:id => iterm.id %>
+		</p>
+		
+	<% else %>
+	
+	<p class="inline_left">
+		<%= link_to iterm.title, :controller => 'posts', :action => "show", :id => iterm.id %><br />
+		
+		<%if params[:type] == "out"%>
+			С <%= iterm.event.started_on.rus_date %> по <%= iterm.event.finished_on.rus_date %>
+		<% else %>
+		Приглашенные: <% @response.each do |u| %>
+					 <% if u.model_id == iterm.id%>
+					 <% reciever = User.find( u.user_id) %>
+		             <%= reciever.full_name + ','%>
+					 <% end %>
+					<% end %>
+		<% end %>
+	</p>
+
+	<p class="inline_right">
+		<%if params[:type] == "in"%>
+			<%= link_to 'Учавствовать',:controller => :events, :action => :taken, :id => iterm.id %>
+			<br />
+			<%= link_to 'Отказаться', :controller => :events,:action => :refuse,:id => iterm.id %>
+		<% else %>
+			<%= link_to 'Отменить', :controller => :events, :action => :cancle,:id => iterm.id %>
+		<% end %>
+	</p>
+
+	<% end %>
+	
+	
+	<% end %>
+	</li>
+</ul>
+<% else %>
+   <p align="center">У вас нет приглашений.</p>
+<% end %>
+<% end %>

@@ -1,0 +1,9 @@
+<h3 class="title">Подписка на новые записи</h3>
+		<div class="popup_content">
+		<p>
+		  Отправлять мне:<br />	
+		  &rarr;<%= link_to ' на электронный адрес ',	:action => 'email',:id => community.id %><br />
+		  &rarr;<%= link_to ' по каналу RSS',    :action => 'rss',:id => community.id %>
+		</p>
+		<p class="popup_close"><a href="javascript: Element.closePopup('test')">Закрыть</a></p>
+		</div>

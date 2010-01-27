@@ -1,0 +1,12 @@
+<%= error_messages_for :datafile %>
+
+<!--[form:post]-->
+<% form_%>
+<%= file_field :attach_file, params[:attach_file] , :size => 30%>&nbsp;
+<small><%= link_to_remote( "Убрать",:update => "file_div", :url =>{ :action => :attach_file, :id => "hide" }) %></small>
+<div id="under"><small>максимальный размер 5Mb&nbsp;<%# link_to_remote( "добавить файл",
+                         :update => "file_div",
+                         :url =>{ :action => "attach_file",:id => "add" }) %></small></div>
+					 
+<!--[eoform:post]-->
+

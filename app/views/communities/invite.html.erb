@@ -1,0 +1,58 @@
+<%- @link_title = [] 
+   newlink(@link_title,link_to_unless_current("Сообщества",allcom_url(:type=>"latest")),1)
+   newlink(@link_title,link_to_unless_current(@community.title,:action => 'show', :name => namegsub(@community.title),:id => params[:id]),0)
+ -%>
+
+<%-  if @community.status.to_s == 'public' or !@communities_user.nil? -%>
+<% unless @user.empty? %>
+<%- form_tag '/sent_invite/#{@communiy.id}' do -%>
+
+<table style="float: left; margin-right: 100px;">
+	<% @user.each do |u| %>
+	<tr>
+	<% userphoto = Datafile.find(:first,:conditions => [" user_id = ? AND community_id = 0 AND avatar=1",u.id]) %>
+	<% if userphoto.nil? %>
+	<td><%= image_tag('../userphotos/blank_avatar.jpg') %></td>
+    <% else %>
+    <td><%= image_tag(userphoto.public_filename(:thumb)) %>
+	</td>
+    <% end %>
+	<td style="padding-left: 30px"><%= link_to u.full_name, dude_url(:fio => namegsub(u.full_name),:id=>u.id) -%>
+	<% if u.updated_at > Time.now() - 1.minutes %>
+	<div id="under">online</div>
+	<% end %>
+	</td>
+	<td style="padding-left: 100px;">
+	<% if logged_in? && @user = current_user %>
+	<%= check_box_tag 'invite_users', u.id %>
+	<% end %>
+	</td>
+	<% end %>
+</table>
+ <p>Отметьте из этого списка тех кого <br> вы хотели бы пригалсить в ваше сообщество <br/><br/>
+ <%= submit_tag "Пригласить" %>	</p>
+
+<% end %>
+<% else %>
+	<p align="center">Никого</p>
+<% end %>
+   
+<%- else -%>
+
+   <p>Это закрытое сообщество и вы не состоите в данном сообществе. 
+   <% if @request.nil? %>
+      Чтобы вступить <%= link_to "отправте" %> запрос автору сообщества.</p>
+   <br/>
+   <%= render :partial => 'request' %>
+   <% else %>
+      <% if @request.status.to_s == 'forbidden'%>
+	    К сожалению автор отказал вам во вступлении в это сообщество.
+	  <% else %>
+		Вы уже отправили запрос на вступление. Ждите ответа от автора.
+      <% end %>
+   <% end %>
+       
+<%- end -%>
+
+
+

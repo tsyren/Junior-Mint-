@@ -1,0 +1,11 @@
+Доброго время суток, <%= @user.full_name.capitalize %>!<br/><br/>
+
+У ваc новый комментарий в вашем теме "<%= @comment.post.title%>"<br/><br/>
+
+<%= @from_who.full_name %> пишет: <br/><br/>
+
+<%= @comment.content %><br /><br/>
+
+Чтобы ответить на комметарий пройдите по ссылке <%= @url %>.<br/><br/>
+
+<%= @best_regards %>

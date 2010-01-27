@@ -1,0 +1,29 @@
+﻿<% content_for :script do %>
+	
+  <%= javascript_include_tag :defaults %>  
+  <%= calendar_date_select_includes %>
+
+<% end %>	
+
+<%= render :partial => 'events/menu' %>
+
+<%= form_tag( {:action => 'create'},:method => :post ) -%>
+<%= error_messages_for "event" %>
+<div class="floatLeft width100">
+<!--[form:community]-->
+<table align="center" CELLSPACING="20">
+<tr><td align="right"><label for="event_title">Название </label></td><td align="left"><%= text_field :event, :title %></td></tr>
+
+<tr><td align="right" valign="top"><label for="event_description">Описание </label></td><td align="left"><%= text_area :event, :description, :size => "60x10" %></td></tr>
+
+<tr><td align="right"><label for="event_started_on">Начало </label></td><td align="left"> <%= calendar_date_select :event, :started_on %></td></tr>
+
+<tr><td align="right"><label for="event_finished_on">Завершение </label></td><td align="left"> <%= calendar_date_select :event, :finished_on %></td></tr>
+
+<tr><td></td><td><%= submit_tag "Создать", :disable_with => 'Creating event ...' %></td></tr>
+</table>
+
+
+
+
+

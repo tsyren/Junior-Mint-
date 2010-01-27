@@ -1,0 +1,12 @@
+<% unless @communities.empty? %>
+			<table class="list">
+					
+			<%= render :partial => 'communities/list_communities', :collection => @communities -%>
+			
+			<%= will_paginate @communities, :previous_label=> "&laquo;",:next_label => "&raquo;"  %>
+			
+			</table>
+<% else %>
+	<tr><td>Пользователь не состоит ни в одном сообществе.</td></tr>
+<% end %>
+

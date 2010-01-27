@@ -1,0 +1,17 @@
+case params[:type]
+  when "social"
+    then 
+      page.replace_html :profiler, :partial => "profile_social", :object => @user
+  when "professional"
+    then 
+      page.replace_html :profiler, :partial => "profile_profes", :object => @user
+  
+  when "personal"
+    then 
+      page.replace_html :profiler, :partial => "profile_personal", :object => @user
+ 
+  when "interests"
+    then 
+      page.replace_html :profiler, :partial => "profile_interests", :object => @tags
+   
+end

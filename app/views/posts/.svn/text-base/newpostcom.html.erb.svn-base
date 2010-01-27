@@ -1,0 +1,13 @@
+<% @link_title = [] 
+   newlink(@link_title,link_to("Тетрадка",mynotes_url),1)
+   newlink(@link_title,link_to(@community.title,:controller => 'communities',:action => 'show',:id=> @community.id),1)
+   newlink(@link_title,"Новая запись",0)
+  
+%> 
+<div align="center">
+<% form_tag :action => 'create',:type => 'com'  do %>
+  <%= render :partial => 'formnewpostcom' %>
+ <%= submit_tag "Новая запись" %>
+ <%= submit_tag "Предпросмотр", :name => "preview_button",:anchor => "#preview" %>
+<% end %>
+</div>

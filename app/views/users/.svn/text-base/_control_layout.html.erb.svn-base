@@ -1,0 +1,4 @@
+<% @page_title = "Настройка вида" %>
+<p><label for="user_custom_layout">Выбор отображения</label><br/>
+<%= select 'user','custom_layout', {"простой"=>"users", "черный"=>"maior"} %></p>
+

@@ -1,0 +1,32 @@
+<% 
+  @link_title = []
+  newlink(link_title,link_to("Сообщества",allcom_url ),1) 
+  newlink(link_title,"с интересом: "+params[:id],0) 
+%>
+<% content_for :left_column_style  do %>
+  
+  style ="width: 550px"
+
+<% end %>
+<% content_for :right_column_style  do %>
+  
+  style="width: 300px"
+
+<% end %> 
+<% content_for :leftcolumn do %>
+<%  unless @communities.empty? or @communities.nil?%>	
+ <ul>
+	<% for community in @communities %>
+	<li class="item">
+	<%= render :partial => "lists/list_of_communities_with_options", :locals => {:result => community} %>	
+	</li>
+	<% end %>
+ </ul>
+<% else %>
+   Пусто
+<% end %>
+<% end %>
+
+<% content_for :rightcolumn do %>
+	<%= render :partial => "tags/tag_clouds", :locals => {:tags => @tags} %>
+<% end %>

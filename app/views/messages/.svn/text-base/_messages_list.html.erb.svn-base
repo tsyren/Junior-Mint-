@@ -1,0 +1,20 @@
+<%- if messages_list.status == 1 -%> 
+<tr class="new_message">
+<% else %>
+<tr class="old_message">
+<% end %>
+<td>
+<% if params[:action] == "inbox"%>	
+<%- sender = User.find_by_id messages_list.user_id  -%>
+<% else %>
+<%- sender = User.find_by_id messages_list.reciever  -%>
+<% end %>
+<%= link_to sender.full_name, :controller => "users", :action => :dude, :id => sender.id %></td> 	
+	<td class="border-right"><%= link_to messages_list.title, :action => 'view', :id => messages_list.id%></td> 
+<td><%= rus_time_ago_in_words(messages_list.created_at) %>&nbsp;назад</td> 
+
+</tr>
+
+
+
+		   

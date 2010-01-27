@@ -1,0 +1,14 @@
+<div id="question_<%= index %>" class="question">
+<% fields_for "question[#{index}]", q do |f| %>
+	<p>
+	<%= f.text_field :question %>
+	<% if q.new_record? %>
+	<%= link_to_remote 'Удалить', :url => { :action => 'remove_question', :index => index } %>
+	<% else %>
+	<%= link_to_function 'Удалить', 'mark_for_destroy(this)' %>
+	<%= f.hidden_field :id %>
+	<%= f.hidden_field :should_destroy, :class => "should_destroy" %>
+	<% end %>
+	</p>
+<% end %>
+</div>

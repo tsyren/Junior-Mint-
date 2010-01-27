@@ -1,0 +1,64 @@
+﻿<%-	
+    @link_title = []
+ 	newlink(@link_title,link_to("Архив", :action => :index ),1)
+	newlink(@link_title,"Личный",0)
+	
+%>
+
+ <% content_for :title do %>
+	<%= link_to ' | Общий', :action => "index",:view => "public" %> 
+ <% end %>
+ 
+<% content_for :title_right do %>
+	
+	<%= link_to 'Загрузить файл', new_store_path %> 
+	
+<% end  %>
+<% content_for :leftcolumn do %>
+<div class="options_com">
+<div class="box_left">
+<p align="center"><%= image_tag "icons/" + @store.store_content_type + ".jpeg" %></p>
+<p class="desc">
+<p align="center">Точный размер файла:</p>
+<p align="center"><b><%= number_to_human_size(@store.store_file_size, 2) %></b></p>
+</p>
+</div>	
+<div class="box_right">
+<div id="edit_com"  class="hover_link">
+        <%= link_to 'Редактировать', edit_store_path(@store) if @store.user_id == current_user.id %>
+</div>		
+<h3>
+<% if @store.name %>
+<%= @store.name%>
+<% else %>
+<%= @store.store_file_name %> <i>(оригинал)</i>
+<% end %>
+</h3>
+
+<div class="description">
+<h4>Описание:</h4>	
+<p>
+        <% if @store %>
+        <%= @store.description%>
+        <% else %>
+        отсутствует
+        <% end %>
+</p>
+<h4>Автор:</h4>
+<p><%= @store.user.full_name %></p>
+
+<h4>Метки:</h4>
+<p><%= "tags" %>
+</div>		
+</div>
+</div>
+<% end %>
+<% content_for :rightcolumn do %>
+<div id="options"> 
+  <ul class="store_but">
+   <li><%= link_to 'Скачать файл&nbsp;', :action => "get_file", :id => @store.id %></li>
+   <li><%= link_to image_tag("down.jpg"), :action => "get_file", :id => @store.id  %><br />
+   <small>всего&nbsp;скачиваний:&nbsp;<%= @store.dcount%> </small></li>
+  </ul>
+</div> 
+<% end %>

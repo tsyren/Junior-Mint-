@@ -1,0 +1,9 @@
+Доброго время суток, <%= @user.full_name %>!<br/><br/>
+
+<%= @sender.full_name %> пишет c темой "<%= @message.title %>":<br/><br/>
+
+<%= @message.formatted_content %><br/><br/>
+
+Чтобы прочитать это письмо пройдите по ссылке <%= @url %>.<br/><br/>
+
+<%= @best_regards %>

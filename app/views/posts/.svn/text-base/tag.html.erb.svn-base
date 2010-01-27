@@ -1,0 +1,26 @@
+<% 
+  @link_title = []
+  newlink(link_title,link_to("Записи" ),1) 
+  newlink(link_title,"с пометкой: "+params[:id],0) 
+%>
+<% content_for :left_column_style  do %>
+  
+  style ="width: 550px"
+
+<% end %>
+<% content_for :right_column_style  do %>
+  
+  style="width: 300px"
+
+<% end %> 
+<%  unless @posts.empty? or @posts.nil?%>
+<div  id="list_news">
+	  	<%= render  :partial => 'users/news', :collection => @posts %>
+</div>
+<% else %>
+   Пусто
+<% end %>
+
+<% content_for :rightcolumn do %>
+	<%= render :partial => "tags/tag_clouds", :locals => {:tags => @tags} %>
+<% end %>

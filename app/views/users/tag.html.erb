@@ -1,0 +1,30 @@
+<%
+  @link_title = []
+  newlink(link_title,link_to("Пользователи" ),1)
+  newlink(link_title,"с инетересом: "+params[:id],0)
+%>
+<% content_for :left_column_style  do %>
+  
+  style ="width: 550px"
+
+<% end %>
+<% content_for :right_column_style  do %>
+  
+  style="width: 300px"
+
+<% end %> 
+<%  unless @users.empty? or @users.nil?%>
+<ul class="list">	
+	<% for user in @users %>
+	<li class="item">
+		<%= render :partial => "lists/list_of_peoples", :locals => {:result => user} %>
+	</li>
+	<% end %>
+</ul>
+<% else %>
+   Пусто
+<% end %>
+
+<% content_for :rightcolumn do %>
+	<%= render :partial => "tags/tag_clouds", :locals => {:tags => @tags} %>
+<% end %>

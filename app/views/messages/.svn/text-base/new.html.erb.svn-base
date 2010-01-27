@@ -1,0 +1,45 @@
+<%  @link_title = []
+	newlink(link_title,link_to_unless_current("Почта",messages_url),1)
+	newlink(link_title,link_to_unless_current("Новое сообщениe",:action => :new),0)
+%>  
+<% content_for :leftcolumn do %>
+	
+    
+﻿<%= error_messages_for :message %>
+
+<table class="form">
+	<%- form_for :message, :url =>{ :action => 'create', :id => params[:id],:user_id => params[:user_id]}, :method => :post do | msg |-%>
+	
+	<!--[form:message]-->
+		<tr>
+		    <td valign="top">Получатель </td>
+			<td>
+			<% unless @user.nil? %>
+				
+				<%= text_field :user, :full_name %>	
+			
+			<% else %>
+				
+				<%= text_field_with_auto_complete :user, :full_name %><br/>
+				<small>введите имя и фамилию получателя</small>
+			<% end %>
+			</td>
+		</tr>
+		
+	
+		<tr><td><label for="message_title">Тема</label></td>
+		
+	    <td><%= msg.text_field 'title' %></td></tr>
+	
+		<tr><td valign="top"><label for="message_content">Текст</label></td>
+		
+	    <td><%= msg.text_area 'content' %></td></tr>
+		
+	    <tr><td>&nbsp;</td><td> <%= submit_tag 'Отправить Сообщение' %></td></tr>
+	<% end %>
+</table>
+
+
+<% end %>
+
+ 

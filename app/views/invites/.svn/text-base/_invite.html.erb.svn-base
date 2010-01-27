@@ -1,0 +1,12 @@
+<%- iterm =  Kernel.const_get(params[:action].singularize.capitalize).find  invite.invite_id
+       avatar = Datafile.find_by_parent_id iterm.id, :conditions => ["avatar = 1"]  -%>
+<li>
+	<p class="image">
+	  <%= view_photo avatar, params[:action].singularize%>
+	</p>
+	<b><%= iterm.title %></b><br/>
+<%= link_to "Стать участником", :action => "apply",:id => iterm.id,:type => params[:type] %> |
+<%= link_to "Подробней", :controller =>"communities", :action => "show",:id => iterm.id %> |
+<%= link_to "Отказаться",:action => :refuse, :id => iterm.id,:type => "community" %>
+</li>
+ 

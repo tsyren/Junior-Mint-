@@ -1,0 +1,11 @@
+<%- avatar = Datafile.find_by_parent_id request.community_id, :conditions => ["avatar = 1"] %>
+<li>
+	<p class="image">
+	  <%= view_photo avatar, params[:action].singularize %>
+	</p>
+	<% community = Community.find request.community_id %>
+	<b><%= community.title %></b><br/>
+    <%= link_to "Отменить", :action => "refuse",:id => community.id,:type => params[:type] %> 
+
+</li>
+ 

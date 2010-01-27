@@ -1,0 +1,241 @@
+/* updated 30.10.2008 */
+
+/* CSS style */
+
+
+/* templates css
+ *
+ * 	border: 1px solid #000;
+ *
+ */
+
+
+/* html */
+
+
+body,h1,h2,h3,h4,h5,p,li,ul,input,label,form {
+	padding: 0;
+	margin: 0;
+}
+body {
+	background-color: #C4D4FB;
+}
+img {
+	border: none;
+}
+a {
+	text-decoration:none;
+	color: #688CF1;
+}
+a:hover {
+	color: #688CF1;
+}
+ul {
+	list-style: none;
+}
+
+/* ids */
+
+
+#body {
+	width: 800px;
+	margin: 0 auto;
+}
+#header {
+	height: 60px;
+	margin: 20px 0;
+}
+#content {
+
+}
+#footer {
+	margin: 20px 0;
+
+}
+
+/* --------------------------- */
+/* Flash message               */
+
+#notice {
+	padding: 10px;
+	margin: 20px 0;
+	background-color: #FBEEAD;
+}
+#Flash ul{
+	padding-left: 20px;
+}
+
+/* --------------------------- */
+/* Border of flash message    */
+
+/* при указании путя - ставить слэшь url(/images/...)*/
+/* пока нет боковых */
+
+
+
+/* login form */
+
+#login input{
+	border: 1px solid #D5CFCF;
+	height: 21px;
+	text-align:left;
+	font-size: 1em;
+	font-weight: 500;
+	position: static;
+	padding: 3px 0;
+}
+#login p{
+	margin-top: 10px;
+}
+#remember_me {
+	margin-top: 5px;
+	font-size: 12px;
+}
+#remember_me input{
+	margin-right: 5px;
+    vertical-align: -3px;
+	height: 13px;
+	width: 13px;
+	text-align: center;
+	padding: 1px;
+}
+.helper {
+	margin-top: 10px;
+}
+#button input{
+	border: 1px solid #D5CFCF;
+	height: 30px;
+	text-align:left;
+	padding: 5px 10px;
+	font-size: 14px;
+	font-weight: 500;
+	margin-top: 10px;
+}
+.fieldWithErrors {
+	padding: 0;
+	margin: 0;
+}
+input#openid_url {
+   background: url(http://openid.net/login-bg.gif) no-repeat;
+   background-color: #fff;
+   background-position: 0 50%;
+   color: #000;
+   padding-left: 18px;
+}
+
+/* Block */
+
+.block {
+  margin: 70px auto;
+  padding: 20px;
+  width: 300px;
+  height: 200px;
+}
+
+/* login page */
+#go_home {
+  float:right;
+  margin-top: -20px;
+}
+
+/* top positions classes */
+
+.left {
+  	float: left;
+  	width: 431px;
+}
+.right {
+  	float: right;
+  	width: 300px;
+}
+.right .prompt {
+	background-color: #B5FB99;
+	padding: 0px;
+	margin: 10px 0;
+	height: 100%;
+ 	color: #315DEE;
+}
+
+.left, .right {
+    padding: 12px;
+}
+.clear {
+	clear: both;
+}
+
+
+
+/* updated 30.10.2008 */
+.roundedcornr_box_486416 {
+   background: #ffffff;
+}
+.roundedcornr_top_486416 div {
+   background: url(/social_network/images/roundedcornr_486416_tl.png) no-repeat top left;
+}
+.roundedcornr_top_486416 {
+   background: url(/social_network/images/roundedcornr_486416_tr.png) no-repeat top right;
+}
+.roundedcornr_bottom_486416 div {
+   background: url(/social_network/images/roundedcornr_486416_bl.png) no-repeat bottom left;
+}
+.roundedcornr_bottom_486416 {
+   background: url(/social_network/images/roundedcornr_486416_br.png) no-repeat bottom right;
+}
+
+.roundedcornr_top_486416 div, .roundedcornr_top_486416,
+.roundedcornr_bottom_486416 div, .roundedcornr_bottom_486416 {
+   width: 100%;
+   height: 10px;
+   font-size: 1px;
+}
+.roundedcornr_content_486416 { margin: 0 10px;}
+.roundedcornr_box_339824 {
+   background: #b5fb99;
+}
+.roundedcornr_top_339824 div {
+   background: url(/social_network/images/roundedcornr_339824_tl.png) no-repeat top left;
+}
+.roundedcornr_top_339824 {
+   background: url(/social_network/images/roundedcornr_339824_tr.png) no-repeat top right;
+}
+.roundedcornr_bottom_339824 div {
+   background: url(/social_network/images/roundedcornr_339824_bl.png) no-repeat bottom left;
+}
+.roundedcornr_bottom_339824 {
+   background: url(/social_network/images/roundedcornr_339824_br.png) no-repeat bottom right;
+}
+
+.roundedcornr_top_339824 div, .roundedcornr_top_339824,
+.roundedcornr_bottom_339824 div, .roundedcornr_bottom_339824 {
+   width: 100%;
+   height: 14px;
+   font-size: 1px;
+}
+.roundedcornr_content_339824 { margin: 0 14px; }
+
+
+/* special */
+
+#signup_button {
+	text-align: center;
+	margin: 10px auto;
+	width: 130px;
+	padding: 10px;
+}
+#signup_button a{
+	color: #376AF9;
+	font-size: 20px;
+	font-weight: 500;
+}
+
+a[class ="signup"] {
+   padding-right: 18px;
+   background: transparent url(/social_network/images/icon_popup.gif) no-repeat center right;
+}
+/* for all form where margin must be very large */
+form.form p{
+	margin: 20px 0;
+	padding: 10px 0;
+}
+
+

@@ -1,0 +1,25 @@
+<div id="login">
+	<h4>Пожалуйста, авторизуйтесь</h4>
+<% form_tag( {:controller => "sessions",:action => 'create'},:id => "normal_login_form") do -%>
+    <p><label for="email">Email&nbsp;(<a href="#" onclick="showOpenIDLoginForm(); return false;">или OpenID</a>)</label><br>
+    <%= text_field_tag "email"%></p>
+    <p><label for="password">пароль </label><br/>
+    <%= password_field_tag "password" %></p>
+    <div calss="remember_me">
+    <%= check_box_tag 'remember_me' -%><label for="remember_me">Запомнить меня</label>
+    </div>
+    <div class="clear"></div>
+    <div id="button"><%= submit_tag "Войти", :disable_with =>"Проверка..." %></div>
+   <div class="helper">
+    	<%= link_to 'Забыли пароль?', forgot_password_path, :class => 'forgot_password'  %>
+    </div>
+<% end -%>
+<% form_tag( {:controller => "sessions",:action => 'create'},:id => "openid_login_form", :style => "display:none") do -%>
+    <p><label for="openid_url">OpenID&nbsp;(<a href="#" onclick="hideOpenIDLoginForm(); return false;">или Email</a>)</label><br>
+    <%= text_field_tag "openid_url" %></p>
+    <div class="remember_me">
+    <%= check_box_tag 'remember_me' -%><label for="remember_me">Запомнить меня</label>
+    </div>
+   <div id="button"><%= submit_tag "Войти", :disable_with =>"Проверка..." %></div>
+<% end -%>
+</div>

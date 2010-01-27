@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+  <% unless logged_in?  %>
+  <title><%= @page_title ||= 'My NSU'%></title>
+  <% else %>
+  <title><%=  current_user.full_name.to_s + " on My NSU | "  + @subtitle.to_s   %></title>
+  <% end %>
+  <%= stylesheet_link_tag 'simple' %>
+  <!-- RSS -->
+  <% if logged_in? %>
+  <%= auto_discovery_link_tag(:rss, :controller => 'posts',:action => 'rss') %>
+  <% end %>
+  <!-- JavaScript -->
+  <%= javascript_include_tag "prototype" %>
+  <%= yield :script %>
+  <%= yield :head %>
+</head>
+<body>
+<div id="main">	
+  <% if logged_in? %>
+  <%= current_user.full_name %>
+   <% form_tag( {:controller => 'search',:action =>"index"},:name =>:quicksearch, :method => "get")  do -%>
+                <select name="findtype">
+				<option value="human">Человек</option>
+				<option value="community">Сообщество</option>
+				<option value="blog">Запись</option>
+				<option value="interes">Интерес</option>
+				<option value="tag">Метка</option></select>
+			   <input type = "text" name="query" id="query">
+   <%= image_submit_tag("qfind.gif",:alt => "искать") %>&nbsp;<%= link_to 'Выйти', logout_url  %>
+   <% end %>
+  <% end %> 
+  
+  <%= link_title %>
+  
+  <% if flash[:notice] or  flash[:error] or flash[:alert] %>
+  <div id="flash" <% if flash[:error] %>class="error"<% end %>>
+    <%=  flash[:notice] || flash[:error] || flash[:alert] %>
+  </div>
+  <script type="text/javascript">
+    setTimeout("new Effect.Fade('flash');", 10000)
+  </script>
+  <% end %>
+   
+
+<ul>
+<%- if logged_in? -%>
+  <li><%= link_to_unless_current("Лента новостей", mypage_url) -%></li>
+  
+      <% message = Message.find(:all, :conditions => ["status = 1 AND reciever = ?",current_user.id] ) %>
+	  <%- if message.size != 0  -%>
+  <li><%= link_to_unless_current( 'Личная Почта'+ "("+message.size.to_s + ")", messages_url) -%></li>
+      <%- else -%>
+      
+  <li><%= link_to_unless_current( 'Личная Почта', messages_url ) -%></li>
+		   <%- end -%>
+  <li><%= link_to_unless_current( 'Публикации',   mynotes_url, :class => "copybook") -%></li>
+   
+      <%- unless current_user.pending_friends.empty?  -%>
+  <li><%= link_to_unless_current( "Друзья"+"&nbsp;(" + current_user.pending_friends.size.to_s+")",myfriends_url(:pending => 'yes') ) -%></li>
+      <%- else -%>
+  <li><%= link_to_unless_current( 'Друзья', myfriends_url,:class => "friends" ) -%></li>
+      <%- end -%>
+      
+  <li><%= link_to_unless_current( 'События', events_path) -%></li>
+  
+  <li><%= link_to_unless_current( 'Приглашения', invites_path) -%></li>
+  
+  <li><%= link_to("Сообщества", :controller => "communities",:action => 'list') %></li>
+  
+  <li><%= link_to_unless_current( 'Настройки',   myprofile_url,:class => "options") -%></li>
+  
+  <li><%= link_to_unless_current( 'Закладки',   mybookmarks_url,:class => "bookmarks") -%></li>
+		   
+</ul>
+
+<div class="box">
+	Пригласить друга:
+	<% form_tag :action => :invite_friend do %>
+	   <%= text_field 'friend', params[:friend], :size => '15' %>
+	   <%= submit_tag "Отправить +", :disabled_with => "Идёт отправка ... " %>
+	<% end %>
+</div>
+ 
+<%- end -%>  
+  
+<div id="content">  
+  <%= @content_for_layout -%>
+</div>  
+  
+
+<div>&copy;2008 My NSU -  <%= link_to 'О проекте', about_url -%>&nbsp;<%= link_to 'Обратная связь',feedback_url %><%# if logged_in? %><%# online %><%# end %></div>
+
+</div>
+</body>
+</html>

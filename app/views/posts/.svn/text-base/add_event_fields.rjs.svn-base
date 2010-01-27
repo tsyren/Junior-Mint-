@@ -1,0 +1,5 @@
+if params[:post][:final] == "event"
+      page.replace_html :event_start_on, :partial => "eventfields"
+ else
+      page.replace_html :event_start_on, ""
+ end

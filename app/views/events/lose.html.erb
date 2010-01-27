@@ -1,0 +1,11 @@
+﻿<%= render :partial => 'events/menu' %>
+
+
+<ul>
+<%- for event in @events -%>
+  <li>название <%= event.title %><br/>
+      начало <%= event.started_on.to_formatted_s(:short) %><br/>
+      завершение    <%= event.finished_on.to_formatted_s(:short) %><br/>
+      </li>
+<% end %>
+</ul>

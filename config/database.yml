@@ -1,0 +1,21 @@
+development:
+  adapter: mysql
+  database: nsu2_dev
+  username: root
+  password: bro20080921
+  host: localhost
+
+test:
+  adapter: mysql
+  database: nsu2_dev
+  username: nsu
+  password: 123qwe
+  host: localhost
+
+production:
+  adapter: mysql
+  database: nsu2_dev
+  username: root	
+  password: bro20080921
+  host: localhost
+  encoding: utf8

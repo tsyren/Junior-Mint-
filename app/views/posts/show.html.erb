@@ -1,0 +1,158 @@
+<%-
+if logged_in?
+@link_title = []
+
+   if @post.community_id != 0
+    	newlink(@link_title,link_to(@community.title,:controller => 'communities', :action => 'show', :id => @community.id),1)
+   else
+		newlink(@link_title,"Личная запись",1)
+   end
+   
+   newlink(@link_title,textilize_without_paragraph(@post.title),0)
+ 
+ end %>
+
+<% content_for :title_right do %>
+    
+	<% if @post.final.to_s == "event" && !@post.event.nil? %>
+   		<% if @parti.nil? %>
+	
+			<%= link_to 'Учавствовать | ', :controller => "events",:action => 'taken', :id => @post.id %>
+		
+		<%# else %>
+		
+			<%# link_to 'Покинуть | ', {:controller => "events",:action => 'drop', :id => @post.id},:method => :delete %>
+		
+    	<% end %>
+	<% end %>
+	
+	<%= link_to "Комментарии на почту",:controller => "comments",:action => 'email', :id => @post.id %>
+	
+	<%# if  @bookmark.empty? -%>
+
+	<%# link_to ' | Добавить в закладки', :controller => "bookmarks",:action => 'new', :id => @post.id %>
+
+	<%# end -%>
+
+<% end %>
+
+<% content_for :leftcolumn do %>
+<div class="main_info">
+	<p class="inline_left title">
+		&nbsp;<font size="3em"></font></p>
+	
+	<p class="inline_right"><%= @post.created_at.rus_date %></p>
+	  
+	<div class="clear"></div>
+	
+	<div class="message">
+		
+		<%=  @post.formatted_content  %>
+		
+	</div>
+	<p  align="right">
+    <% unless @community.eql? nil %>
+		<%- if @post.user_id == current_user.id or @community.admin(current_user,"include_moderator")-%>
+	  		<%= link_to( 'Редактировать', :action => 'edit', :id => @post) %> |
+		   	<%= link_to( 'Удалить', {:controller => 'posts',:action => 'destroy', :id => @post }, :confirm => "Вы уверены?")  %>
+  	    <% end %>
+	 <% else %>
+	  	<%- if @post.user_id == current_user.id-%>
+	  
+		  	<%= link_to( 'Редактировать', :action => 'edit', :id => @post) %> |
+		  	<%= link_to( 'Удалить', {:controller => 'posts',:action => 'destroy', :id => @post }, :confirm => "Вы уверены?")  %>
+	
+		<% end %>
+	<% end %>	
+	</p>
+</div>
+
+<div class="addtional_info">	
+	<p>
+	Автор:&nbsp;<%= link_to @post.user.full_name, dude_url(:id => @post.user.id)  %>
+	</p>	
+	<% unless @tags.blank? %>
+	<p>
+	 Метки:&nbsp;	
+		<%- for tag in @tags -%>
+		   <%- if @tags.last != tag -%>
+		         <%= link_to tag + ",&nbsp;", :controller => 'posts', :action =>"tag", :id => tag %>
+		   <% else %>
+		         <%= link_to tag, :controller => 'posts', :action =>"tag", :id => tag %>
+		   <%- end -%>
+		<%- end -%>
+	</p>
+	<% end %>
+	
+	<% if @at_file %>
+	<p>
+	 Прикреплённые файлы:&nbsp; 
+
+	 <%= link_to @at_file.filename[0..10], {:action => :get_file,:id=>@post, :file => @at_file.id},:method => :get %>
+	 
+    </p>
+	<% end %>
+</div>
+	
+	<% if @can_commentable == true %>
+	<div id="comments">
+	<div class="margin_bottom"></div>
+		<%= render :partial => 'comments/comment', :collection => @post.comments -%>
+    	<div id="comments_count"><%= show_detail_for current_user, "Добавить комментирий" %>&nbsp;(<%=@post.comments.size.rus_items('комментарий', 'комментария', 'комментариев') %>)</div>
+	</div>
+	
+	<% detail_for current_user  do %>
+		<%= render :partial => "formcomment", :locals =>{ :post => @post } %>
+	<% end %>
+	  
+	<% else %>
+	   <div id="comments"><div class="margin_bottom"></div><div id="comments_count">Комментарии запрешены</div></div>
+	<% end %>
+
+<% end  %>
+
+<% content_for :rightcolumn do %>
+	
+
+	<% if @post.final.to_s == "event" && !@post.event.nil? %>
+	<div class="block">
+		
+		<p class="title">Информация о событии</p>
+		<font color="green">Начало:</font> <%= @post.event.started_on.rus_date %><br />
+		<font color="green">Завершение:</font> <%= @post.event.finished_on.rus_date %><br />
+		<font color="green">Место проведения: </font><%= @post.event.place %><br />
+		
+	</div>
+	<div class="block">	
+	
+		<p>
+		<%= show_detail_for @post.event, 'Список учасников'%>
+		
+		    <% detail_for_table  @post.event do  %>
+			
+			   <% @post.event.events_users.each do |parti|%>
+			   
+			    <% u = User.find parti.user_id %>
+				
+				<%= u.full_name %><br>
+				
+		       <% end %>
+			   
+			<%= hide_detail_for @post.event %>
+				
+		<% end %>
+		</p>
+		
+		<%- if @post.user_id == current_user.id -%>
+		
+		<p><%= link_to 'Пригласить', :controller => "events",:action => 'participants', :id => @post.id %></p>
+		
+		<% end %>
+	
+	</div>
+	<% end %>
+	
+	
+	
+<% end %>
+

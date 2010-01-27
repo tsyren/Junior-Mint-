@@ -1,0 +1,116 @@
+
+	<tr>
+		
+		<td class="item"><label for="post_title">Тема</label></td>
+		
+		<td><%= text_field 'post', 'title', :size => "83"  %></td>
+	
+		
+	</tr>
+	
+	<tr>
+		
+		<td class="item">
+			<% if params[:type] == "event" %>
+	    	<label for="post_content">Описание</label>
+			<% else %>
+			<label for="post_content">Текст</label>
+			<% end %>
+		</td>
+
+		<td>
+			
+			<%= text_area "post", "content" %>
+			
+		</td>
+		
+	</tr>
+	
+	<% if params[:type] == "event" or @post.final.to_s == "event" %>
+	
+		<%= render :partial => "eventfields" %>
+		<%= hidden_field "post","final", :value => "event" %>
+		
+	<% end %>
+
+	<tr>
+		
+	    <td class="item">
+	    	
+	    	<label for="tags">Метки</label>
+			
+		</td>
+		
+		<td>
+			
+			<%= text_field 'tags',params[:tags], :size => "83" if @post.nil? %>
+			<%= text_field 'tags',{}, :size => "83",:value => params[:tags] unless @post.nil? %>
+			<br />
+			<small>Через запятую и отделяя пробелом. Пример: университет, жизнь, успех </small>
+			
+		</td>
+		
+		
+		<%= hidden_field "post","user_id", :value => current_user.id %>
+		
+		
+		<tr>
+			<td><label for="postfile_uploaded_data"> Файл </label></td>
+			
+				<td>
+					<% if @file %>
+						
+						<b><%= @file.filename %></b>
+						<div id="file_undo" style="display: none; float: left">Удаленный файл &nbsp;</div>
+							
+						<div id="file_edit">
+						<%= link_to_remote "Удалить/Заменить",
+						:url => {:action => "delete_attache_file", :id => @post.id},
+						:before => "$('loading').show();",
+						:complete => "$('loading').hide();$('after_loading').show();$('file_undo').show();$('file_edit').hide();"
+						 %> 
+						</div>
+						<div id="loading" style="display: none">
+							Идёт удаление файла
+						</div>
+						<div id="after_loading" style="display: none">
+							<%= render :partial => "attachefile" %>
+						</div>
+					<% else %>
+						<%= render :partial => "attachefile" %>
+					<% end %>
+				</td>
+			
+		</tr>
+		
+	</tr>
+
+<% content_for :rightcolumn do %>
+
+	<p class="title">Настройки</p>
+	
+	<div class="block">
+	<%
+       li1 = { "Дневник" => 0 }
+       li2 = Hash.new() 
+	   current_user.communities.each do |c|
+           li2.merge!({ c.title.to_sym => c.community_id.to_i })
+       end
+       list_of = li1.merge!(li2)
+    %>
+	<p><label for="post_community_id">Куда публикуем?</label><br/>
+	<%= select_tag 'post[community_id]', options_for_select(list_of,@post.community_id.to_i) %>
+	</p>
+
+	</div>
+	
+	<!--<div class="block">
+	<label for="post_status">Запись</label><br/>
+	<%# select_tag "post[status]",options_for_select({ "Публичная" => 'public',"Личная" => "private", "Для друзей" => "protected"},@post.status.to_s) %>
+	</div>-->
+
+	<div class="block">
+	<%= check_box 'post','commentable'%><label for="post_commentable">Разрешить комментарии</label>
+	</div>
+
+<% end %>

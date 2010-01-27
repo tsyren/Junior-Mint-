@@ -1,0 +1,63 @@
+<%- @link_title = [] 
+    newlink(@link_title,link_to(@community.title, :controller => 'communities',:action =>'show',:id => @community.id ),1)
+   
+-%>
+<% content_for :flash do %>
+	<% if flash[:current_td]%>	
+	<%= flash[:current_td] %>
+	<% end %>
+<% end %>
+
+<% content_for :title do %>
+
+   
+     <%= link_to_unless_current 'Участники' %>
+     <%= link_to_unless_current ' | Читатели', :view => 'readers' %>
+     <%= link_to_unless_current ' | Модераторы', :view => 'moderators' %>
+     <%= link_to_unless_current ' | Создатель', :view => 'creator' %>
+	 	
+
+<% end %>
+<% if not @community_users.nil?  %>
+
+<table class="list">
+	
+<% for member in @community_users %>
+
+	
+    <tr>
+    <% foto = Datafile.find(:first, :conditions => [" user_id = ? AND avatar=1 AND model_id = 0",member.user_id])%>
+	
+	<td><%= view_photo(foto,"people") %></td>
+		
+	<td><%= link_to member.full_name, dude_url(:id => member.user_id) %></td>
+	
+	
+	<td class="proper">
+
+		<% if @community.user_id == current_user.id %>
+			<div id="member_status_<%= member.user_id %>"><%= member.status %></div>
+			<div id="link_edit_<%= member.user_id %>"><%= link_to_remote "Сменить",  :url => { :action => "change_status", :id => @community.id,:user_id => member.user_id,:do => 'edit' }%></div> 
+		<% end %>
+	
+	</td>
+	<td>
+		<div id="notice" style="display: none"></div>
+		&nbsp;
+	</td>
+	<td>
+        <% if @community.user_id == current_user.id and member.user_id != current_user.id  %>
+			<%= link_to "удалить", :action => "delete", :id => @community.id, :user_id => member.user_id%>
+ 		<% end %>
+	</td>
+	
+	</tr>
+<% end %>	
+</table>
+
+<% else %>
+	   
+	   <p align="center"> Никого</p>
+	   
+<% end %>
+

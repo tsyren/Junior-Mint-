@@ -1,0 +1,48 @@
+<%- @link_title = [] 
+   newlink(@link_title,link_to_unless_current(@community.title,:controller => "communities",:action => 'show', :name => namegsub(@community.title),:id => params[:id]),1)
+newlink(@link_title,"Новые приглашения",0)
+-%>
+
+<% content_for :left_column_style  do %>
+  
+  style ="width: 550px"
+
+<% end %>
+<% content_for :right_column_style  do %>
+  style="width: 300px"
+
+<% end %> 
+
+<% unless @users.empty? %>
+<%- form_for  :invite_users,:url => {:controller => :invites,:action => :create, :id => @community.id},:method => "post" do |inv| -%>
+
+<table class="list">
+	<% @users.each do |u| %>
+	<tr>
+	<% userphoto = Datafile.find_user_avatar(u.id) %>
+	<% if userphoto.blank? %>
+	<td><%= image_tag('../userphotos/blank_avatar.jpg') %></td>
+    <% else %>
+    <td><%= image_tag(userphoto.public_filename(:thumb)) %>
+	</td>
+    <% end %>
+	<td style="padding-left: 30px"><%= link_to u.full_name, dude_url(:id=>u.id) -%>
+	<% if u.updated_at > Time.now() - 1.minutes %>
+	<div id="under">online</div>
+	<% end %>
+	</td>
+	<td style="padding-left: 100px;">
+	
+	  <%= inv.check_box u.id %>
+	
+	</td>
+	<% end %>
+</table>
+<% content_for :rightcolumn do %>
+ 	<p>Отметьте из этого списка тех кого <br> вы хотели бы пригалсить в ваше сообщество <br/><br/>
+ 	<%= submit_tag "Пригласить" %>	</p>
+<% end %>
+<% end %>
+<% else %>
+	<p align="center">Никого</p>
+<% end %>

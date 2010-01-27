@@ -1,0 +1,1 @@
+page["question_#{params[:index]}"].remove 

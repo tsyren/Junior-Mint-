@@ -1,0 +1,31 @@
+<div class="floatLeft width100">
+<div id="title">Сообщества</div>
+	<% if !@user.communities.empty? %>
+	<div id="list" class="Padding150">
+		<% for community in @user.communities %>
+		<% @avatar = Datafile.find(:first,:conditions => ["community_id = ? AND avatar=1", community.id ])  %>
+		<div  class ="block colorGreen" id="block-size-11">
+		   <div id="list-avatar"> 
+		   <% if !@avatar.nil? %>
+           <%= image_tag(@avatar.public_filename(:thumb)) %>
+		  <% else %>
+		   <%= image_tag('../userphotos/blank_avatar.png') %>
+		  <% end %></div>
+		   <div id="list-name"> <%= link_to( community.title,  :controller => 'communities',
+									   :action => 'show',
+									   :id => community.community_id) %></div><br/>
+			<div id="list-desc"> <%= community.description %></div>
+			<div id="list-opt">	<%= link_to 'Написать',  :controller => 'posts',
+														:action => 'newpostcom',
+														:id => community.community_id
+														%>&nbsp;
+				<%= link_to( 'Читать', :controller => 'communities', :action => 'show', :id => community.community_id) %>&nbsp;
+				<%= link_to( 'Выйти', :controller => 'communities', :action => 'leave', :id => community.community_id ) %>&nbsp;</div>
+			</div>	
+		 <% end %>	
+		 
+	</div>
+	<% else %>
+		Вы не состоите ни в одном сообществе.
+	<% end %>
+</div>	

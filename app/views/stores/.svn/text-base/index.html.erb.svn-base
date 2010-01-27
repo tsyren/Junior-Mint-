@@ -1,0 +1,67 @@
+﻿<%-	
+    @link_title = []
+ 	newlink(@link_title,link_to("Архив"),1)
+	newlink(@link_title,link_to_unless_current("Личный", :view => nil),0)
+%>
+ <% content_for :title do %>
+	<%= link_to_unless_current ' | Общий', :view => "public" %> 
+ <% end %>
+ 
+<% content_for :title_right do %>
+	
+	<%= link_to 'Загрузить файл', new_store_path %> 
+	
+<% end  %>
+<table class="list"> 
+
+<% for store in @stores %>
+  <tr>
+    <td valign="middle">
+            <p align="center"><%= image_tag "icons/" + store.store_content_type + ".jpeg" %></p>
+    </td>	
+    <td>
+      <% if store.name %>
+      <b><%= store.name%></b>
+      <% else %>
+      <b><%= store.store_file_name %></b>(оригинал)
+      <% end %>
+
+      <br />
+      <p>    <% if store %>
+              <%= store.description%>
+              <% else %>
+              Описание отсутствует
+              <% end %>
+      </p>
+    </td>
+    <td valign="middle">
+            <p align="center"><%= link_to image_tag("down.jpg"), :action => "get_file", :id => store.id  %></p>
+            <small>всего&nbsp;скачиваний:&nbsp;<%= store.dcount%></small>
+    </td>	
+    <td>
+    <% if params[:view] == "public"%>	
+    Автор:&nbsp;<%= store.user.first_name + "&nbsp;" + store.user.last_name %> <br /><br />
+    <% end %>
+    <%= link_to 'Смотреть больше ', store %> <br /><br />
+   </td>
+  </tr>
+<% end %>
+</table>
+
+<% content_for :rightcolumn do %>
+
+<div class="block">
+ <div class="roundedcornr_box_576276">
+   <div class="roundedcornr_top_576276"><div></div></div>
+   <div class="roundedcornr_content_576276">
+   <p class="title">Метки</p>
+   <p>
+   <% tag_cloud( @tags, ["css1", "css2", "css3", "css4"]) do |tag, css_class| -%>
+    	<%= link_to tag.name, { :controller => :store, :action => :tag, :id => tag.name }, :class => css_class %>
+   <%- end -%>
+   </p>
+</div>
+<div class="roundedcornr_bottom_576276"><div></div></div>
+</div>
+</div>
+<%- end -%>

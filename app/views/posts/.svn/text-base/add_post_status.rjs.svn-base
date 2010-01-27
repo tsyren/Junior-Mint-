@@ -1,0 +1,3 @@
+if params[:com_id] == 0
+  page.replace_html :post_status, :partial => "post_status"
+end

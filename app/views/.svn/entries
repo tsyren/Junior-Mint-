@@ -1,0 +1,97 @@
+10
+
+dir
+1200
+svn://i-lab.nsu.ru/social_network/trunk/app/views
+svn://i-lab.nsu.ru/social_network
+
+
+
+2009-03-31T12:56:33.678991Z
+1164
+ochirov
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+c2d4e476-504d-8747-8502-89561820f03d
+
+stores
+dir
+
+invites
+dir
+
+comments
+dir
+
+admin
+dir
+
+bookmarks
+dir
+
+error
+dir
+
+projects
+dir
+
+feeder
+dir
+
+friends
+dir
+
+communities
+dir
+
+tags
+dir
+
+lists
+dir
+
+layouts
+dir
+
+users
+dir
+
+events
+dir
+
+search
+dir
+
+sessions
+dir
+
+shared
+dir
+
+widgets
+dir
+
+messages
+dir
+
+user_mailer
+dir
+
+posts
+dir
+
+datafile
+dir
+

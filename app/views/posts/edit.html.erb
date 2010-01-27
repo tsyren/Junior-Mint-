@@ -1,0 +1,42 @@
+<% content_for :script do %>
+  <%= javascript_include_tag "fckeditor" %>		
+  <%= calendar_date_select_includes %>
+<% end %>
+	
+<% content_for :leftcolumn do %>
+<%- @link_title = [] 
+   newlink(@link_title,link_to("Дневник",mynotes_url),1)
+ %>
+
+
+<% content_for :title do %>   
+	
+	Редактирование
+
+<% end %>   
+
+<table class="form">   
+<%= error_messages_for :post, :datafile, :event %>
+
+<!-- Form START -->
+
+<% form_tag({:action => 'update', :id => @post },:method => :post,:multipart => :true) do %>
+    
+	
+	<%= render :partial => 'form' -%>
+	
+		
+	<tr>
+		
+		<td></td>
+		<td>
+				<p class="button">
+					<%= submit_tag "Сохранить", :disable_with => 'Идёт сохранение ...' %>
+					&nbsp;|&nbsp;<%= link_to( 'Удалить', {:controller => 'posts',:action => 'destroy', :id => @post }, :confirm => "Вы уверены?")  %>
+				</p>
+		</td>
+	</tr>
+<% end %>
+</table>
+<% end %> 
+

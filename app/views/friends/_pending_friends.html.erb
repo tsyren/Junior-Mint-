@@ -1,0 +1,29 @@
+<% unless @user.pending_friends.empty? %>
+	<ul class="list">
+		
+	<% @user.pending_friends.each do |u| %>
+		
+		<li class="item">
+		<% userphoto = Datafile.find(:first,:conditions => [" user_id = ? AND model_id = 0 AND avatar=1",u.id]) %>
+		<p class="image">
+		<%= view_photo(userphoto,"people")%>
+		</p>
+		
+		<h4><%= link_to u.full_name, dude_url(:id=>u.id) -%></h4>
+		
+		<p class="actions">
+		<%- if logged_in? && @user == current_user -%>
+		<%= link_to 'Принять', {:controller => "friends",:action => "update",:user_id => current_user, :id => u}, :method => :put, :confirm => 'Вы принимайте запрос?' %> |
+		<%= link_to 'Отклонить', {:controller => "friends",:action => "destroy",:user_id => current_user, :id => u}, :method => :delete, :confirm => 'Вы хотите отклонить запрос?' %>
+		
+		</p>
+		<%- end -%>
+		
+		
+		
+	<%- end -%>
+	
+	</ul>
+<% else %>
+	<p align="center">Никого</p>
+<% end %>

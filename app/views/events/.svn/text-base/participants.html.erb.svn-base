@@ -1,0 +1,38 @@
+<%- @link_title = [] 
+
+   newlink(@link_title,"Событие",1)
+   newlink(@link_title,"Участники",0)
+ -%>
+
+<div style="float: left; margin-right: 50px;">
+
+<%- form_tag( :controller => 'invites', :action => 'create',:id => params[:id],:type => 'event') do -%>
+<p>Отметьте из списка друзей тех кого <br> вы хотели бы пригалсить на ваше мероприятие <br/><br/>
+<table class="list">
+	<% @users.each do |u| -%>
+	<tr class="item">
+		
+		
+		<td><%= link_to u.full_name, dude_url(:id=>u.id) -%></td>
+		
+		<td><%= check_box 'invite_users', u.id %></td>
+	</tr>
+	<%- end -%>
+</table>
+
+<%= submit_tag "Пригласить" %>	</p>
+</div>
+<div>
+<p align="left">Текущие участники<br/>
+<table class="list">
+ 	<% @partis.each do |partic| %>
+	<% user = User.find_by_id partic.user_id%>
+ 	<tr><td><%= link_to user.full_name, dude_url(:id => user.id)%></td></tr>
+	<% end %>
+</table>
+	
+</p>	
+</div>	
+<% end %>
+
+

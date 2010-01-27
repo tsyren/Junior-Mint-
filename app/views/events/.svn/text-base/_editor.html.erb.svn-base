@@ -1,0 +1,14 @@
+<div class="right_menu"> 
+	
+	<% if @user.id == current_user.id %>
+	<div class="pmeta_bubble_bg"><div class=rounded_ul><div class=rounded_ur><div class=rounded_ll><div class=rounded_lr> 
+		 <table class="pmeta"   cellspacing="10px">
+		<tr><td>
+			<%= link_to "Редактировать" %>
+			<%= link_to "Участники" %>
+		</td></tr>
+	</table>
+    </div></div></div></div></div>
+    
+    <% end %>
+</div>

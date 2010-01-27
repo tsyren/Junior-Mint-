@@ -1,0 +1,3 @@
+﻿<label for="postfile_uploaded_data">Файл:
+	</label><%= file_field :postfile, :uploaded_data %>&nbsp;<%= link_to_remote 'Отмена', :url => { :action => 'attafile', :view => 'hide'} %><br/>
+         <div id="under">max file size: 5 Mb, possible content format: doc, pdf, txt, jpg, gif </div>

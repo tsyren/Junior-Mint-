@@ -1,0 +1,46 @@
+<% content_for :left_column_style  do %>
+  
+  style ="width: 900px"
+
+<% end %>
+<% content_for :right_column_style  do %>
+  style="width: 10px"
+
+<% end %>
+<% unless @friends.empty? %>
+<% count = 1 %>
+<table class="list" style="width: 900px;">
+	<% @friends.each do |u| %>
+	<% if count % 2 != 0 %><tr><%end%>
+		<td>
+		
+		<% userphoto = Datafile.find(:first,:conditions => [" user_id = ? AND model_id = 0 AND avatar=1",u.id]) %>
+		<p class="image">
+		<%= view_photo(userphoto,"people")%>
+		</p>
+		
+		<h4>
+			<%= link_to u.full_name, dude_url(:id=>u.id) -%>
+		</h4>
+		
+		<p class="actions">
+		<%= link_to( 'Отправить сообщение', {:controller => 'messages',:action => 'new', :user_id => u.id},:method => :post)%>
+		&nbsp;|&nbsp;
+		<%= link_to( 'Убрать из друзей', {:controller => "friends",:action => "destroy",:user_id => current_user, :id => u}, :method => :delete, :confirm => 'Вы уверены?') %>
+		
+		</p>
+		
+		</td>
+	<% if count % 2 == 0 %></tr><%end%>
+	<% count += 1%>
+	<% end %>
+	
+	
+</table>
+<% content_for :paginate do %>
+	<%= will_paginate @friends %>
+<% end %>
+
+<% else %>
+	<p align="center">Никого</p>
+<% end %>

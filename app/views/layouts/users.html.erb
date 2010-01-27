@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+  <% unless logged_in?  %>
+  <title><%= @page_title ||= 'My NSU'%></title>
+  <% else %>
+  <title><%=  current_user.full_name.to_s + " on My NSU | "  + @subtitle.to_s + " > " + @podsubtitle.to_s   %></title>
+  <% end %>
+
+  <%= stylesheet_link_tag 'main' %>
+  
+  <%= yield :head -%>
+  <!-- RSS -->
+  <% if logged_in? %>
+  <%= auto_discovery_link_tag(:rss, :controller => 'posts',:action => 'rss') %>
+  <% end %>
+  <!-- JavaScript -->
+  <%= javascript_include_tag :defaults -%>
+  
+  <%= yield :script %>
+  
+</head>
+<body>
+<div id="wrapper">
+<!-- Begin Header -->
+<div id="header">
+
+<div id="under_menu">
+<div id="logo">
+<%= link_to "m<em>y</em> nsu<sup>[&beta;eta]</sup>", home_url %>
+</div>
+<div id="search_box">
+<% form_tag( {:controller => 'search',
+                :action =>"index"},
+:name =>:quicksearch, 
+                :method => "get")  do -%>
+
+      <input type = "text" name="query" id="search_field" value='<%= current_user.full_name %>' id="query" onfocus="if(this.value=='<%= current_user.full_name %>'){this.value=''}" onblur="if(this.value==''){this.value='<%= current_user.full_name %>'}" >
+      <select name="findtype" id="search_types">
+      <option value="human">Человек</option>
+      <option value="community">Сообщество</option>
+      <option value="blog">Запись</option>
+      <option value="interes">Интерес</option>
+      <option value="tag">Метка</option></select>
+<% end %>
+</div><!-- end search box -->
+
+</div>
+<div class="clear"></div>
+
+<div  id="header_menu">
+
+<ul id="main_menu">
+<li><%= link_to_unless_current('Главная', mypage_url)  -%></li>
+
+<% message = Message.find(:all, :conditions => ["status = 1 AND reciever = ?",current_user.id] ) %>
+<%- if message.size != 0  -%>
+<li><%= link_to_unless_current( 'Почта'+ "("+message.size.to_s + ")", messages_url) -%></li>
+<%- else -%>
+<li><%= link_to_unless_current( 'Почта', messages_url ) -%></li>
+<%- end -%>
+
+<%- unless current_user.pending_friends.empty?  -%>
+<% @page_title =" MyNSU"+ current_user.full_name.to_s + " Друзья("+current_user.pending_friends.size.to_s+")" %>
+<li><%= link_to_unless_current( "Друзья"+"&nbsp;(" + current_user.pending_friends.size.to_s+")",myfriends_url(:pending => 'yes') ) -%></li>
+<%- else -%>
+<li><%= link_to_unless_current( 'Друзья', myfriends_url,:class => "friends" ) -%></li>
+<%- end -%>
+<li>
+<%= link_to_unless_current("Сообщества", :controller => "communities",:action => 'list',:type => :mycom) %>
+<%- invites = Invite.find_communities_user_and_status current_user, "waiting" -%>
+<%- if invites.size != 0 -%>
+<%= link_to_unless_current("(" +invites.size.to_s+")", :controller => "invites",:action => 'index',:show => :com,:type => :in) -%>
+<%- end -%>
+<%- requests = Justrequest.find_communities_requests(current_user,"waiting")	-%>
+<%- if requests.size != 0 -%>
+<%= link_to_unless_current("(<font color='green'>+" +requests.size.to_s+"</font>)", :controller => "invites",:action => 'requests',:show => :com,:type => :in) %>
+<%- end -%>
+<%- forbi =  Justrequest.find_communities_user_and_status(current_user,"forbbiden")	-%>
+<%- if forbi.size != 0 -%>
+<%= link_to_unless_current("(<font color='red'>-" +forbi.size.to_s+"</font>)", :controller => "invites",:action => 'deined',:show => :com,:type => :out) %>
+<%- end -%>
+</li>
+<li>
+<%  response = Invite.find_events_user_and_status current_user.id, "waiting" %>
+<% if response.size == 0 %>
+
+      <%= link_to_unless_current( 'События', events_path) -%>
+<% else %>
+      <%= link_to_unless_current("События" + "(" +response.size.to_s+")", :controller => "invites",:action => 'index',:show => :eve,:type => :in) %>
+<% end %>
+
+</li>
+<li><%= link_to "Архив", stores_path %></li>
+</ul>
+
+<ul id="main_menu_left">
+<li><%= link_to_unless_current( 'Настройки',   myprofile_url,:class => "options") -%></li>
+<li><%= link_to 'Выйти', logout_url  %></li>
+</ul>
+
+</div>		 
+
+</div>
+<!-- End Header -->
+
+<!-- Begin title & flash area -->
+<div id="sub_menu">
+
+<div class="inline_left">	
+<%= link_title %>
+
+<%= yield :title %>
+</div>
+
+<div class="inline_right" id="marker">
+
+<%= yield :title_right%>
+
+</div>	
+
+<div class="clear"></div>
+</div>
+<!-- End title & flash area -->
+
+<!-- Begin Left Column -->
+<div id="leftcolumn" <%= yield :left_column_style %>>
+
+<% if flash[:notice] or  flash[:error] or flash[:alert] %>
+<div class="notice" <% if flash[:error] %>id="error" <% else %> id="notice" <% end %>>
+<p align="center"><%=  flash[:notice] || flash[:error] || flash[:alert] %></p>
+</div>
+<script type="text/javascript">
+setTimeout("new Effect.Fade('notice');", 10000)
+</script>
+<% end %>
+<noscript>
+<div class="notice" id="notice"><p align="center"><b>Ваш браузер не поддерживает <a href='http://ru.wikipedia.org/wiki/JavaScript'>Javascript</a></b>.</p> Для корректной работы 
+нашего сайта мы рекомендуем включить Javascript в своем браузере.
+Если по каким-то причинам вы не можете сделать этого попробуйте другой браузер.
+</div>
+</noscript> 
+<%= yield :leftcolumn %>	
+
+
+<%= @content_for_layout -%>
+
+<div class="clear"></div>
+
+</div>
+<!-- End Left Column -->
+
+<!-- Begin Right Column -->
+<div id="rightcolumn" <%= yield :right_column_style %>>
+
+<%= yield :rightcolumn %>
+
+<div class="clear"></div>
+
+</div>
+<!-- End Right Column -->
+<div class="clear"></div>
+
+<div id="pagination">	   
+<%= yield :paginate %>
+</div>
+<!-- Begin Footer -->
+<div id="footer">
+
+<div class="inline_left">
+&copy;2008 My NSU&nbsp;&ndash;&nbsp;<%= link_to 'О проекте', about_url -%>&nbsp;&ndash;&nbsp;<%= link_to 'Обратная связь',feedback_url %>&nbsp;&ndash;&nbsp;Поддержка <a href="http://i-lab.nsu.ru/">Интел-НГУ</a>
+</div>
+
+<div class="inline_right">
+<%= link_to "Пригласить друга", :controller => 'invites',:action => 'friend' %>
+</div>	
+</div>
+<!-- End Footer -->
+</div>
+</body>
+</html>

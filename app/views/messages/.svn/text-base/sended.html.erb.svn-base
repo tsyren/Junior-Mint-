@@ -1,0 +1,28 @@
+ <% @link_title = []
+  
+   @subtitle = "Почта"
+   @podsubtitle = "Исходящие"	
+   newlink(@link_title,link_to(@subtitle, messages_url,:class => "messages sended"),1)
+   
+   %>
+<% content_for :leftcolumn do %>
+	<% unless @messages.nil? or @messages.empty? %>
+	
+	    <table class="messages">
+	    <tr  class="border-bottom"><td>Получатель</td><td>Тема</td><td>Дата</td></tr>
+		
+		<%= render :partial => 'messages_list', :collection => @messages -%>
+		
+		</table>
+	<% content_for :paginate do %>
+		  <%= will_paginate @messages %>
+	<% end %>
+	
+	<% else %>
+		<p align="center">Папка исходящих пуста</p>
+	<% end %>
+<% end %>
+<% content_for :rightcolumn do %>
+	<%= render :partial => 'messagemenu' %>
+<%- end -%>
+

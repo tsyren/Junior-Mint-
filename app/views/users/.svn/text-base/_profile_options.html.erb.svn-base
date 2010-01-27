@@ -1,0 +1,52 @@
+ 	<tr>
+		 <td valign="top">Управление паролем&nbsp</td>
+		 <td> 
+		       <% form_tag :action => 'change_password' do |f| %>
+                <p><label for="old_password" class="block">Старый пароль</label><br/>
+                <%= password_field_tag 'old_password', @old_password, :size => 45,
+                            :class => 'text' %></p>
+
+                <p><label for="password" class="block">Новый пароль</label><br/>
+                <%= password_field_tag 'password', {}, :size => 45, :class => 'text' %><br/>
+                <small>между 4 и 40 символами</small></p>
+
+                <p><label for="password_confirmation"  class="block">Повторите новый пароль</label><br/>
+                <%= password_field_tag 'password_confirmation', {}, :size => 45, :class => 'text' %></p>
+
+
+          <p><%= submit_tag 'Изменить пароль' %><p/>
+		 <% end %></td>
+		</tr>
+			
+		<tr>
+			
+		<td  valign="top">Лента новостей</td>
+		
+		
+	    <td><% form_tag  update_url do-%>
+
+        
+		<p><%= select_tag 'profile[column]',options_for_select(list_of_news_options,@user.profile.column.to_s) %><br /></p>
+
+		
+        </td>
+	</tr>
+		
+	
+	<tr>
+    	<td  valign="top">Доступ к профайлу</td>
+		
+		<td>
+       
+        <p><%= select_tag 'profile[access]',options_for_select(list_of_access_options,@user.profile.access.to_s)%>
+		<%# observe_field "profile[access]",
+						 :on => "changed",
+						 :url => {:action=>'setup_access_users', :only_path => false},
+						 :with => "'profile[access]='+value" %>
+		<div id="access_div"></div></p>
+		
+        <tr><td>&nbsp;</td><td><%= submit_tag 'Обновить настройки' %></td></tr>
+		
+        <% end %></td>
+		
+	</tr>

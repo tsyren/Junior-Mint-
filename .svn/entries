@@ -1,0 +1,89 @@
+10
+
+dir
+1200
+svn://i-lab.nsu.ru/social_network/trunk
+svn://i-lab.nsu.ru/social_network
+
+
+
+2009-04-01T15:36:21.464548Z
+1165
+ochirov
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+c2d4e476-504d-8747-8502-89561820f03d
+
+test
+dir
+
+app
+dir
+
+log
+dir
+
+Rakefile
+file
+
+
+
+
+2009-12-07T09:48:49.375000Z
+17f2f134da4cd31ea095d5868ca89e86
+2008-10-09T07:35:38.796875Z
+158
+ochirov
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+307
+
+script
+dir
+
+config
+dir
+
+db
+dir
+
+lib
+dir
+
+vendor
+dir
+
+public
+dir
+

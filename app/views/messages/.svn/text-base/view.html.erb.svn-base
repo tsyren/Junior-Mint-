@@ -1,0 +1,29 @@
+<%
+    @link_title = []
+	newlink(link_title,link_to_unless_current("Почта",messages_url),1)
+	newlink(link_title,link_to_unless_current("Входящие",messages_url),1)
+	newlink(link_title,@message.title,0)
+%>
+<div class="options_com">
+      
+      <p class="inline_left title"><%= link_to  @sender.full_name, dude_url(:id => @sender.id) %> <%= h( @message.title) %></p>
+	  
+	  <p class="inline_right"> <%= @message.created_at.rus_date %></p>
+	  
+	  <div class="clear"></div>
+	  
+      <div class="message">
+      	
+      	<%= @message.formatted_content %>
+		
+	  </div>
+
+      <p align="right"><%= link_to( 'Ответить', {:controller => 'messages',:action => 'new', :id => @message.id,:user_id => @sender.id },:method => :post)%>&nbsp;|&nbsp;
+	  
+	  <%= link_to 'Удалить', {:controller => 'messages',          :action => "delete",
+                                                                  :id => @message.id },
+                                                                  :confirm => "Вы уверены?",
+                                                                  :post => true %></p>
+</div>
+
+﻿

@@ -1,0 +1,11 @@
+<% content_for :title do %>
+	<%= link_to_unless_current(' Предстоящие события |',events_path(:id => nil)) %>
+    <%= link_to_unless_current(' Прошедшие события |',events_path(:id => "lose")) %>
+	<%= link_to_unless_current(' События друзей |', :action => "friends") %>
+	<%= link_to_unless_current( '&nbsp;Приглашения', {:controller => :invites, :action => "index",:show => "eve",:type => "in"}, :class=>"add_item" ) -%>
+	
+<% end %>	
+<% content_for :title_right do %>
+	<%= link_to_unless_current('Новое событие',new_post_path(:type => :event)) %>
+
+<% end %>

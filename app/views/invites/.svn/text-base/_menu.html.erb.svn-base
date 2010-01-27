@@ -1,0 +1,4 @@
+<% content_for :title do %>
+	<%= link_to_unless_current('Входящие |', :action => "index", :type => :in) %>
+	<%= link_to_unless_current(' Исходящие', :action => "requests") %>
+<% end %>

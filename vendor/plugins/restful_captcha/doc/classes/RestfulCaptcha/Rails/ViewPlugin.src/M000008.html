@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>captcha_tag (RestfulCaptcha::Rails::ViewPlugin)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/restful_captcha/rails/view_plugin.rb, line 20</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">captcha_tag</span>(<span class="ruby-identifier">options</span>={})
+        <span class="ruby-identifier">reset_captcha</span>
+        <span class="ruby-identifier">image_tag</span>(<span class="ruby-identifier">captcha</span>.<span class="ruby-identifier">image_url</span>, <span class="ruby-identifier">options</span>.<span class="ruby-identifier">reverse_merge</span>(<span class="ruby-identifier">:alt</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'captcha image'</span>))
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

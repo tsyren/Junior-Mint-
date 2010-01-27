@@ -1,0 +1,13 @@
+<li class="item">
+	<p class="post_title"><%= link_to event.title, {:controller => "posts",:action => "show",:id => event.id},:class => 'com_title' %></p>
+		 
+     <p class="post_desc"><%= event.content %></p><br/>
+	 
+     <p style="color:gray">	
+	 <i>начало</i>        <%= event.event.started_on.to_formatted_s(:short) %><br/>
+     <i>завершение</i>    <%= event.event.finished_on.to_formatted_s(:short) %><br/>
+	 <i>всего участников</i> <%= event.event.events_users.count %>
+	 </p>
+	 
+</li>
+

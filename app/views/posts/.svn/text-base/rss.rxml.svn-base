@@ -1,0 +1,20 @@
+xml.instruct!
+
+xml.rss "version" => "2.0", "xmlns:dc" => "http://purl.org/dc/elements/1.1/" do
+ xml.channel do
+
+   xml.title       "My NSU"
+   xml.link        url_for :only_path => false, :controller => 'posts'
+   xml.description "new posts and events"
+
+   @events.each do |event|
+     xml.item do
+       xml.title       event.title
+       xml.link        url_for :only_path => false, :controller => 'post', :action => 'show', :id => event.id
+       xml.description event.content
+       xml.guid        url_for :only_path => false, :controller => 'post', :action => 'show', :id => event.id
+     end
+   end
+
+ end
+end

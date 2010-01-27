@@ -1,0 +1,16 @@
+<% @Statuses = {
+ :creator => 'Создатель',
+ :moderator => 'Модератор',
+ :member => 'Участник',
+ :reader => 'Читатель'	} %>
+<div id="hide_status_edit">
+<div style="clear:both">
+ <%= select_tag 'status',options_for_select(@Statuses.collect {|key,value| [ value, key ]},status.status) %>
+ <%= observe_field "status",  :on => "changed",
+                              :url => {:action=>'edit_status', :id => @community.id,:user_id => status.user_id,:only_path => false},
+                              :with => 'status' %>
+</div>	
+<div id="under" style="float:right">
+<%= link_to_remote "Отмена", :url => {:action => "change_status", :id => @community.id,:user_id => status.user_id,:do => 'hide'}%>
+</div>
+</div>

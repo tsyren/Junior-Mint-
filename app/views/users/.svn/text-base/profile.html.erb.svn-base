@@ -1,0 +1,69 @@
+﻿<% @link_title = []
+   newlink(@link_title,"Настройки",1)
+   if params[:type] == nil
+	params[:type] = "social"
+	end	
+%>
+<% content_for :head do %>
+<link href="<%= foaf_url(@user.id,:rdf) %>" rel="meta" type="application/rdf+xml" title="FOAF" />
+<% end %>
+<% content_for :title do %>
+
+		<%= link_to_unless_current "О себе | ", myprofile_url(:type => "social")%>
+			
+	 	<%= link_to_unless_current "Контакты | ", myprofile_url(:type => "contacts" )%>
+		
+		<%= link_to_unless_current "Карьера | ", myprofile_url(:type => "career" )%>
+		
+		<%= link_to_unless_current "Системные",  myprofile_url(:type => "options" )%>
+		
+			
+<% end %>
+<% content_for :leftcolumn do %>
+<div class="options_com">
+	<% if current_user == @user %>
+	<div id="edit_com" class="hover_link">
+	<%= link_to "Редактировать", {:action => 'edit', :type => params[:type]} if params[:type] != "options"%>
+	</div>
+	<% end %>
+	 <% if params[:type] == "social" or params[:type] == nil %>	
+		 <div class="box_left">
+			<h4>Фото</h4>
+			<%= view_photo(@userphoto,"people")%>
+			<% if current_user == @user %>	
+			<% if @userphoto.nil? %>
+				<p><small><%= link_to 'Загрузить фото', :controller => 'datafile', :action => 'newphoto' %></small></p>
+			<% else %>
+			    <p><small>
+		  		  <%= link_to 'Сменить', :controller => 'datafile', :action => 'changephoto' %> |
+		          <%= link_to 'Удалить', :controller => 'datafile', :action => 'delete' %>
+		    	</small></p>
+			<% end %>
+			<% end %>		
+		 </div>
+		   
+		 <div class="box_right">  
+		 	<table cellspacing="10px" cellpadding="10px">
+		 	<%= render :partial => "profile_social" %>
+	 		<%= render :partial => "profile_interests"%>
+			</table>
+		 </div>
+	 <% else %>
+	 
+	 	
+	        <table cellspacing="10px" cellpadding="10px">
+	        	
+	 		<%= render :partial => "profile_personal" if params[:type] == "contacts" %>
+	 		<%= render :partial => "profile_profes" if params[:type] == "career" %>
+			<%= render :partial => "profile_options" if params[:type] == "options"%>
+			
+			</table>
+		
+	
+	 <% end %>
+	 
+ </div>
+
+<% end  %>
+
+

@@ -1,0 +1,168 @@
+<% @link_title = [] 
+   newlink(@link_title,link_to("Сообщества",list_communities_url(:type=>"latest")),1)
+   newlink(@link_title,@community.title,0)
+%>
+
+<% content_for :script do %>
+
+<%= javascript_include_tag 'lowpro' %>
+<%= javascript_include_tag 'popup' %>
+
+<% end %>
+
+<% content_for :leftcolumn do %>
+<div class="options_com">
+<div class="box_left">
+    <%= view_photo(@avatar,"community") unless @community.admin(current_user,"only_creator")  %>
+
+    <% if @community.admin(current_user,"only_creator") %>
+
+    <% if @avatar.nil? %>
+    <div class="upload_image">
+            <%= link_to  'Загрузить аватар', :controller => :datafile,:action => :avatarcom,:id => @community.id-%>
+    </div>
+    <% else %>
+            <%= link_to  view_photo(@avatar,"community"), :controller => :datafile, :action => :avatarcomupdate,:id => @community.id-%>
+    <% end %>
+
+    <% end %>
+
+    <% if @community.admin(current_user,"include_reader") %>
+    <p class="desc">
+            <%= link_to @members.size.rus_items('человек', 'человека', 'человек'),:action => 'members',:id => @community-%><br />
+            <%= link_to @community.posts.size.rus_items('запись', 'записи', 'записей'),   :action => 'posts', :id => @community.id %><br />
+            <%= link_to @community.feeds.size.rus_items('канал', 'канала', 'каналов'),   :controller => :feeder,:action => 'show', :id => @community.id %>
+    </p>
+    <% end %>
+    <% if  @community.admin(current_user,"include_moderator") %>
+    <p class="desc admin_desc">
+            <%= link_to @requests.size.rus_items('запрос', 'запроса', 'запросов'),  :action => 'requests',:id => 	@community.id -%>
+    </p>
+    <% end %>
+	
+</div>	
+
+<div class="box_right">
+    <div id="edit_com"  class="hover_link">
+    <%= link_to "Редактировать", {:action => 'edit', :id => @community.id} if @community.admin(current_user,"only_creator")%>
+    </div>
+
+    <h3><%= @community.title %></h3>
+
+    <div class="description">
+    <h4>Описание:<%= edit(@community)if @community.admin(current_user,"only_creator") %></h4>
+    <p>
+ <% if @community.admin(current_user,"only_creator") %>
+ <%= in_place_editor_field :community, 'description' %>
+ <% else %>
+ <%= @community.description %>
+ <% end %>		
+</p>	
+
+    <h4>Создатель:</h4>
+    <p><%= link_to @author.full_name,dude_path(:id => @author.id) %></p>
+
+    <h4>Тип сообщества:<%= edit(@community)if @community.admin(current_user,"only_creator") %></h4>
+    <p><%= rus_status(@community.status)  %></p>
+
+    <h4>Интересы: <%= edit(@community)if @community.admin(current_user,"only_creator") %></h4>
+    <% if !@tags.empty? %>
+   <p>
+    <%- for tag in @tags -%>
+       <% interes = Tag.find(:first, :conditions => ["id = ?", tag.tag_id]) %>	
+       <%- if @tags.last != tag -%>
+                    <%= link_to interes.name + ",&nbsp;", :controller => 'communities', 
+                                                                      :action => :tag, 
+                                                                      :id => interes.name  %>
+
+       <% else %>
+       <%= link_to interes.name, :controller => 'communities',
+                                                                      :action => :tag,
+                                                                  :id => interes.name  %>
+       <%- end -%>
+     <%- end -%>
+    </p>
+    <%- else -%>
+      <p>без интересов</p>
+    <%- end -%>
+ </div><!--end description -->
+</div><!--end inline right -->
+
+</div><!--end left -->
+          	
+<% if @community.admin(current_user,"include_member") %>		
+
+  <% unless @community.posts.empty? %>
+
+  <div class="options_com">
+
+    <div id="edit_posts"  class="hover_link"><small><%= link_to 'К полному списку', :action => 'posts', :id => @community.id %></small></div>
+
+    <h4>Темы:</h4>
+
+    <ul class="list posts_list">
+            <%- for post in @posts -%>
+    <li>
+                    <%= link_to textilize_without_paragraph(post.title), :controller => :posts,:action => :show,:id => post -%>
+                    &nbsp;(<%= link_to post.comments.size.rus_items('комментарий', 'комментария', 'коментариев'), :controller => :posts,:action => :show,:id => post,:anchor => 'comments' -%>)
+            </li>
+
+            <%- end -%>
+    </ul>	
+  </div>
+  <% end %>
+  <% end %>
+<%- end -%>
+
+<% content_for :rightcolumn do %>
+<div id="options"> 
+    <div id="windows_id"></div>
+    <% if @community.admin(current_user,"include_member") %>
+      <p><a href="#new" class="popup">Создать &raquo;</a><br /></p>
+      <div class="popup" id="new" style="display: none">
+        <%= render :partial => "box_tasks", :locals => { :community => @community } %>
+      </div>	
+    <% end %>
+    <% if @community.admin(current_user,"include_reader") %>
+        <p><a href="#test" class="popup">Подписать &raquo;</a></p>
+        	
+
+    <% end %>
+    <div class="popup" id="test" style="display: none">
+
+        <%= render :partial => "subscribe", :locals => { :community => @community }  %>
+
+        </div>	
+
+        <p><a href="#invite" class="popup">Пригласить &raquo;</a></p>
+        <div class="popup" id="invite" style="display: none">
+
+        <%= render :partial => "invites", :locals => { :community => @community } %>
+
+        </div>
+    <% if @community.admin(current_user,"include_reader") %>
+      <p><a href="#leave" class="popup">Покинуть &raquo;</a></p>
+      <div class="popup" id="leave" style="display: none">
+      <%= render :partial => "leave_box", :locals => { :community => @community } %>
+      </div>
+    <% else %>
+      <p>
+      <%  if @community.questions %>
+
+      <%= link_to('Вступить', :action => 'jointo', :id => @community.id) %>
+
+      <%  else %>
+
+      <%= link_to('Ответить и вступить', :action => 'questions', :id => @community.id) %>
+
+      <% end %>
+      </p>
+    <% end %> 
+    <% if @community.admin(current_user,"only_creator") %>
+      <p><a href="#destroy" class="popup">Удалить &raquo;</a></p>
+      <div class="popup" id="destroy" style="display: none">
+      <%= render :partial => "removable_box", :locals => { :community => @community } %>
+      </div>
+    <% end %>
+</div>
+<% end %>

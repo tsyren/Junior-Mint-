@@ -1,0 +1,17 @@
+<tr class="item">
+	
+	<td> 
+	
+	<% avatar = Datafile.find_by_model_id list_communities.id,:conditions => ["avatar = 1 AND  model_name = ?","Community" ] %>	
+	<%= view_photo(avatar,"community") %>
+
+	</td>
+	
+	<td>
+	<p class="title"><%= link_to  list_communities.title, {:controller => :communities,:action => :show,:id=> list_communities.id},:class => 'com_title' %></p>
+	
+	<p><small><%= list_communities.created_at.rus_date %></small></p>
+	
+	</td>
+	
+</tr>

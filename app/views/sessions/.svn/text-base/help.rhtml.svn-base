@@ -1,0 +1,9 @@
+<div class="support help">
+  <div class="head_up">Оглавление</div>
+  <ul>
+    <li><%= link_to 'Авторизация и регистрация' %>
+     <p id="authon" class="hidden">text</p>
+   </li>
+    <li></li> 
+  </ul>
+</div>

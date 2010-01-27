@@ -1,0 +1,20 @@
+﻿<% content_for :leftcolumn do %>
+
+	<% if @user == current_user %>
+	   <p><%= render :partial => 'friends/friends' if !params[:requested] && !params[:pending] %></p>
+	   <p><%= render :partial => 'friends/requested_friends' if params[:requested]=='yes' %></p>
+	   <p><%= render :partial => 'friends/pending_friends' if params[:pending]=='yes'%></p>
+	<% else %>
+		У вас нет доступа к этой странице
+	<% end %>
+	
+<% end %>
+
+<% content_for :title do %>
+	 <% @link_title = [] 
+		newlink(@link_title, "Друзья", 1)
+	 %>
+     <%= link_to_unless_current('Друзья |',myfriends_url) %>
+	 <%= link_to_unless_current ' Приглашения |', myfriends_url(:requested => 'yes') %>
+	 <%= link_to_unless_current ' Ожидающие ответа', myfriends_url(:pending => 'yes') %>
+<% end %>

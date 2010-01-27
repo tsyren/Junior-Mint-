@@ -1,0 +1,19 @@
+<tr><td valign="top">Интересы</td>
+<% unless @tags.empty? %>
+<td>
+<% for tag in  @tags %>
+	<% interes = Tag.find(:first, :conditions => ["id = ?", tag.tag_id]) %>
+	<%- if @tags.last != tag -%>
+		<%= link_to interes.name + ",&nbsp;", :controller => 'users',
+													 :action => :tag,
+													 :id => interes.name  %>
+	<% else %>	
+		<%= link_to interes.name, :controller => 'users',
+													 :action => :tag,
+													 :id => interes.name  %>
+	<% end %>
+<% end %>
+</td>
+<% else %>
+	<td><font color='gray'>Информация отсутствует</font></td>
+<% end %>

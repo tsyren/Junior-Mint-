@@ -1,0 +1,8 @@
+<%= render :partial => 'events/editor' %>
+
+<p>название <%= @event.title %></p>
+	<div id="under">	
+     <small> начало <%= @event.started_on.to_formatted_s(:short) %></small><br/>
+     <small>завершение    <%= @event.finished_on.to_formatted_s(:short) %></small>
+    </div>
+<p>Описание <%= @event.description %>

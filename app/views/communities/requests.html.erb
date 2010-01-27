@@ -1,0 +1,52 @@
+<%- @link_title = [] 
+
+   newlink(@link_title,link_to_unless_current(@community.title,:action => :show,:id => params[:id]),1)
+   newlink(@link_title,"Запросы",0)
+ -%>
+ <% content_for :left_column_style  do %>
+  
+  style ="width: 450px"
+
+<% end %>
+<% content_for :right_column_style  do %>
+  style="width: 350px"
+
+<% end %> 
+<% content_for :leftcolumn do %> 
+<% unless @requests.empty? %>
+
+ <table>
+ <% for request in @requests %>
+    <% member = User.find :first, :conditions => {:id => request.user_id }%>	
+	<% foto = Datafile.find(:first, :conditions => [" user_id = ? AND avatar=1 AND model_id = 0",member.id])%>
+	<tr>
+	
+	<% if foto.nil? %>
+	<td><%= image_tag('../userphotos/blank_avatar.jpg',:alt => member.full_name) %></td>
+    <% else %>
+    <td><%= link_to image_tag(foto.public_filename),dude_url(:fio => namegsub(member.full_name),:id=>member.id) %></td>
+    <% end %>
+	
+	<td style="padding-left: 30px"><%= link_to member.full_name, dude_url(:fio => namegsub(member.full_name),:id=>member.id) %></td>
+	<td style="padding-left: 30px">
+		<small>  <%= link_to "принять", :action => 'accept_request', :id => request.model_id, :user_id => member.id %></small><br/>
+	    <small>  <%= link_to "отклонить", :action => 'forbidden_request', :id => request.model_id, :user_id => member.id%></small><br />
+		<% if not @community.questions.empty? %>
+		<small>  <%= link_to_remote "просмотреть ответы", 
+				:url => { :action => 'answers', :id => request.model_id, :user_id => member.id}%></small>
+		<% end %>
+	</td>
+	</tr>
+<% end %>
+ </table>
+
+
+<% content_for :rightcolumn do %>
+ 	<% if @community.questions %>
+ 	<div id="answers" class="box_lite"></div>
+	<% end %>
+ <% end %>
+ <% else %>
+   <p align="center">Запросов на сегодня больше нет</p>
+ <% end %>
+ <% end %>

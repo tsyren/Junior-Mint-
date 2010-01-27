@@ -1,0 +1,18 @@
+    <% unless newletters.nil? %>
+	<ul><% sender = User.find(:first, :conditions => ["id = ?", newletters.user_id ] )  %>
+	 	<li>Отправитель:&nbsp;<%= link_to  sender.full_name,	dude_url(:id => newletters.user_id) %></li>
+		
+		<li>Тема: <%= h(newletters.title) %></li>
+		<li>Текст: <%= h(newletters.content) %></li>
+	    <li><div id="under"><small><%= newletters.created_at.rus_date %> |
+            <%= link_to_remote( 'В прочитанные', :update => "newmsg",
+													:url => {:action => 'readed',
+													:id => newletters.id} ) %>|
+		    <%= link_to 'Удалить', {:controller => 'messages',
+									:action => "delete", :id => newletters.id },
+									:confirm => "Вы уверены?",
+									:post => true %></small></div>
+		
+		</li>				
+	</ul>
+	<% end %>

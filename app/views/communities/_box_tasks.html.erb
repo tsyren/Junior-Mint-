@@ -1,0 +1,14 @@
+<h3 class="title">Что вы хотите создать? </h3>
+		<div class="popup_content">
+		<p align="center">
+		  
+		  <ul class="list_of_actions">
+  		   <li><%= link_to ' Новую запись ',new_post_path(:id => community.id)  %>
+		   <% if @community.admin(current_user,"include_moderator") %>
+           <li><%= link_to ' Новый канал  ',:controller => :feeder, :action => :new,:id => community.id -%>
+           <% end %>
+	   	  </ul> 	
+
+		</p>
+		<p class="popup_close"><a href="javascript: Element.closePopup('new')">Закрыть</a></p>
+		</div>

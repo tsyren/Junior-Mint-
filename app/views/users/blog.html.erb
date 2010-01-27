@@ -1,0 +1,97 @@
+<% @link_title = []
+   if @user.id != current_user.id
+   	newlink(@link_title,link_to(@user.full_name,dude_url(:id => @user)),1)
+	 newlink(@link_title,link_to_unless_current("Личные записи", :controller => "users", :action => "blog", :id => @user.id),0)
+   else
+	newlink(@link_title,link_to("Дневник",mynotes_url),1)
+	newlink(@link_title,link_to_unless_current("Личные записи", mynotes_url),0)
+   end	
+  
+  
+   name = ' | Общественные записи'
+%>
+		
+<% content_for :title do %> 
+	<%= link_to_unless  @user.id != current_user.id, name, myblogcom_url do |name| 
+			link_to(name, { :controller => "users", :action => "blogcom", :id => @user.id })
+	end  %>
+<% end %>
+
+<% content_for :title_right do %> 
+
+	<% if @user.id == current_user.id %>
+	
+		 <%= link_to 'Написать в дневник',:controller => 'posts',:action => 'new' %>
+		
+	<% else %>
+	
+		 <%= link_to("Подписаться", :controller => "feeder", :action => "notes", :id => params[:id]) %>
+
+  	<% end %>
+
+	
+<% end %>
+   
+<% content_for :leftcolumn do %>   
+
+	<ul class="list">
+		
+		<% unless @posts.empty? %>
+		 	<%= render :partial =>'users/news', :collection => @posts %>
+		<% else %>
+			<p align="center">Пока нет записей.</p>
+		<% end %>
+		<li><%= will_paginate @posts %></li>
+		
+	</ul>
+	
+<% end %>
+
+<% content_for :rightcolumn do %> 
+
+		
+	<% unless @posts.empty? %>
+	<p>
+		<h4>Последние записи</h4>
+		
+		<ul>
+		<% for post in @posts[0,7] %>
+			<li class="margin_left_11"><p>
+			<% if post.title.split(" ").size >= 3
+		 		title = post.title.split(" ")[0,3].join(" ")+"..."
+				else
+				 title  = post.title.split(" ")[0,3].join(" ")
+				end
+			%>
+		
+		<%= link_to title,:controller => 'posts',
+									:action => 'show',
+									:id => post,:com_id => post.community_id  %></p></li>
+		<% end %>
+		</ul>
+		
+		<small>Всего <i><%=h @posts.size.rus_items('запись', 'записи', 'записей') %></i></small>
+		
+	</p>
+	<% end %>
+	
+	
+	<p>
+	<h4>Архив </h4>
+		
+		<ul align="left">
+			<% for post in @groupposts %>
+				<li class="margin_left_11"><%= link_to post.created_at.strftime('%Y %B'), :controller => 'posts',:action => 'archive',:year => post.created_at.strftime('%Y'),:month => post.created_at.strftime('%m') %></li>
+			<% end %>
+		</ul>
+	</p>
+	
+	<p>
+	<h4>Метки</h4>
+	
+		<% tag_cloud( @taggings, ["css1", "css2", "css3", "css4"]) do |tag, css_class| %>
+		<%= link_to tag.name, { :controller => 'posts', :action => :tag, :id => namegsub(tag.name)}, :class => css_class %>
+		<% end %>
+	</p>
+<% end %>
+

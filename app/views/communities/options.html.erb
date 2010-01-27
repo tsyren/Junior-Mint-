@@ -1,0 +1,57 @@
+<% @link_title = [] 
+   newlink(@link_title,link_to("Сообщества",allcom_url),1)
+   newlink(@link_title,link_to_unless_current(@community.title,:action => 'show', :name => namegsub(@community.title),:id => params[:id]),1)
+   newlink(@link_title,"Настройки",0)
+ %>
+<div class="right_menu"> 
+<div class="pmeta_bubble_bg"><div class=rounded_ul><div class=rounded_ur><div class=rounded_ll><div class=rounded_lr> 
+	<table class="pmeta"   cellspacing="10px">
+	<tr><td>
+    <%= link_to "Общие настройки", :action => 'edit', :id => @community.id %>
+	</td></tr>
+    </table>
+</div></div></div></div></div>	
+<div class="pmeta_bubble_bg"><div class=rounded_ul><div class=rounded_ur><div class=rounded_ll><div class=rounded_lr> 
+	<table class="pmeta"   cellspacing="10px">
+	<tr><td>
+   <%= link_to "Удалить сообщество", :action => 'destroy',:id => @community.id %>
+    </td></tr>
+   </table>
+</div></div></div></div></div>	
+</div>
+<ul style="float: right;width: 51%;list-style:none">
+	<li><h4><%= link_to  'Участники',:controller => 'communities',	:action => 'members',	:id => @community %></h4>
+		<ul style="list-style:none">
+		<% for member in @community.users %>
+        <li><p><%= link_to member.full_name, :controller => "users", :action => "dude", :id => member.user_id %>
+        <%= member.status %>
+		<small><%= link_to "Сменить статус" %>&nbsp;|&nbsp;<%= link_to( "Удалить",:confirm => "Вы уверены?")  %></small></p>
+		</li>
+        <% end %>
+		</ul>
+	</li>
+	<li><h4><%= link_to 'Посты', :action => 'posts', :id => @community.id %></h4><br/>
+	    <ul style="list-style:none">
+		<% for post in @community.posts %>
+		<li><p><%= link_to post.title, :controller => "posts", :action => "show", :id => post.id %><br/>
+		   <small><%= link_to "Править", :controller => "posts",:action => 'edit', :id => post.id %>&nbsp;<%= link_to( "Удалить",{:controller => 'posts',:action => 'destroy', :id => post.id}, :confirm => "Вы уверены?")  %></small></p>
+		</li>   
+        <% end %>
+		</ul>
+	</li>
+</ul>
+<div>
+<h4>Аватар</h4>
+ 
+ <% if @avatar.nil? %>
+ <%= link_to  'Загрузить аватар', :controller => 'datafile',:action => 'avatarcom',:id => @community.id 	%>
+ <% else %>
+ <div><%= link_to image_tag(@avatar.public_filename(:thumb)),@avatar.public_filename %></div>
+ <b>Опции аватара:</b><br>
+ <%= link_to  'Сменить', :controller => 'datafile',:action => 'avatarcomupdate',:id => @community.id %><br>
+ <%= link_to  'Удалить', :controller => 'datafile',:action => 'destroy',:id => @community.id %>
+ <% end %>
+</div>
+
+
+

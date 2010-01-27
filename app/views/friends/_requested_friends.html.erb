@@ -1,0 +1,19 @@
+﻿<%- unless @user.requested_friends.empty? -%>
+	<ul class="list">
+	 <%- @user.requested_friends.each do |u| -%>
+	  <li class="item">
+	    <% userphoto = Datafile.find(:first,:conditions => [" user_id = ? AND model_id = 0 AND avatar=1",u.id]) %>
+		<p class="image">
+		<%= view_photo(userphoto,"people")%>
+		</p>
+		<h4><%= link_to u.full_name, dude_url(:id=>u.id) -%></h4>
+		
+		<p class="actions"><%- if logged_in? && @user == current_user -%>
+			<small><%= link_to 'Отменить запрос', {:controller => "friends",:action => "destroy",:user_id => current_user.id, :id => u}, :method => :delete, :confirm => 'Вы уверены?' %></small><br/>
+		<%- end -%></p>
+		</li>
+	 <%- end -%>
+	</ul>
+<%- else -%>
+	<p align="center">Никого</p>
+<%- end -%>

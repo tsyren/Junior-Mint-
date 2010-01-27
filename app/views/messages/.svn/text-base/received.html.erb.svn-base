@@ -1,0 +1,21 @@
+<% 
+    @link_title = []
+	newlink(link_title,link_to_unless_current("Личная почта",messages_url),1)
+	newlink(link_title,link_to_unless_current("Новое сообщения",newletters_url),0)
+%>  
+    <ul class="msg_new">
+          <li class="msg_date"> <%= @message.created_at.rus_date %> </li>
+          <li class="msg_title">&nbsp;<%= link_to  @sender.full_name, dude_url(:id => @sender.id) %> <%= h( @message.title) %></li>
+          <li class="msg_content"> <%= h( @message.content) %>
+          <div class="msg_control"><small>
+          <%= link_to 'Удалить', {:controller => 'messages',          :action => "delete",
+                                                                      :id => @message.id },
+                                                                      :confirm => "Вы уверены?",
+                                                                      :post => true %>
+          <%= link_to 'Ответить', newmessage_url(:id => @sender,:replay => @message.id ) %>                                                          
+                                                          </small>
+          </div>
+          </li>				
+    </ul>
+    
+﻿

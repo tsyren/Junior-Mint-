@@ -1,0 +1,19 @@
+<% @link_title = [] 
+   newlink(@link_title,"Тетрадка: Архив ",1)
+   
+    newlink(@link_title,params[:year]+"/"+params[:month],0)
+%>
+
+
+<div class="left_menu">
+	<div class="margin_bottom"><%= link_to "Назад к записи", :action => :show, :id => params[:post_id] %></div>
+<% for post in @posts %>
+ <p><%= link_to post.title, :action => 'show',:id => post.id %></p>
+<% end %>
+</div>
+
+<div class="right_menu">
+<% for post in @monthly_posts %>
+  <%= link_to post.created_at.strftime('%Y %B'), :controller => 'posts',:action => 'archive',:year => post.created_at.strftime('%Y'),:month => post.created_at.strftime('%m') %>&nbsp;
+<% end %> 
+</div>

@@ -1,0 +1,10 @@
+<% @link_title = [] 
+   newlink(@link_title,link_to("Настройки", myprofile_url),1)
+   newlink(@link_title,link_to_unless_current("Лента новостей"),0)
+%>
+<div>Сейчас выводяться <%= @user.rus_inputcolumn %> </div>
+<% form_tag  update_url do -%>
+<p><label for="user_inputcolumn">Выводить</label>
+<%= select( "user", "inputcolumn",{"все события" => "allevents"," События Моих Сообщест" =>"eventsmycom","Записи друзей" => "postmyfri", "Записи Моих Сообществ" => "postmycom","Записи Всех Сообществ"=>"allpostcom"}) %><p/>
+   <%= submit_tag 'Принять настройки' %>
+<% end %>

@@ -1,0 +1,10 @@
+
+<% content_for :title do %>
+		
+		<%= link_to_unless_current ' Входящие |', messages_url, :class => 'messages inbox'  %>
+		<%= link_to_unless_current ' Отправленные', {:action => "sended" },:class => 'messages sended'	 %>
+		
+<% end %>
+<% content_for :title_right do %>
+			<%= link_to 'Отправить сообщение',{ :action => 'new'},:class => 'messages new' %>
+<% end %>

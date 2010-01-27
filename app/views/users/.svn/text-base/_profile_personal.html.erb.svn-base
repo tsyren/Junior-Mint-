@@ -1,0 +1,6 @@
+
+<%= table_helper_profile_list("Телефон",@user.profile.phone)%>	
+<%= table_helper_profile_list("ICQ",@user.profile.icq)%>	
+<%= table_helper_profile_list("Контактный&nbsp;email",@user.profile.email)%>	
+<%= table_helper_profile_list("Рабочий телефон",@user.profile.work_phone)%>	
+<%= table_helper_profile_list("Рабочий электронные адрес",@user.profile.contact_email)%>	

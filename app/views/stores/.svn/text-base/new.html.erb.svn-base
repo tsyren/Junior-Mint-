@@ -1,0 +1,18 @@
+﻿<%-	
+    @link_title = []
+ 	newlink(@link_title,link_to("Архив", :action => :index ),1)
+	newlink(@link_title,"Новый файл",0)
+%>
+
+<%= error_messages_for :store %>
+
+<% form_for(@store,:html => { :multipart => true }) do |f| %>
+<table class="form">
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <tr>
+	<td></td>
+	<td><%= f.submit "Закачать" %></td>
+  </tr>
+</table>
+<% end %>
+

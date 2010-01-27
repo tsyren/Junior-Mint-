@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+ "http://www.w3.org/TR/html4/Transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<% unless logged_in?  %><title>My NSU <%= ' | ' + @sub_title  ||= "Главная" %></title>
+<% end %>
+<%= stylesheet_link_tag 'main' %>
+<%= yield :head%>
+<%= yield :script %>
+<%= javascript_include_tag "all" -%>
+</head>
+<body>
+<div id="wrapper"> 
+<!-- Begin Header -->
+ <div id="header">
+  <div id="logo" style="padding: 30px 0">
+    <%= link_to "m<em>y</em> nsu<sup>[&beta;eta]</sup>", home_url %>
+  </div>
+ </div>
+<!-- End Header -->
+<!-- Begin Left Column -->
+<div id="leftcolumn">
+ <% if flash[:notice] or  flash[:error] or flash[:alert] %>
+    <div  class="notice"  <% if flash[:error] %>class="error"<% else %>id="notice" <% end %>>
+    <p align="center"><%=  flash[:notice] || flash[:error] || flash[:alert] %></p>
+    </div>
+    <script type="text/javascript">
+    setTimeout("new Effect.Fade('notice');", 10000)
+    </script>
+ <% end %>
+			
+  <%= yield :leftcolumn %>	
+  <%= @content_for_layout -%>
+  <div class="clear"></div>
+
+</div>
+<!-- End Left Column -->
+<!-- Begin Right Column -->
+<div id="rightcolumn">
+    <%= yield :rightcolumn %>
+    <div class="clear"></div>
+</div>
+<!-- End Right Column -->
+<!-- Begin Footer -->
+<div id="footer">
+ <div class="inline_left">
+  &copy;<%= @project_name %> <a href="http://nsu.ru/">Novosibirsk State University</a>, 2008.
+  Content posted by MyNSU users.&nbsp;&ndash;&nbsp;
+  <%= link_to 'Обратная связь',feedback_url %>&nbsp;&ndash;&nbsp;Поддержка <a href="http://i-lab.nsu.ru/"> Интел-НГУ</a>
+ </div>
+</div>
+<!-- End Footer -->
+</div>  
+</body>
+</html>
+

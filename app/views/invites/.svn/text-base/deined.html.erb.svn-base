@@ -1,0 +1,66 @@
+﻿<% content_for :title do %>
+   <%= link_to_unless_current('Сообщества | ',:show => :com ) %>
+   <%= link_to_unless_current('События',:show=> :eve ) %>
+<% end %>
+
+<% content_for :title_right do %>
+	<%= link_to('Приглашения | ',:action=> :index ) %>
+	<%= link_to_unless_current('Запросы',:action=> :requests ) %>
+<% end %>
+
+<% content_for :leftcolumn do %>
+
+<%-  @link_title = []
+		newlink(link_title,"Отказы",1)-%>
+		
+<% unless @forbi.empty? %>
+<ul class="list hover_effect">
+    <% for iterm in @forbi %>
+	<li class="item">
+	
+	<% if @class == "community" %>
+		<% avatar = Datafile.find_avatar_by_community_id iterm.id %>
+		<p class="image">
+		<%= view_photo(avatar,"community")%>	
+		</p>
+		<p class="title">
+		<%= link_to iterm.title, :controller => 'communities', :action => "show", :id => iterm.id %>
+		</p>
+		
+		
+		<p class="actions">
+			<%= link_to "Смериться", :controller => 'invites', :action => "putup", :id => iterm.id, :type => :com,:do => :d %>
+			&nbsp;|&nbsp;
+			<%= link_to "Попробовать ещё раз",:controller => 'invites', :action => "putup", :id => iterm.id, :type => :com %>
+           
+		</p>
+		
+		
+	<% else %>
+	
+	<p class="inline_left">
+		<%= link_to iterm.title, :controller => 'posts', :action => "show", :id => iterm.id %><br />
+		
+		
+	</p>
+
+	<p class="inline_right">
+		<%if params[:type] == "in"%>
+			<%= link_to 'Принять' %>
+			<br />
+			<%= link_to 'Отказать' %>
+		<% else %>
+			<%= link_to 'Отменить', :controller => :events, :action => :cancle,:id => iterm.id %>
+		<% end %>
+	</p>
+
+	<% end %>
+	
+	
+	<% end %>
+	</li>
+</ul>
+<% else %>  
+   <p align="center">У вас нет отказов.</p>
+<% end %>
+<% end %>

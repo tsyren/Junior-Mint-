@@ -1,0 +1,31 @@
+<%- @link_title = [] 
+  newlink(@link_title,link_to_unless_current(@community.title,:action => 'show', :name => namegsub(@community.title),:id => params[:id]),1)
+  newlink(@link_title,"Проекты",0)-%>
+  
+ 
+<%-  if @community.status.to_s == 'public' or !@communities_user.nil? -%>
+ 
+﻿<%- unless @community.projects.empty? -%>
+<%- for project in @community.projects -%>
+<p><%= link_to project.title, :controller => 'projects', :action => 'overview', :id => project.id %><p/>
+<%- end -%>
+<%- else -%>
+ Пока нету проектов
+<%- end -%>
+
+<%- else -%>
+
+   <p>Это закрытое сообщество и вы не состоите в данном сообществе. 
+   <% if @request.nil? %>
+      Чтобы вступить <%= link_to "отправте" %> запрос автору сообщества.</p>
+   <br/>
+   <%= render :partial => 'request' %>
+   <% else %>
+      <% if @request.status.to_s == 'forbidden'%>
+	    К сожалению автор отказал вам во вступлении в это сообщество.
+	  <% else %>
+		Вы уже отправили запрос на вступление. Ждите ответа от автора.
+      <% end %>
+   <% end %>
+       
+<%- end -%>

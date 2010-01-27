@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>draw_angled_line (RestfulCaptcha::Image)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/restful_captcha/image.rb, line 138</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">draw_angled_line</span>(<span class="ruby-identifier">image</span>, <span class="ruby-identifier">options</span>)
+      <span class="ruby-identifier">width</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:width</span>]
+      <span class="ruby-identifier">height</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:height</span>]
+      <span class="ruby-identifier">color</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:color</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">black</span>
+      <span class="ruby-identifier">stroke_width</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:stroke_width</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:stroke_width</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> (<span class="ruby-identifier">height</span> <span class="ruby-operator">*</span> <span class="ruby-value">0</span><span class="ruby-value">.05</span>).<span class="ruby-identifier">round</span>
+
+      <span class="ruby-identifier">height_variance</span> = <span class="ruby-identifier">height</span> <span class="ruby-operator">*</span> <span class="ruby-value">0</span><span class="ruby-value">.16</span>
+      <span class="ruby-identifier">segment_length</span> = <span class="ruby-value">10.0</span>
+      <span class="ruby-identifier">num_segments</span> = (<span class="ruby-identifier">width</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">segment_length</span>) <span class="ruby-operator">-</span> <span class="ruby-value">2</span>
+      <span class="ruby-identifier">segment_height_variance</span> = (<span class="ruby-identifier">height_variance</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">num_segments</span>)
+
+      <span class="ruby-identifier">left_end</span> = [<span class="ruby-identifier">segment_length</span>, (<span class="ruby-identifier">height</span> <span class="ruby-operator">/</span> <span class="ruby-value">2.0</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">rand</span>(<span class="ruby-identifier">height_variance</span> <span class="ruby-operator">*</span> <span class="ruby-value">2.0</span>) <span class="ruby-operator">-</span> <span class="ruby-identifier">height_variance</span>]
+      <span class="ruby-identifier">right_end</span> = [<span class="ruby-identifier">width</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">segment_length</span>,
+                   (<span class="ruby-identifier">height</span> <span class="ruby-operator">/</span> <span class="ruby-value">2.0</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">rand</span>(<span class="ruby-identifier">height_variance</span> <span class="ruby-operator">*</span> <span class="ruby-value">2.0</span>) <span class="ruby-operator">-</span> <span class="ruby-identifier">height_variance</span>]
+      <span class="ruby-identifier">midpoint</span> = [(<span class="ruby-identifier">rand</span>(<span class="ruby-identifier">num_segments</span> <span class="ruby-operator">-</span> <span class="ruby-value">2</span>) <span class="ruby-operator">+</span> <span class="ruby-value">2</span>) <span class="ruby-operator">*</span> <span class="ruby-identifier">segment_length</span>,
+                  (<span class="ruby-identifier">height</span> <span class="ruby-operator">/</span> <span class="ruby-value">2.0</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">rand</span>(<span class="ruby-identifier">height_variance</span>) <span class="ruby-operator">-</span> <span class="ruby-identifier">height_variance</span>]
+
+      <span class="ruby-identifier">polyline_path</span> = []
+
+      <span class="ruby-comment cmt"># Define line segments from left_end to midpoint</span>
+      <span class="ruby-identifier">last_x</span> = <span class="ruby-identifier">left_end</span>[<span class="ruby-value">0</span>]
+      <span class="ruby-identifier">last_y</span> = <span class="ruby-identifier">left_end</span>[<span class="ruby-value">1</span>]
+      <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>((<span class="ruby-identifier">midpoint</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">-</span> <span class="ruby-identifier">left_end</span>[<span class="ruby-value">0</span>]) <span class="ruby-operator">/</span> <span class="ruby-identifier">segment_length</span>).<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span>,<span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">x</span> = (<span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>) <span class="ruby-operator">*</span> <span class="ruby-identifier">segment_length</span>
+        <span class="ruby-identifier">y</span> = <span class="ruby-identifier">last_y</span> <span class="ruby-operator">+</span> (<span class="ruby-value">1</span> <span class="ruby-operator">/</span> ((<span class="ruby-identifier">midpoint</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">-</span> <span class="ruby-identifier">last_x</span>) <span class="ruby-operator">/</span> <span class="ruby-identifier">segment_length</span>)) <span class="ruby-operator">*</span> (<span class="ruby-identifier">midpoint</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">-</span> <span class="ruby-identifier">last_y</span>) <span class="ruby-operator">+</span>
+          <span class="ruby-identifier">rand</span>(<span class="ruby-identifier">segment_height_variance</span> <span class="ruby-operator">*</span> <span class="ruby-value">2.0</span>) <span class="ruby-operator">-</span> <span class="ruby-identifier">segment_height_variance</span>
+        <span class="ruby-identifier">last_x</span> = <span class="ruby-identifier">x</span>
+        <span class="ruby-identifier">last_y</span> = <span class="ruby-identifier">y</span>
+        <span class="ruby-identifier">polyline_path</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span>]
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-comment cmt"># Define line segments from midpoint to right_end</span>
+      <span class="ruby-identifier">last_x</span> = <span class="ruby-identifier">midpoint</span>[<span class="ruby-value">0</span>]
+      <span class="ruby-identifier">last_y</span> = <span class="ruby-identifier">midpoint</span>[<span class="ruby-value">1</span>]
+      <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>((<span class="ruby-identifier">right_end</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">-</span> <span class="ruby-identifier">midpoint</span>[<span class="ruby-value">0</span>]) <span class="ruby-operator">/</span> <span class="ruby-identifier">segment_length</span>).<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span>,<span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">x</span> = <span class="ruby-identifier">midpoint</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">+</span> ((<span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>) <span class="ruby-operator">*</span> <span class="ruby-identifier">segment_length</span>)
+        <span class="ruby-identifier">y</span> = <span class="ruby-identifier">last_y</span> <span class="ruby-operator">+</span> (<span class="ruby-value">1</span> <span class="ruby-operator">/</span> ((<span class="ruby-identifier">right_end</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">-</span> <span class="ruby-identifier">last_x</span>) <span class="ruby-operator">/</span> <span class="ruby-identifier">segment_length</span>)) <span class="ruby-operator">*</span> (<span class="ruby-identifier">right_end</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">-</span> <span class="ruby-identifier">last_y</span>) <span class="ruby-operator">+</span>
+          <span class="ruby-identifier">rand</span>(<span class="ruby-identifier">segment_height_variance</span> <span class="ruby-operator">*</span> <span class="ruby-value">2.0</span>) <span class="ruby-operator">-</span> <span class="ruby-identifier">segment_height_variance</span>
+        <span class="ruby-identifier">last_x</span> = <span class="ruby-identifier">x</span>
+        <span class="ruby-identifier">last_y</span> = <span class="ruby-identifier">y</span>
+        <span class="ruby-identifier">polyline_path</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span>]
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">polyline_path</span>.<span class="ruby-identifier">flatten!</span>
+      
+      <span class="ruby-identifier">draw</span> = <span class="ruby-constant">Magick</span><span class="ruby-operator">::</span><span class="ruby-constant">Draw</span>.<span class="ruby-identifier">new</span>
+      <span class="ruby-identifier">draw</span>.<span class="ruby-identifier">stroke</span>(<span class="ruby-identifier">color</span>)
+      <span class="ruby-identifier">draw</span>.<span class="ruby-identifier">fill_opacity</span>(<span class="ruby-value">0</span>)
+      <span class="ruby-identifier">draw</span>.<span class="ruby-identifier">stroke_width</span>(<span class="ruby-identifier">stroke_width</span>)
+      <span class="ruby-identifier">draw</span>.<span class="ruby-identifier">stroke_linecap</span>(<span class="ruby-value str">'round'</span>)
+      <span class="ruby-identifier">draw</span>.<span class="ruby-identifier">stroke_linejoin</span>(<span class="ruby-value str">'round'</span>)
+
+      <span class="ruby-identifier">draw</span>.<span class="ruby-identifier">polyline</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">polyline_path</span>)
+      <span class="ruby-identifier">draw</span>.<span class="ruby-identifier">draw</span>(<span class="ruby-identifier">image</span>)
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">image</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

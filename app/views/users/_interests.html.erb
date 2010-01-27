@@ -1,0 +1,32 @@
+<% @link_title = [] 
+   newlink(@link_title,link_to("Настройки",myprofile_url),1)
+   newlink(@link_title,link_to_unless_current("О себе: редактирование",edit_url ),0)
+%>
+<%= error_messages_for 'user' %>
+
+<!--[form:interest]-->
+
+<% unless params[:tags].nil? %>
+<tr>
+	<td align="right">
+	<label for="tags">Интересы</label>
+	</td>
+	<td align="left">
+	<textarea name="tags[]" cols="40" rows="10"><%= params[:tags] %></textarea>
+	<div id="under">указывать через запятую и отделяя пробелом</div>
+	</td>
+</tr>
+<% else %>
+<tr>
+    <td align="right">
+	<label for="tags">Интересы</label>
+	</td>
+	<td align="left">
+	<%= text_area 'tags', params[:tags], :size => "40x10"%>
+	<div id="under">указывать через запятую и отделяя пробелом</div>
+	</td>
+</tr>
+<% end %>
+
+<!--[eoform:interest]-->
+

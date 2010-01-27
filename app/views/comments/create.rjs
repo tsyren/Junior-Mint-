@@ -1,0 +1,5 @@
+page.insert_html :bottom, :comments, :partial => 'comments/comment', :object => @post
+page[:review_form].reset
+page.delay(0.5){
+  page.visual_effect :highlight, 'comments', :duration => 1.5
+}

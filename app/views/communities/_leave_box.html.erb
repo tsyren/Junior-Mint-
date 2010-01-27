@@ -1,0 +1,10 @@
+<h3 class="title">Вы уверены, что хотите покинуть это сообщество?</h3>
+		<div class="popup_alert">
+		<p class="popup button_yes">
+		  <%= link_to('Да, я уверен.',:action => 'leave',:id => @community.id) %></p>
+		 
+		<p class="popup button_no">  
+		 <a href="javascript: Element.closePopup('leave')">Нет, я нажал случайно.</a>
+	   	</p>
+		
+		</div>

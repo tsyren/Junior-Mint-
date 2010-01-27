@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>build (RestfulCaptcha::Image)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/restful_captcha/image.rb, line 28</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">build</span>(<span class="ruby-identifier">options</span>)
+      <span class="ruby-identifier">options</span>.<span class="ruby-identifier">symbolize_keys!</span>
+      <span class="ruby-identifier">options</span>.<span class="ruby-identifier">assert_valid_keys</span>(<span class="ruby-constant">VALID_OPTIONS</span>)
+
+      <span class="ruby-identifier">text</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:text</span>]
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">text</span>.<span class="ruby-identifier">blank?</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;cannot generate a CAPTCHA image without text to display&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">font_style</span> = <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:font_style</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span>
+                   <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;normal&quot;</span><span class="ruby-operator">:</span> <span class="ruby-constant">Magick</span><span class="ruby-operator">::</span><span class="ruby-constant">NormalStyle</span>
+                   <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;italic&quot;</span><span class="ruby-operator">:</span> <span class="ruby-constant">Magick</span><span class="ruby-operator">::</span><span class="ruby-constant">ItalicStyle</span>
+                   <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;oblique&quot;</span><span class="ruby-operator">:</span> <span class="ruby-constant">Magick</span><span class="ruby-operator">::</span><span class="ruby-constant">ObliqueStyle</span>
+                   <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;any&quot;</span><span class="ruby-operator">:</span> <span class="ruby-constant">Magick</span><span class="ruby-operator">::</span><span class="ruby-constant">AnyStyle</span>
+                   <span class="ruby-keyword kw">else</span>
+                     <span class="ruby-keyword kw">nil</span>
+                   <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">font_weight</span> = <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:font_weight</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span>
+                    <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;any&quot;</span><span class="ruby-operator">:</span> <span class="ruby-constant">Magick</span><span class="ruby-operator">::</span><span class="ruby-constant">AnyWeight</span>
+                    <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;normal&quot;</span><span class="ruby-operator">:</span> <span class="ruby-constant">Magick</span><span class="ruby-operator">::</span><span class="ruby-constant">NormalWeight</span>
+                    <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;bold&quot;</span><span class="ruby-operator">:</span> <span class="ruby-constant">Magick</span><span class="ruby-operator">::</span><span class="ruby-constant">BoldWeight</span>
+                    <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;bolder&quot;</span><span class="ruby-operator">:</span> <span class="ruby-constant">Magick</span><span class="ruby-operator">::</span><span class="ruby-constant">BolderWeight</span>
+                    <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;lighter&quot;</span><span class="ruby-operator">:</span> <span class="ruby-constant">Magick</span><span class="ruby-operator">::</span><span class="ruby-constant">LighterWeight</span>
+                    <span class="ruby-keyword kw">else</span>
+                      <span class="ruby-keyword kw">nil</span>
+                    <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">font_size</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:font_size</span>].<span class="ruby-identifier">to_i</span>
+
+      <span class="ruby-identifier">width</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:width</span>].<span class="ruby-identifier">to_i</span>
+      <span class="ruby-identifier">height</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:height</span>].<span class="ruby-identifier">to_i</span>
+
+      <span class="ruby-comment cmt"># If none of font_size, height, or width are specified, choose a</span>
+      <span class="ruby-comment cmt"># default font_size and work out appropriate width and height</span>
+      <span class="ruby-comment cmt"># values from that</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">font_size</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">1</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">height</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">1</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">width</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">1</span>
+        <span class="ruby-identifier">font_size</span> = <span class="ruby-value">52</span>
+        
+      <span class="ruby-comment cmt"># If font_size is not specified but height is, use a font_size</span>
+      <span class="ruby-comment cmt"># that will fit well given that height</span>
+      <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">font_size</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">1</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">height</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+        <span class="ruby-identifier">font_size</span> = (<span class="ruby-identifier">height</span> <span class="ruby-operator">/</span> <span class="ruby-value">1.6</span>).<span class="ruby-identifier">round</span>
+      
+      <span class="ruby-comment cmt"># Finally, if font_size and height are not set, but width is,</span>
+      <span class="ruby-comment cmt"># use a font_size that will fit well within the given width</span>
+      <span class="ruby-comment cmt"># given the length of the text to be displayed</span>
+      <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">font_size</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">1</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">width</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+        <span class="ruby-identifier">font_size</span> = ((<span class="ruby-identifier">width</span> <span class="ruby-operator">/</span> (<span class="ruby-identifier">text</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)) <span class="ruby-operator">*</span> <span class="ruby-value">1.6</span>).<span class="ruby-identifier">round</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-comment cmt"># If width and height are not specified, try to set them to</span>
+      <span class="ruby-comment cmt"># values that will work well based on font size</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">height</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">1</span>
+        <span class="ruby-identifier">height</span> = (<span class="ruby-identifier">font_size</span> <span class="ruby-operator">*</span> <span class="ruby-value">1.6</span>).<span class="ruby-identifier">round</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">width</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">1</span>
+        <span class="ruby-identifier">width</span> = ((<span class="ruby-identifier">text</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>) <span class="ruby-operator">*</span> (<span class="ruby-identifier">font_size</span> <span class="ruby-operator">/</span> <span class="ruby-value">1.6</span>)).<span class="ruby-identifier">round</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">color</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:color</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'black'</span>
+
+      <span class="ruby-comment cmt"># Set the background texture or color</span>
+      <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:background</span>].<span class="ruby-identifier">blank?</span>
+        <span class="ruby-identifier">background</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:background</span>]
+        <span class="ruby-identifier">background_texture</span> = <span class="ruby-constant">Magick</span><span class="ruby-operator">::</span><span class="ruby-constant">ImageList</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;#{background}:&quot;</span>)
+        <span class="ruby-identifier">canvas</span> = <span class="ruby-constant">Magick</span><span class="ruby-operator">::</span><span class="ruby-constant">ImageList</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-identifier">canvas</span>.<span class="ruby-identifier">new_image</span>(<span class="ruby-identifier">width</span>, <span class="ruby-identifier">height</span>, <span class="ruby-constant">Magick</span><span class="ruby-operator">::</span><span class="ruby-constant">TextureFill</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">background_texture</span>))
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">background_color</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:background_color</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'white'</span>
+        <span class="ruby-identifier">canvas</span> = <span class="ruby-constant">Magick</span><span class="ruby-operator">::</span><span class="ruby-constant">ImageList</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-identifier">canvas</span>.<span class="ruby-identifier">new_image</span>(<span class="ruby-identifier">width</span>, <span class="ruby-identifier">height</span>) { <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">background_color</span> = <span class="ruby-identifier">background_color</span> }
+      <span class="ruby-keyword kw">end</span>
+      
+      <span class="ruby-identifier">font_family</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:font_family</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'helvetica'</span>
+
+      <span class="ruby-comment cmt">## Draw text</span>
+      <span class="ruby-identifier">draw</span> = <span class="ruby-constant">Magick</span><span class="ruby-operator">::</span><span class="ruby-constant">Draw</span>.<span class="ruby-identifier">new</span>
+      <span class="ruby-identifier">draw</span>.<span class="ruby-identifier">font_family</span> = <span class="ruby-identifier">font_family</span>
+      <span class="ruby-identifier">draw</span>.<span class="ruby-identifier">pointsize</span> = <span class="ruby-identifier">font_size</span>
+      <span class="ruby-identifier">draw</span>.<span class="ruby-identifier">font_style</span> = <span class="ruby-identifier">font_style</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">font_style</span>
+      <span class="ruby-identifier">draw</span>.<span class="ruby-identifier">font_weight</span> = <span class="ruby-identifier">font_weight</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">font_weight</span>
+      <span class="ruby-identifier">draw</span>.<span class="ruby-identifier">font_stretch</span> = <span class="ruby-constant">Magick</span><span class="ruby-operator">::</span><span class="ruby-constant">UltraCondensedStretch</span>
+      <span class="ruby-identifier">draw</span>.<span class="ruby-identifier">gravity</span> = <span class="ruby-constant">Magick</span><span class="ruby-operator">::</span><span class="ruby-constant">CenterGravity</span>
+      <span class="ruby-identifier">draw</span>.<span class="ruby-identifier">annotate</span>(<span class="ruby-identifier">canvas</span>, <span class="ruby-value">0</span>,<span class="ruby-value">0</span>,<span class="ruby-value">0</span>,<span class="ruby-value">0</span>, <span class="ruby-identifier">text</span>) {
+        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">fill</span> = <span class="ruby-identifier">color</span>
+      }
+
+      <span class="ruby-identifier">canvas</span> = <span class="ruby-identifier">draw_angled_line</span>(<span class="ruby-identifier">canvas</span>, <span class="ruby-identifier">:width</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">width</span>, <span class="ruby-identifier">:height</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">height</span>, <span class="ruby-identifier">:color</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">color</span>)
+
+      <span class="ruby-identifier">min_swirl</span> = <span class="ruby-value">30.0</span>
+      <span class="ruby-identifier">max_swirl</span> = <span class="ruby-value">50.0</span>
+      <span class="ruby-identifier">swirl_sign</span> = <span class="ruby-identifier">rand</span>(<span class="ruby-value">100</span>) <span class="ruby-operator">&lt;</span> <span class="ruby-value">50</span> <span class="ruby-operator">?</span> <span class="ruby-value">-1</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
+      <span class="ruby-identifier">canvas</span> = <span class="ruby-identifier">canvas</span>.<span class="ruby-identifier">swirl</span>(<span class="ruby-identifier">swirl_sign</span> <span class="ruby-operator">*</span> (<span class="ruby-identifier">rand</span>(<span class="ruby-identifier">max_swirl</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">min_swirl</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">min_swirl</span>))
+
+      <span class="ruby-identifier">canvas</span>.<span class="ruby-identifier">format</span> = <span class="ruby-value str">'PNG'</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">canvas</span>.<span class="ruby-identifier">to_blob</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

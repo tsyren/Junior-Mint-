@@ -1,0 +1,7 @@
+﻿<%- @link_title = [] 
+   
+   newlink(@link_title,link_to_unless_current(@community.title,:action => 'show', :name => namegsub(@community.title),:id => params[:id]),1)
+   newlink(@link_title,"Почтовый ящик",0)
+   
+   
+ -%>

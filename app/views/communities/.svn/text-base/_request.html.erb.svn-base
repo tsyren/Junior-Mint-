@@ -1,0 +1,7 @@
+<%= error_messages_for 'requests' %>
+
+<% form_for :request,:url => { :action => 'will_join', :id => @community.id } do |r| -%>
+<p><label for="request_text">  Дополнительно можете указать причину</label><br/><br/>
+<%= r.text_area 'text', :size => "30x10" %></p><br/>
+<%= submit_tag 'Отправить заявку' %>
+<%- end -%>

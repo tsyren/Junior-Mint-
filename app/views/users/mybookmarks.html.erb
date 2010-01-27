@@ -1,0 +1,15 @@
+<% @link_title = []
+   newlink(link_title,"Закладки",0)
+%>
+﻿<%- unless @bmarks.empty? -%>
+	<table>
+	<% @bmarks.each do |bm| %>
+	<tr>
+	<td style="padding-right:25px;"><%= link_to bm.title, :controller => :posts, :action => :show, :id => bm.bookmakable_id  %></td><td><small><div id="under"><%= link_to 'Удалить',:controller => 'posts',:action => 'destroy_bookmark',:id =>bm.bookmakable_id %></div></small></td>
+	</tr>
+	<%- end -%>
+	</table>
+<%- else -%>
+    <small><%= link_to_remote 'как добавлять закладки?', :url => faq_url -%></small>
+	<div id="faq"></div>
+<%- end -%>

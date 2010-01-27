@@ -1,0 +1,31 @@
+<% @link_title = []
+   newlink(link_title,link_to(@community.title, :controller => "communities",:action => "show", :id => @community.id ),1)
+   newlink(link_title, "Подписка на RSS",0) %>
+<div class="inline_left">
+<h4><div id="step_title">Шаг 1</div></h4>
+<div id="step_1">
+<% form_remote_tag :url => {:action => 'checking', :id => params[:id] }, :before => "$('ajax-loader').show()",
+   :complete => "$('ajax-loader').hide();", :html => {:id => 'review_form'} do -%>
+  
+  <p><label for="feed_url">Источник:</label></p>
+
+  <p><%= text_field :feed, :url %></p>  
+  
+  <p>
+     <%= submit_tag "Проверить" %>
+     <%= image_tag "ajax-loader.gif", :style => "display: none;",:id => "ajax-loader" %>
+  </p>
+<%- end -%>
+</div>
+<div id="finded_urls"></div>
+<div id="step_2" style="display: none">
+<%= error_messages_for "feed" %>
+<% form_tag :action => 'create',:id=> params[:id] do-%>
+  
+  <%= render :partial => "form"%>   
+  
+ <%= submit_tag "Подписать", :disable_with => "Подождите..." %> | <%= link_to "Назад к шагу 1" %>
+<%- end -%>
+</div>
+</div>
+

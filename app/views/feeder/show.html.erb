@@ -1,0 +1,33 @@
+<%- @link_title = [] 
+   newlink(@link_title,link_to(@community.title,:controller => "communities",:action => 'show', :name => namegsub(@community.title),:id => params[:id]),1)
+   newlink(@link_title,"Каналы",0)
+ -%>
+<div> 
+
+<% unless @feeds.empty? or @feeds.nil? %> 
+	<% for feed in @feeds %> 
+	
+	<p><font color="black" size="4.1em"><%= feed.name.downcase.capitalize %></font>(<%= link_to url_for(feed.url) %>)</p>
+	
+	<p><%= feed.description %></p> 
+	
+	<% if @community.admin(current_user,"only_creator") %>
+    <p align="right">	
+        <%= link_to "Изменить", :action => :edit, :id => feed.community_id %>
+		&nbsp;
+		<%= link_to "Удалить", :action => :delete, :id => feed.community_id %>
+    </p>
+	<% end %>
+	
+	<br />
+	<% end %>
+<% else %>
+	<p class="center">В сообществе <%= @community.title %> 0 каналов. <br />
+    <% if @community.admin(current_user,"include_moderator") %>
+	<%= link_to "Подписать новый канал", :action => :new, :id => params[:id] %>
+	<% end %>	
+	</p>
+<% end %>
+
+
+

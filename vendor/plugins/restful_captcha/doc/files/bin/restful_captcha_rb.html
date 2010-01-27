@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: restful_captcha.rb</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>restful_captcha.rb</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>bin/restful_captcha.rb
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Mon Jan 19 10:55:51 +0000 2009</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+This is a server that provides access to Captcha images and that verifies
+answers to Captcha challenges.
+</p>
+<p>
+Captchas can be requested by attributes such as text, color, and font
+properties.
+</p>
+<p>
+The server exposes a RESTful API that allows read-only access to Captchas
+and their attributes. It responds to URLs in four formats:
+</p>
+<pre>
+  /captcha
+</pre>
+<p>
+Finds a captcha that matches the given parameters and returns its
+identifier in the response body. If no parameters are given, responds with
+an identifier for a captcha picked at random.
+</p>
+<p>
+The parameters that are used are:
+</p>
+<ul>
+<li><tt>text</tt> - the text displayed in the captcha image; will be randomly
+generated if not specified
+
+</li>
+<li><tt>width</tt>, <tt>height</tt> - dimensions of the image in pixels;
+defaults to 200x100
+
+</li>
+<li><tt>color</tt>, <tt>background_color</tt> - accepted color values are
+described at <a
+href="http://www.imagemagick.org/RMagick/doc/imusage.html#color_names">www.imagemagick.org/RMagick/doc/imusage.html#color_names</a>
+
+</li>
+<li><tt>background</tt> - used to specify a background texture instead of a
+solid color; overrides background color if specified; accepted values are
+described at <a
+href="http://www.imagemagick.org/RMagick/doc/imusage.html#builtin_formats">www.imagemagick.org/RMagick/doc/imusage.html#builtin_formats</a>
+
+</li>
+<li><tt>font</tt>, <tt>font_family</tt>, <tt>font_style</tt>,
+<tt>font_weight</tt>, <tt>font_size</tt> - font properties; see <a
+href="http://www.imagemagick.org/RMagick/doc/draw.html#font">www.imagemagick.org/RMagick/doc/draw.html#font</a>
+for info
+
+</li>
+<li><tt>stroke_width</tt> - width of the line that is drawn
+
+</li>
+<li><tt>secret</tt> - a string to be hidden in the captcha. It will be returned
+to the client in the event a correct answer is submitted.
+
+<p>
+/captcha/:identifier
+</p>
+</li>
+</ul>
+<p>
+Given a captcha identifier, returns the same identifier in the response
+body with an OK status; or responds with a &#8216;resource not found&#8217;
+error if the captcha cannot be found.
+</p>
+<p>
+This is useful for clients wanting to verify that an identifier is valid.
+</p>
+<pre>
+  /captcha/:identifier/image
+</pre>
+<p>
+Given a captcha identifier, returns the captcha&#8216;s image in PNG
+format.
+</p>
+<pre>
+  /captcha/:identifier/:answer
+</pre>
+<p>
+Given a captcha identifier and a proposed answer, returns the validity of
+the answer. The response is in the format of a YAML file, where the
+validity of the answer is represented as a boolean with the key
+&#8216;correct&#8217;.
+</p>
+<p>
+The response also includes the captcha identifier and the answer given,
+with the keys &#8216;identifier&#8217; and &#8216;answer&#8217;
+respectively.
+</p>
+<p>
+If the given answer is correct, the YAML response also includes the secret
+string embedded in the captcha, if there is one.
+</p>
+
+    </div>
+
+    <div id="requires-list">
+      <h3 class="section-bar">Required files</h3>
+
+      <div class="name-list">
+      rubygems&nbsp;&nbsp;
+      sinatra&nbsp;&nbsp;
+      activesupport&nbsp;&nbsp;
+      yaml&nbsp;&nbsp;
+      </div>
+    </div>
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

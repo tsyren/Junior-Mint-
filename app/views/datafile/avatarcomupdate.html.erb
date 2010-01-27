@@ -1,0 +1,21 @@
+﻿<% @link_title = [] 
+   newlink(@link_title, link_to(@community.title,:controller => :communities,:action => :show,:id => @community.id), 1)
+   newlink(@link_title, link_to_unless_current("Аватар: смена"), 0)
+%>
+<div class="photo_box">
+<%= view_photo(@photo,nil) %>
+</div>
+<div class="file_box"><%= error_messages_for 'datafile' %>  
+<%= error_messages_for :userphoto %>   
+<% form_for(:userphoto, :url => { :action => "updatephotocom", :id => params[:id] }, :html => { :multipart => true }) do |form| %>
+
+<p>
+<label for="userphoto">Выбирите фотографию:</label><br />
+   <small>Вы можете загружать JPG, GIF или PNG</small>
+   <%= form.file_field :uploaded_data %></p>
+<p class="top_bottom"><%= submit_tag  "Сменить фото" %>
+<br /><br />
+<%= datafile_description %>
+</p>
+<% end %>
+</div>

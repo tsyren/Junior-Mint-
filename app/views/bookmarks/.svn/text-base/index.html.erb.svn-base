@@ -1,0 +1,21 @@
+<% @link_title = []
+   newlink(link_title,"Закладки",0)
+%>
+<div class="left_menu">
+﻿<%- unless @bmarks.empty? -%>
+	<table>
+	<% @bmarks.each do |bm| %>
+	<tr>
+	<td style="padding-right:25px;"><%= link_to bm.title, :controller => :posts, :action => :show, :id => bm.bookmarkable_id  %></td>
+         <td><small><div id="under"><%= link_to 'Удалить',:controller => 'bookmarks',:action => 'destroy',:id =>bm.bookmarkable_id %></div></small></td>
+	</tr>
+	<%- end -%>
+	</table>
+<%- else -%>
+    <p align="center">В ваших закладках ничего сохраненно</p>
+<%- end -%>
+</div>
+<div class="right_menu">
+	<%= link_to_remote 'Как добавлять закладки?', :url => faq_url -%>
+	<div id="faq"></div>
+</div>

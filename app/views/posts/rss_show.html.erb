@@ -1,0 +1,13 @@
+<% @link_title = []
+ newlink(link_title,'Новости НГУ',0) %>
+<% for item in @lenta -%>  
+        <%= textilize( Iconv.iconv("utf-8","koi8-R", item.title ).join ).to_s %>
+        <%= link_to('читать',item.link,:popup => true)   %> 
+        <%# link_to('добавить комментарий',item.link)   %> 
+        <%# link_to('всего комментариев',item.link)   %><br/><br/><br/>
+<% end %> 
+<%#
+  To do: 
+  1.Ссылки выводить в виде рисунков
+  2. Ajax effect
+%>

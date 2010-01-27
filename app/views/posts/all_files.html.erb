@@ -1,0 +1,16 @@
+<h1>Listing assets</h1>
+
+<ul id="assets">
+<% @assets.each do |asset| %>
+<li id="asset_<%= asset.id %>">
+<% if asset.image? %>
+<%= link_to(image_tag(asset.public_filename(:thumb))) %><br />
+<% end %>
+</li>
+<% end %>
+</ul>
+
+<br />
+
+<%= link_to 'New asset', :action => 'file' %>
+

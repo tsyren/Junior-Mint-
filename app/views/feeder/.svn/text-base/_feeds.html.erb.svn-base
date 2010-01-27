@@ -1,0 +1,9 @@
+<%= 
+for entry in feeds 
+    entry.title  
+    entry.content  
+    entry.authors.join(', ') rescue ''  
+    entry.urls.first  
+end  
+
+%>

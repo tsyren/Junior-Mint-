@@ -1,0 +1,26 @@
+<%= error_messages_for 'project' %>
+<!--[form:community]-->
+<table align="center" CELLSPACING="20">
+<tr><td align="right"><label for="project_title">Название</label></td><td align="left"><%= text_field 'project', 'title', :size => '55'  %></td></tr>
+
+<tr><td align="right" valign="top"><label for="project_description"> Описание</label>
+</td><td align="left"><%= text_area 'project', 'description', :onchange => "maxlength('project_description', 2500)", :size => "50x10" %></div></td></tr>
+<%= javascript_tag 'function maxlength(element, maxvalue){
+ if( $(element).value.length > maxvalue){
+   $(element).value = $(element).value.substring(0, maxvalue);
+   alert("длина превышена");
+   }
+ }' 
+ %>
+<tr><td align="right" valign="top"><label for="tags">Интересы</label>
+	</td><td align="left"><%= text_field 'tags', params[:tags], :size => 100%><div id="under">Указывать через запятую</div></td></tr>
+<tr><td align="right" valign="top">	
+Безопасность:<div id="under">тип проекта</div>
+</td><td align="left">
+     <div><%= radio_button("project", "status", "public") %> Открытый <div id="under"></div></div>
+	 <div><%= radio_button("project", "status", "private") %> Закрытый <div id="under"></div></div>
+</div>
+</td></tr>
+</table>
+<!--[eoform:project]-->
+

@@ -1,0 +1,15 @@
+Доброго время суток, <%= @user.full_name.capitalize %>!<br/><br/>
+
+Новые записи в сообществе <%= @community.title %><br/><br/>
+
+<% for post in @posts %>
+  <%= link_to post.title, :controller => "posts",:action => "show", :id => post.id %><br>
+  <%= post.content %><br/>
+  <%= post.created_at %><br>
+  автор: <%= post.user.full_name %> 
+<% end %>
+
+<small>Конец записей</small><br>
+Чтобы просмотреть список в системе, пройдите по ссылке <%= @url %>.<br/><br/>
+
+<%= @best_regards %>

@@ -1,0 +1,6 @@
+<%= file_field :postfile,:uploaded_data %> 
+<br/>
+<small>максимальный размер: 5 Mb, форматы: doc, pdf, txt, jpg, gif </small>
+
+
+	

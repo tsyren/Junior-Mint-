@@ -1,0 +1,31 @@
+﻿<%
+   @link_title = []
+   newlink(link_title,'Обратная связь',0)
+%>
+
+<% if logged_in? %>
+  <% content_for :left_column_style  do %>
+  
+  style ="width: 300px"
+
+  <% end %>
+  <% content_for :right_column_style  do %>
+   style="width: 383px"
+	
+  <% end %> 
+  
+   <% form_tag :action => 'send_feedback' do-%>
+    <label for="feedback">Задайте вопрос или оставьте свои пожелания:</label><br /><br /><%= text_area :feedback, params[:feedback], :size => '50x9' %><br />
+	<br /><%= submit_tag 'Отправить', :class => "black_button" %>
+  <% end %>
+
+  <% content_for :rightcolumn do %>
+  
+  У вас появился вопрос или вы хотите предложить новые идеи по поводу улучшения, тогда просто напишите нам.<br /> Мы гарантируем,
+   что ваши мнения или жалобы не останутся не рассмотренными.
+  
+  <% end %>
+ 
+<% else %>
+  <p>По всем вопросам и пожеланиям писать на адрес <b><%= mail_to("nsu1team@gmail.com")%></b></p>
+<% end %>

@@ -1,0 +1,44 @@
+<% @link_title = [] 
+   newlink(@link_title,link_to("Настройки",myprofile_url),1)
+   newlink(@link_title,link_to_unless_current("Анкета: редактирование",edit_url),0)
+%>
+<% content_for :script do %>
+  <%= javascript_include_tag :defaults %>  
+  <%= calendar_date_select_includes %>
+<% end %>
+
+<%= error_messages_for :user %>
+<!--[form:user]-->
+
+<tr>
+	<td align="right"><b>Персона</b></td>
+</tr>
+<tr>
+	<td align="right">
+		<label for="user_last_name">Фамилия</label>
+	</td>
+	<td align="left">
+		<%= text_field 'user', 'last_name' %>
+	</td>
+</tr>
+<tr>
+	<td align="right">
+		<label for="user_first_name">Имя</label>
+	</td>
+	<td align="left">
+		<%= text_field 'user', 'first_name' %>
+	</td>
+</tr>
+
+<tr>
+	<td align="right">
+		<label for="user_birthday">День рождения</label>
+	</td>
+	<td align="left">
+		<%= calendar_date_select :profile, :birthday, :emdedd => true, :buttons => false,:month_year => "label",:valid_date_check => "date < (new Date()).stripTime()" %>
+	</td>
+</tr>
+
+<!--[eoform:user]-->
+
+

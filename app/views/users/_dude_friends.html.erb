@@ -1,0 +1,31 @@
+<% unless @friends.empty? %>
+<ul class="list">
+	<% @friends.each do |u| %>
+	<li class="item">
+		<% userphoto = Datafile.find(:first,:conditions => [" user_id = ? AND model_id = 0 AND avatar=1",u.id]) %>
+		<p class="image">
+		<%= view_photo(userphoto,"people")%>
+		</p>
+		
+		<h4>
+			<%= link_to u.full_name, dude_url(:id=>u.id) -%>
+		</h4>
+				
+		<p class="actions">
+		<%= link_to( 'Отправить сообщение', {:controller => 'messages',:action => 'new', :user_id => u.id},:method => :post)%>
+		
+		<% unless u == current_user || current_user.requested_friends.include?(u) || current_user.friends.include?(@user) || current_user.pending_friends.include?(u) %>
+
+		&nbsp;|&nbsp;
+		<%= link_to("Добавить в друзья ", {:controller => "friends",:action => "create",:user_id => current_user.id, :friend_id => @user.id}, :method => :post) %>
+		
+		<% end %>
+		
+		</p>
+	</li>
+	<% end %>
+	<li class="item"><%= will_paginate @friends %></li>
+</ul>
+<% else %>
+	<p align="center"><%= @user.full_name + " пока без друзей" %></p>
+<% end %>

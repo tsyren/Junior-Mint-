@@ -1,0 +1,10 @@
+ <div id="post">
+    <h2><%= link_to( community.title, :action => 'show', :id => community) %></h2>
+	<small><div>Уровень доступа: <%= community.status %><div/></small>
+	<div/></small>
+	<p><%= community.description %></p>
+	<p>
+	<small>
+	  <%= community.created_at.to_s(:long) %>
+	</small></p>
+</div>

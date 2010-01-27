@@ -1,0 +1,19 @@
+<% @link_title = [] 
+   newlink(@link_title,link_to("Сообщества",allcom_url),1)
+   newlink(@link_title,link_to_unless_current(@community.title,:action => 'show',:id => params[:id]),1)
+   newlink(@link_title,"Редактирование",0)
+ %>
+ 
+<% form_for :community, :url => { :action => 'update',:id => @community } do |f| %>
+<table class="form">
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  
+<tr>
+	<td></td>
+	<td><%= submit_tag 'Обновить' %></td>
+</tr>
+</table>
+
+<% end %>
+
+

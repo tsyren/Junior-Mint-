@@ -1,0 +1,43 @@
+<% content_for :script do %>
+	<%= javascript_include_tag :defaults %>
+<% end %>
+<% content_for :leftcolumn do %>
+ <div style="float:right; margin: 0 150px;">
+<h2>Регистрация нового участника!</h2>
+<small>Все поля являются обязательными</small>
+<div id="login">
+
+	<%- form_for :user, :url => {:action => :create} do |f| -%>
+
+   <%= error_messages_for :user, :header_message => "",
+                :message => "", :class=> "form error" -%>
+	
+	<p><label for="email">Email</label><br/>
+	<%= f.text_field :email,:size => 30,:maxlength => 40%><br></p>
+	
+	<p><label for="first_name">Имя</label><br/>
+	<%= f.text_field :first_name,:size => 30,:maxlength => 40%><br></p>
+	
+	<p><label for="last_name">Фамилия</label><br/>
+	<%= f.text_field :last_name,:size => 30,:maxlength => 40 %></p>
+	
+	<p id="button"><%= submit_tag("Вперед") %></p>
+	
+	
+	<% end -%>
+</div><!-- END login -->
+
+</div>
+<% end -%>
+
+<% content_for :rightcolumn do %>
+
+ Уже завели аккуант или у вас <a href="http://openid.net/"><font color="orange">Open</font><font color="black" weight="bold">ID</font></a>? <br />Тогда пройдите авторизацию кликнув <%= link_to "сюда", login_url%>
+
+<% end %>
+
+
+
+
+
+

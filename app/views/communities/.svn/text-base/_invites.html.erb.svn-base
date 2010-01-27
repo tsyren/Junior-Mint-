@@ -1,0 +1,55 @@
+<h3 class="title">Пригласите других участников MyNSU в ваше сообщество</h3>
+		<div class="popup_content overflow">
+		<p>
+	
+	<% unless @not_members.empty? %>
+	<%- form_for  :invite_users,:url => {:controller => :invites,:action => :create, :id => community.id},:method => "post" do |inv| -%>
+	
+	Отметьте из этого списка тех кого  вы хотели бы пригалсить в ваше сообщество: <br/>
+	 	
+	<table class="mini float_left_10">
+	<% @not_members.each do |u| %>
+	<tr>
+		<td class="mini append_right"><%= link_to u.full_name, dude_url(:id=>u.id) -%></td>
+		
+		<td><%= inv.check_box u.id %></td>
+	</tr>	
+	<% end %>
+		
+	</table>
+    <p align="center"><%= submit_tag "отправить приглашение" %></p>
+	<% end %><!-- END form -->
+	
+	
+	<% else %>
+		<p align="center">Никого</p>
+	<% end %>
+	
+	<div class="clear"></div>	
+	
+	
+		<% unless @yet_invited.empty? %>
+			
+		
+		Получившие приглашени: <%= show_detail_for @yet_invited %><br />
+		<% detail_for @yet_invited do %>
+			<%= hide_detail_for @yet_invited, "закрыть" %> 	
+			<table class="mini">
+			<% @yet_invited.each do |u| %>
+			<tr>
+				<td>
+					<%= link_to u.user.full_name, dude_url(:id=>u.user_id) -%>
+				</td>
+		
+				<td></td>
+			</tr>
+			<% end %>
+			</table>
+		<% end %>
+		<% end %>
+	
+	 	</p>
+		
+		
+		<p class="popup_close"><a href="javascript: Element.closePopup('invite')">Закрыть</a></p>
+		</div>

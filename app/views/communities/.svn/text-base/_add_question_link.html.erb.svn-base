@@ -1,0 +1,3 @@
+<div id="add_question_link">
+ <%= link_to_remote 'Добавить вопрос', :url => { :action => 'add_question', :index => index } %>
+</div>

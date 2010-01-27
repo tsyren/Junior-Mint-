@@ -1,0 +1,39 @@
+<div style="float:right; width:25%; margin:0 0 1em 1em;"> 
+    <% if !@projectmembers.nil? %>
+	<div class="pmeta_bubble_bg"><div class=rounded_ul><div class=rounded_ur><div class=rounded_ll><div class=rounded_lr> 
+	<table class="pmeta"   cellspacing="10px">
+	<tr><td>
+	<%= link_to_unless_current 'Обзор', :action => 'overview', :id => @project.id  %></td></tr>
+	<tr><td>
+	<%= link_to_unless_current 'Текущие события', :action => 'dashboard', :id => @project.id %></td></tr>
+	<tr><td>
+	<%= link_to_unless_current 'Сообщения', :action => 'messages', :id => @project.id %></td></tr>
+	<tr><td>
+	<%= link_to_unless_current 'Mелкие цели', :action => 'to_do', :id => @project.id %></td></tr>
+	<tr><td>
+	<%= link_to_unless_current 'Контрольная точка', :action => 'milestones', :id => @project.id %></td></tr>
+	<tr><td>
+	<%= link_to_unless_current 'Файлы', :action => 'files', :id => @project.id %></td></tr>
+	<tr><td>
+	<%= link_to_unless_current 'Сроки', :action => 'time', :id => @project.id %></td></tr>
+	</table>
+	</div></div></div></div></div>	 
+	<% end %>
+</div>     
+
+<div style="float: right; width: 50%">
+<h3><%= @project.title %></h3>
+
+<p><h4>Описание:</h4> <%= @project.description %><p>
+<%- case @project.status.to_s 
+      when 'public'
+	      status = 'открытый'
+	   when 
+	      status = 'закрытый'
+    end -%>
+<h4>Проект: </h4> <%= status %>
+</div>
+
+<div>
+<h4>Руководитель проекта:</h4><%= link_to @author.full_name %>
+</div>

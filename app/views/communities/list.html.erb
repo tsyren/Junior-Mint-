@@ -1,0 +1,87 @@
+<% @link_title = [] 
+   newlink(@link_title,link_to("Сообщества",:controller => 'communities',:action => 'list',:type => params[:type]),1)
+   
+ -%>
+<% content_for :left_column_style  do %>
+  
+  style ="width: 550px"
+
+<% end %>
+<% content_for :right_column_style  do %>
+  
+  style="width: 300px"
+
+<% end %> 
+<% content_for :leftcolumn do %>
+    <% content_for :title do %>
+	
+		<%= link_to 'Мои сообщества&nbsp;|', :action => 'list',:type => 'mycom' %>
+		<%= link_to '&nbsp;Новые&nbsp;|', :action => 'list',:type => 'latest' %>
+		<%= link_to '&nbsp;Популярные&nbsp;|', :action => 'list', :type => 'popular' %>
+		
+		<%= link_to_unless_current( '&nbsp;Приглашения', {:controller => :invites, :action => "index",:show => "com",:type => "in"}, :class=>"add_item" ) -%>
+		
+	<% end %>
+	
+	<% content_for :title_right do %>
+		<%= link_to 'Создать Cообщество', :action => 'new' -%>
+	<%- end -%>
+
+		
+		<table class="list"  id="list_communities">
+		<% unless @communities.empty? %>
+		
+					
+			<%= render :partial => 'list_communities', :collection => @communities -%>
+			
+			
+			
+			<% content_for :paginate do %>
+				<%= will_paginate @communities %>
+			<% end %>
+			
+		<% else %>
+		
+		<p align="center">Вы не состите ни в одном сообществе</p>
+		
+		<% end %>
+		</table>
+		
+	
+<% end %>
+
+<% content_for :rightcolumn do %>
+
+	<div class="block">
+	 <div class="roundedcornr_box_576276">
+   <div class="roundedcornr_top_576276"><div></div></div>
+      <div class="roundedcornr_content_576276">
+         <p class="title">Интересы</p>
+	
+	<p>
+	<% tag_cloud( @tags, ["css1", "css2", "css3", "css4"]) do |tag, css_class| -%>
+    	<%= link_to tag.name, { :controller => :communities, :action => :tag, :id => tag.name }, :class => css_class %>
+    <%- end -%>
+	</p>
+   
+		<p class="title">Самые активные &nbsp;&darr;</p>
+	
+	
+	<%- for community in @most_activity[0...5].reverse -%>
+	
+	<p  class="block item">
+	  <%= link_to( community.title, :action => 'show', :id => community.id) %>
+    </p>
+	<% end %>
+      </div>
+   <div class="roundedcornr_bottom_576276"><div></div></div>
+</div>
+		
+	
+	</div>
+	
+	
+<%- end -%>
+
+
+

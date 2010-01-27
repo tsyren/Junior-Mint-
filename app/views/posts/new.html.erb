@@ -1,0 +1,37 @@
+<% content_for :script do %>
+  <%= javascript_include_tag "fckeditor/fckeditor" %>		
+  <%= calendar_date_select_includes %>
+<% end %>
+	
+<% content_for :leftcolumn do %>
+<%- @link_title = [] 
+   newlink(@link_title,link_to("Дневник",mynotes_url),1)
+ %> 
+
+<% content_for :title do %>   
+<%= link_to_unless_current 'Новая запись |',:action => "new",:type => "post",:id => params[:id] %>
+<%= link_to_unless_current ' Новое событие',:action => "new",:type => "event",:id => params[:id] %>
+<% end %>   
+
+<table class="form">   
+<%= error_messages_for :post, :datafile,:event %>
+
+<!-- Form START -->
+<%= form_tag({:action => 'create',:id => params[:id],:type => params[:type]},:method => :post,:multipart => :true) %>
+    
+	
+	<%= render :partial => 'form' -%>
+		
+	<tr>
+		
+		<td></td>
+		<td>
+				<p class="button">
+					<%= submit_tag "Создать запись", :disable_with => 'Идёт создание ...' %>
+				</p>
+		</td>
+	</tr>
+<% end %>
+</table>
+
+

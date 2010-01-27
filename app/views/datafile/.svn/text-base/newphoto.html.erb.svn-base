@@ -1,0 +1,17 @@
+<% @link_title = [] 
+   newlink(@link_title,link_to_unless_current("Настройки",myprofile_url),1)
+   newlink(@link_title,link_to_unless_current("Загрузка фото"),0)
+%>
+<div class="file_box">
+<%= error_messages_for :userphoto %>   
+<% form_for(:userphoto, :url => { :action => "createphoto"  }, :html => { :multipart => true }) do |form| %>
+	<p><label for="userphoto">Выбирите фотографию:</label><br />
+	<small>Вы можете загружать JPG, GIF или PNG</small>
+	<%= form.file_field :uploaded_data %></p>
+	
+    <p class="top_bottom"><%= submit_tag  "Загрузить фото" %>
+	<br /><br />
+	<%= datafile_description %>
+	</p>
+<% end %>
+</div>

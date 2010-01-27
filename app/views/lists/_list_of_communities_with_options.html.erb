@@ -1,0 +1,22 @@
+<% avatar = Datafile.find_by_model_id result.id,
+            :conditions => ["avatar = 1 AND  model_name = ?","Community" ] %>	     	
+<p class="image"> 
+	<%= view_photo(avatar,"community") %>
+</p>
+     	
+<h4><%= link_to result.title,:controller => 'communities',
+							 :action => 'show', 
+							 :id => result.id %></h4>	
+		
+<p class="actions">
+	<% unless current_user.communities.collect(&:id).include? result.id %>
+	<%= link_to('Вступить', :controller => 'communities',
+						    :action => 'jointo', 
+							:id => result.id)  %> | 
+	<% end %>						
+        <%= link_to('Просмотр', :controller => 'communities',
+						    :action => 'show', 
+							:id => result.id)  %>
+	<br /><br />
+	Участников <%= result.users.size %>
+</p>

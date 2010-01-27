@@ -1,0 +1,19 @@
+<div id="communities_list">
+ <ul class="community list" style="width: 600px">	
+<%- for event in @events -%>
+<li><p><%= link_to event.title,{ :action => "show",:id => event.id} %></p>
+    <div id="desc">
+   	 начало <%= event.started_on.to_formatted_s(:short) %><br/>
+     завершение    <%= event.finished_on.to_formatted_s(:short) %><br/>
+	 участников <%# %>
+   	</div>
+	<br><br>
+
+
+</li>
+<% end %>
+ </ul>
+ <div class="pagination">
+  <%# will_paginate @events %>
+ </div>
+</div>

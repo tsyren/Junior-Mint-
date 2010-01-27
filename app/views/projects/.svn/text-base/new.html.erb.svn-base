@@ -1,0 +1,8 @@
+<% @link_title = [] 
+   newlink(@link_title,link_to(@community.title,:controller => 'communities', :action => 'show',:id => @community.id),1)
+   newlink(@link_title,"Новый проект",0)
+ %>
+<% form_tag :action => 'create', :id => current_user.id, :com_id => @community.id do %>
+  <%= render :partial => 'form' %>
+ <div align="center"> <%= submit_tag " Создать проект " %></div>
+<% end %>

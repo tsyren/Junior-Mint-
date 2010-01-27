@@ -1,0 +1,4 @@
+<% content_for :paginate do %>
+		 <%= will_paginate collection, :remote => "true", :params => { :paginated => true },:page_links => false %>
+<% end %>
+	    

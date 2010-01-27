@@ -1,0 +1,15 @@
+<% form_remote_for :comment,
+   :url => {:controller => :comments,:action =>:create, :id => post, :com_id => params[:com_id] },
+   :before => "$('ajax-loader').show(  )",
+   :complete => "$('ajax-loader').hide(  );", :html => {:id => 'review_form'} do |c| %>
+  <p>
+  	<%= c.text_area :content,:rows => "8", :cols => "50" -%>
+  </p>
+  <input type="hidden" id="message_user_id" name="comment[user_id]" value="<%= current_user.id -%>" />
+  <input type="hidden" id="message_reciever" name="comment[post_id]"  value="<%= post.id -%>" />
+
+  <p><%= submit_tag( "Добавить новый комментарий", :disable_with => "Идёт отправка ... " ) %>
+     <%= image_tag "ajax-loader.gif", :style => "display: none;",:id => "ajax-loader" %>
+     &nbsp;|&nbsp;<%= hide_detail_for current_user, "Отмена" %>
+  </p>
+<%- end -%>

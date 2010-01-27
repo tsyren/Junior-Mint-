@@ -1,0 +1,5 @@
+if params[:profile][:access]
+   page.replace_html :access_div, :partial => "profile_access", :object => current_user
+else
+   page.replace_html :access_div, ""
+end

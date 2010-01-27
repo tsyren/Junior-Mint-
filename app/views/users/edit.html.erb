@@ -1,0 +1,17 @@
+<table class="form profile">
+<% form_tag update_url  do %>
+  <% if params[:type] == "social" or params[:type] == nil%>
+  	<%= render :partial => 'form_personal' %><br />
+	 <%= render :partial => 'interests' %>
+  <% end %>
+  <% if params[:type] == "contacts"%>
+  	<%= render :partial => 'form_c' %>
+  <% end %>
+  <% if params[:type] == "career"%>
+  	<%= render :partial => 'form_career' %>
+  <% end %>
+ 
+  <tr><td></td><td><%= submit_tag 'Сохранить' %></td></tr>
+<% end %>
+</table>
+

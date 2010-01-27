@@ -1,0 +1,31 @@
+<% unless logged_in? %>
+<% content_for :head do %>
+<%= stylesheet_link_tag 'lightbox.css' %>
+<% end %>
+<% content_for :script do %>
+<%= javascript_include_tag 'lightbox.js' %>
+<% end %>
+<% content_for :leftcolumn do %>
+<h2>Что такое MyNSU?</h2><br>
+<b>MyNSU</b> задумывалось, как место где:<br/>
+&nbsp;- студенты могут общаться между собой, обсуждать вопросы связанные с учебой и не только<br/>
+&nbsp;- студенты могут общаться с преподавателями<br/>
+&nbsp;- студенты могут выкладывать учебные материалы, делится интересными ссылками и т.д.<br/>
+&nbsp;- можно найти самую свежую информациию о учебной и внеучебной жизни Университета<br/><br/>
+
+Проект разрабатывается самими студентами при поддерке <a href="http://i-lab.nsu.ru/">Лаборатории Интел-НГУ</a>, и сейчас находится в стадии активного становления и бета-тестирования,
+еще не все работает так, как нам хотелось, но уже можно зарегистрироваться и посмотреть, что это такое!
+<div id="signup_button"><%= link_to_unless_current "Присоединяйся!", signup_url  -%></div>	
+
+<h4>Вводный Тур</h4>	
+<div id="gallery">
+  <%= link_to image_tag('tour/main_page.png', :size => "80x52",:alt => ""), RAILS_URL+'images/tour/main_page.png',:rel => "lightbox" %>
+  <%= link_to image_tag('tour/post_show.png', :size => "80x52",:alt => ""),  RAILS_URL+'images/tour/post_show.png',:rel => "lightbox" %>
+  <%= link_to image_tag('tour/communities_list.png', :size => "80x52",:alt => ""),  RAILS_URL+'images/tour/communities_list.png',:rel => "lightbox" %>
+  <%= link_to image_tag('tour/community.png', :size => "80x52",:alt => ""),   RAILS_URL+'images/tour/community.png',:rel => "lightbox" %>
+</div>
+<% end %>
+<% content_for :rightcolumn do %>
+    <%= render :partial => "sessions/login" %>
+<% end %>
+<% end %>
